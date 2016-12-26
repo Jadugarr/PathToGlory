@@ -18,6 +18,8 @@ namespace SemoGames.PTG.GameInput
                 .IsEnemy(true);
                 Debug.Log("Enemy spawned");
             }
+
+            pools.enemy.SetEnemySpawnCooldown(5f);
         }
 
         public void SetPools(Pools pools)

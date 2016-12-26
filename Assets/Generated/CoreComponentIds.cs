@@ -6,20 +6,17 @@
 //     the code is regenerated.
 // </auto-generated>
 //------------------------------------------------------------------------------
-public static class EnemyComponentIds {
+public static class CoreComponentIds {
 
-    public const int Enemy = 0;
-    public const int EnemySpawnCooldown = 1;
+    public const int Position = 0;
 
-    public const int TotalComponents = 2;
+    public const int TotalComponents = 1;
 
     public static readonly string[] componentNames = {
-        "Enemy",
-        "EnemySpawnCooldown"
+        "Position"
     };
 
     public static readonly System.Type[] componentTypes = {
-        typeof(SemoGames.PTG.Enemy.EnemyComponent),
-        typeof(SemoGames.PTG.Enemy.EnemySpawnCooldownComponent)
+        typeof(SemoGames.PTG.Position.PositionComponent)
     };
 }
