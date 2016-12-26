@@ -6,13 +6,17 @@
 //     the code is regenerated.
 // </auto-generated>
 //------------------------------------------------------------------------------
-public static class ComponentIds {
+public static class EnemyComponentIds {
 
-    public const int TotalComponents = 0;
+    public const int Enemy = 0;
+
+    public const int TotalComponents = 1;
 
     public static readonly string[] componentNames = {
+        "Enemy"
     };
 
     public static readonly System.Type[] componentTypes = {
+        typeof(SemoGames.PTG.Enemy.EnemyComponent)
     };
 }
