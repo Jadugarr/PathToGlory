@@ -1,4 +1,5 @@
 using Entitas;
+using SemoGames.PTG.Configurations;
 using SemoGames.PTG.Enemy;
 using SemoGames.PTG.GameInput;
 using SemoGames.PTG.Position;
@@ -8,17 +9,31 @@ using UnityEngine;
 [Serializable]
 public class GameController : MonoBehaviour
 {
+    [SerializeField]
+    private SpawnConfiguration spawnConfiguration;
+
+    [SerializeField]
+    private CharacterConfiguration characterConfiguration;
+
 	private Systems systems;
 	
 	// Use this for initialization
 	void Start ()
 	{
+        InitConfigs();
+
 		Contexts pools = Contexts.sharedInstance;
 		pools.SetAllContexts();
 
 		systems = CreateSystems(pools);
 		systems.Initialize();
 	}
+
+    private void InitConfigs()
+    {
+        GameConfigurations.SpawnConfiguration = spawnConfiguration;
+        GameConfigurations.CharacterConfiguration = characterConfiguration;
+    }
 	
 	// Update is called once per frame
 	void Update ()

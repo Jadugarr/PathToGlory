@@ -1,4 +1,5 @@
 using Entitas;
+using SemoGames.PTG.Configurations;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -24,22 +25,21 @@ namespace SemoGames.PTG.GameInput
         return true;
     }
         
-        protected override void Execute(List<Entity> entities)
+    protected override void Execute(List<Entity> entities)
+    {
+        for (int i = 0; i < entities.Count; i++)
         {
-            for (int i = 0; i < entities.Count; i++)
-            {
-                //Create a better system to load assets/prefabs --> ScriptableObjects?
-                GameObject newEnemy = GameObject.Instantiate((GameObject)Resources.Load("EnemyTemplate"));
+            GameObject newEnemy = GameObject.Instantiate(GameConfigurations.CharacterConfiguration.EnemyTemplate);
 
-                pool.CreateEntity()
-                .IsEnemy(true)
-                .AddView(newEnemy)
-                .AddPosition(newEnemy.transform.position);
-                Debug.Log("Enemy spawned");
-            }
-
-            pool.SetEnemySpawnCooldown(5f);
+            pool.CreateEntity()
+            .IsEnemy(true)
+            .AddView(newEnemy)
+            .AddPosition(newEnemy.transform.position);
+            Debug.Log("Enemy spawned");
         }
+
+        pool.SetEnemySpawnCooldown(5f);
+    }
 
         
     }
