@@ -1,12 +1,18 @@
-﻿using Entitas;
+using Entitas;
 using UnityEngine;
 
 namespace SemoGames.PTG.GameInput
 {
-    public class InputSystem : IExecuteSystem, ISetPools, ICleanupSystem
+    public class InputSystem : IExecuteSystem, ICleanupSystem
     {
-        private Pool corePool;
+        private Context corePool;
         private Group enemySpawnInput;
+
+        public InputSystem(Context context)
+        {
+            corePool = context;
+            enemySpawnInput = corePool.GetGroup(CoreMatcher.EnemySpawnInput);
+        }
 
         public void Execute()
         {
@@ -17,12 +23,6 @@ namespace SemoGames.PTG.GameInput
                 corePool.CreateEntity()
                     .IsEnemySpawnInput(true);
             }
-        }
-
-        public void SetPools(Pools pools)
-        {
-            corePool = pools.core;
-            enemySpawnInput = corePool.GetGroup(CoreMatcher.EnemySpawnInput);
         }
 
         public void Cleanup()

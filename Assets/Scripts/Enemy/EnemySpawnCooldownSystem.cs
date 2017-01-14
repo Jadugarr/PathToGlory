@@ -1,12 +1,18 @@
-﻿using Entitas;
+using Entitas;
 using UnityEngine;
 
 namespace SemoGames.PTG.Enemy
 {
-    public class EnemySpawnCooldownSystem : IExecuteSystem, ISetPool
+    public class EnemySpawnCooldownSystem : IExecuteSystem
     {
-        Pool enemyPool;
+        Context enemyPool;
         Group cooldowns;
+
+        public EnemySpawnCooldownSystem(Context context)
+        {
+            enemyPool = context;
+            cooldowns = enemyPool.GetGroup(CoreMatcher.EnemySpawnCooldown);
+        }
 
         public void Execute()
         {
@@ -23,12 +29,6 @@ namespace SemoGames.PTG.Enemy
                     enemyPool.RemoveEnemySpawnCooldown();
                 }
             }
-        }
-
-        public void SetPool(Pool pool)
-        {
-            enemyPool = pool;
-            cooldowns = enemyPool.GetGroup(CoreMatcher.EnemySpawnCooldown);
         }
     }
 }

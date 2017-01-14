@@ -33,7 +33,7 @@ namespace Entitas {
         }
     }
 
-    public partial class Pool {
+    public partial class Context {
 
         public Entity enemySpawnCooldownEntity { get { return GetGroup(CoreMatcher.EnemySpawnCooldown).GetSingleEntity(); } }
         public SemoGames.PTG.Enemy.EnemySpawnCooldownComponent enemySpawnCooldown { get { return enemySpawnCooldownEntity.enemySpawnCooldown; } }
@@ -42,7 +42,7 @@ namespace Entitas {
         public Entity SetEnemySpawnCooldown(float newCooldown) {
             if(hasEnemySpawnCooldown) {
                 throw new EntitasException("Could not set enemySpawnCooldown!\n" + this + " already has an entity with SemoGames.PTG.Enemy.EnemySpawnCooldownComponent!",
-                    "You should check if the pool already has a enemySpawnCooldownEntity before setting it or use pool.ReplaceEnemySpawnCooldown().");
+                    "You should check if the context already has a enemySpawnCooldownEntity before setting it or use context.ReplaceEnemySpawnCooldown().");
             }
             var entity = CreateEntity();
             entity.AddEnemySpawnCooldown(newCooldown);

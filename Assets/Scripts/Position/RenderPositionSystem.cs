@@ -1,15 +1,29 @@
-﻿using Entitas;
+using Entitas;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace SemoGames.PTG.Position
 {
-    public class RenderPositionSystem : IReactiveSystem
+    public class RenderPositionSystem : ReactiveSystem
     {
-        public TriggerOnEvent trigger { get { return Matcher.AllOf(CoreMatcher.Position, CoreMatcher.View).OnEntityAdded(); } }
+        public RenderPositionSystem(Context context) : base(context) {
+
+    }
+
+    protected override Collector GetTrigger(Context context) {
+        return context.CreateCollector(Matcher.AllOf(CoreMatcher.Position, CoreMatcher.View));
+    }
+
+    protected override bool Filter(Entity entity) {
+        // TODO Entitas 0.36.0 Migration
+        // ensure was: 
+        // exclude was: 
+
+        return true;
+    }
         
 
-        public void Execute(List<Entity> entities)
+        protected override void Execute(List<Entity> entities)
         {
             foreach (Entity e in entities)
             {

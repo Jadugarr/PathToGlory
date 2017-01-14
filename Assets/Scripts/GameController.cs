@@ -1,9 +1,8 @@
-﻿using Entitas;
+using Entitas;
 using SemoGames.PTG.Enemy;
 using SemoGames.PTG.GameInput;
 using SemoGames.PTG.Position;
 using System;
-using System.Collections.Generic;
 using UnityEngine;
 
 [Serializable]
@@ -14,8 +13,8 @@ public class GameController : MonoBehaviour
 	// Use this for initialization
 	void Start ()
 	{
-		Pools pools = Pools.sharedInstance;
-		pools.SetAllPools();
+		Contexts pools = Contexts.sharedInstance;
+		pools.SetAllContexts();
 
 		systems = CreateSystems(pools);
 		systems.Initialize();
@@ -28,15 +27,15 @@ public class GameController : MonoBehaviour
 		systems.Cleanup();
 	}
 
-	private Systems CreateSystems(Pools pools)
+	private Systems CreateSystems(Contexts pools)
 	{
 		return new Feature("Systems")
 			//Input
-			.Add(pools.CreateSystem(new InputSystem()))
-			.Add(pools.core.CreateSystem(new ProcessEnemySpawnInputSystem()))
+			.Add((new InputSystem(pools.core)))
+			.Add((new ProcessEnemySpawnInputSystem(pools.core)))
 			//Enemy
-			.Add(pools.core.CreateSystem(new EnemySpawnCooldownSystem()))
+			.Add((new EnemySpawnCooldownSystem(pools.core)))
 			//Position
-			.Add(pools.core.CreateSystem(new RenderPositionSystem()));
+			.Add((new RenderPositionSystem(pools.core)));
 	}
 }
