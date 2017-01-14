@@ -1,28 +1,21 @@
 ﻿using Entitas;
 using System.Collections.Generic;
-using System;
+using UnityEngine;
 
 namespace SemoGames.PTG.Position
 {
-    public class RenderPositionSystem : IEntityCollectorSystem, ISetPools
+    public class RenderPositionSystem : IReactiveSystem
     {
-        public EntityCollector entityCollector
-        {
-            get
-            {
-                return collector;
-            }
-        }
-
-        private EntityCollector collector;
+        public TriggerOnEvent trigger { get { return Matcher.AllOf(CoreMatcher.Position, CoreMatcher.View).OnEntityAdded(); } }
+        
 
         public void Execute(List<Entity> entities)
         {
-        }
-
-        public void SetPools(Pools pools)
-        {
-            collector = new[] { pools.enemy }.CreateEntityCollector(CoreMatcher.Position);
+            foreach (Entity e in entities)
+            {
+                PositionComponent pos = e.position;
+                e.view.View.transform.position = pos.position;
+            }
         }
     }
 }

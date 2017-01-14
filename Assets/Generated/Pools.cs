@@ -14,24 +14,12 @@ namespace Entitas {
             return CreatePool("Core", CoreComponentIds.TotalComponents, CoreComponentIds.componentNames, CoreComponentIds.componentTypes);
         }
 
-        public static Pool CreateEnemyPool() {
-            return CreatePool("Enemy", EnemyComponentIds.TotalComponents, EnemyComponentIds.componentNames, EnemyComponentIds.componentTypes);
-        }
-
-        public static Pool CreateInputPool() {
-            return CreatePool("Input", InputComponentIds.TotalComponents, InputComponentIds.componentNames, InputComponentIds.componentTypes);
-        }
-
-        public Pool[] allPools { get { return new [] { core, enemy, input }; } }
+        public Pool[] allPools { get { return new [] { core }; } }
 
         public Pool core;
-        public Pool enemy;
-        public Pool input;
 
         public void SetAllPools() {
             core = CreateCorePool();
-            enemy = CreateEnemyPool();
-            input = CreateInputPool();
         }
     }
 }

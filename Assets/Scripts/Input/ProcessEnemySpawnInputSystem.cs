@@ -8,18 +8,23 @@ namespace SemoGames.PTG.GameInput
     {
         Pools pools;
 
-        public TriggerOnEvent trigger { get { return InputMatcher.EnemySpawnInput.OnEntityAdded(); } }
+        public TriggerOnEvent trigger { get { return CoreMatcher.EnemySpawnInput.OnEntityAdded(); } }
         
         public void Execute(List<Entity> entities)
         {
             for (int i = 0; i < entities.Count; i++)
             {
-                pools.enemy.CreateEntity()
-                .IsEnemy(true);
+                //Create a better system to load assets/prefabs --> ScriptableObjects?
+                GameObject newEnemy = GameObject.Instantiate((GameObject)Resources.Load("EnemyTemplate"));
+
+                pools.core.CreateEntity()
+                .IsEnemy(true)
+                .AddView(newEnemy)
+                .AddPosition(newEnemy.transform.position);
                 Debug.Log("Enemy spawned");
             }
 
-            pools.enemy.SetEnemySpawnCooldown(5f);
+            pools.core.SetEnemySpawnCooldown(5f);
         }
 
         public void SetPools(Pools pools)

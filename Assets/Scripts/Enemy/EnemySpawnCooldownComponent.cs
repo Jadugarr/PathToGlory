@@ -3,7 +3,7 @@ using Entitas.CodeGenerator;
 
 namespace SemoGames.PTG.Enemy
 {
-    [Enemy]
+    [Core]
     [SingleEntity]
     public class EnemySpawnCooldownComponent : IComponent
     {

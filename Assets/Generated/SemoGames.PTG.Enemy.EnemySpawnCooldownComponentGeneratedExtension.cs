@@ -12,30 +12,30 @@ namespace Entitas {
 
     public partial class Entity {
 
-        public SemoGames.PTG.Enemy.EnemySpawnCooldownComponent enemySpawnCooldown { get { return (SemoGames.PTG.Enemy.EnemySpawnCooldownComponent)GetComponent(EnemyComponentIds.EnemySpawnCooldown); } }
-        public bool hasEnemySpawnCooldown { get { return HasComponent(EnemyComponentIds.EnemySpawnCooldown); } }
+        public SemoGames.PTG.Enemy.EnemySpawnCooldownComponent enemySpawnCooldown { get { return (SemoGames.PTG.Enemy.EnemySpawnCooldownComponent)GetComponent(CoreComponentIds.EnemySpawnCooldown); } }
+        public bool hasEnemySpawnCooldown { get { return HasComponent(CoreComponentIds.EnemySpawnCooldown); } }
 
         public Entity AddEnemySpawnCooldown(float newCooldown) {
-            var component = CreateComponent<SemoGames.PTG.Enemy.EnemySpawnCooldownComponent>(EnemyComponentIds.EnemySpawnCooldown);
+            var component = CreateComponent<SemoGames.PTG.Enemy.EnemySpawnCooldownComponent>(CoreComponentIds.EnemySpawnCooldown);
             component.cooldown = newCooldown;
-            return AddComponent(EnemyComponentIds.EnemySpawnCooldown, component);
+            return AddComponent(CoreComponentIds.EnemySpawnCooldown, component);
         }
 
         public Entity ReplaceEnemySpawnCooldown(float newCooldown) {
-            var component = CreateComponent<SemoGames.PTG.Enemy.EnemySpawnCooldownComponent>(EnemyComponentIds.EnemySpawnCooldown);
+            var component = CreateComponent<SemoGames.PTG.Enemy.EnemySpawnCooldownComponent>(CoreComponentIds.EnemySpawnCooldown);
             component.cooldown = newCooldown;
-            ReplaceComponent(EnemyComponentIds.EnemySpawnCooldown, component);
+            ReplaceComponent(CoreComponentIds.EnemySpawnCooldown, component);
             return this;
         }
 
         public Entity RemoveEnemySpawnCooldown() {
-            return RemoveComponent(EnemyComponentIds.EnemySpawnCooldown);
+            return RemoveComponent(CoreComponentIds.EnemySpawnCooldown);
         }
     }
 
     public partial class Pool {
 
-        public Entity enemySpawnCooldownEntity { get { return GetGroup(EnemyMatcher.EnemySpawnCooldown).GetSingleEntity(); } }
+        public Entity enemySpawnCooldownEntity { get { return GetGroup(CoreMatcher.EnemySpawnCooldown).GetSingleEntity(); } }
         public SemoGames.PTG.Enemy.EnemySpawnCooldownComponent enemySpawnCooldown { get { return enemySpawnCooldownEntity.enemySpawnCooldown; } }
         public bool hasEnemySpawnCooldown { get { return enemySpawnCooldownEntity != null; } }
 
@@ -66,15 +66,15 @@ namespace Entitas {
     }
 }
 
-    public partial class EnemyMatcher {
+    public partial class CoreMatcher {
 
         static IMatcher _matcherEnemySpawnCooldown;
 
         public static IMatcher EnemySpawnCooldown {
             get {
                 if(_matcherEnemySpawnCooldown == null) {
-                    var matcher = (Matcher)Matcher.AllOf(EnemyComponentIds.EnemySpawnCooldown);
-                    matcher.componentNames = EnemyComponentIds.componentNames;
+                    var matcher = (Matcher)Matcher.AllOf(CoreComponentIds.EnemySpawnCooldown);
+                    matcher.componentNames = CoreComponentIds.componentNames;
                     _matcherEnemySpawnCooldown = matcher;
                 }
 

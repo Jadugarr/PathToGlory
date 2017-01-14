@@ -28,7 +28,7 @@ namespace SemoGames.PTG.Enemy
         public void SetPool(Pool pool)
         {
             enemyPool = pool;
-            cooldowns = enemyPool.GetGroup(EnemyMatcher.EnemySpawnCooldown);
+            cooldowns = enemyPool.GetGroup(CoreMatcher.EnemySpawnCooldown);
         }
     }
 }

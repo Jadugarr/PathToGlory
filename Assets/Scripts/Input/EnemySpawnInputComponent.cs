@@ -2,7 +2,7 @@
 
 namespace SemoGames.PTG.GameInput
 {
-    [Input]
+    [Core]
     public class EnemySpawnInputComponent : IComponent
     {
     }

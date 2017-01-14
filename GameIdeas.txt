@@ -1,0 +1,20 @@
+TODOS:
+
+- Position system
+	- add position to enemies --> DONE
+	- make it adjustable live --> DONE
+	
+- Movement system
+	- add velocity to enemies
+	- make them move automatically
+
+- Twitch chat integration
+	- Let people choose next enemy
+	- Let people choose boss
+	- give chat currency to equip enemies
+	
+- For prototyping:
+	- Just have one pool
+	
+- Questions:
+	- Several pools: ComponentIds can be the same? --> Results in crashes!!!

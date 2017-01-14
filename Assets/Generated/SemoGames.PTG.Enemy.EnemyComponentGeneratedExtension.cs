@@ -15,13 +15,13 @@ namespace Entitas {
         static readonly SemoGames.PTG.Enemy.EnemyComponent enemyComponent = new SemoGames.PTG.Enemy.EnemyComponent();
 
         public bool isEnemy {
-            get { return HasComponent(EnemyComponentIds.Enemy); }
+            get { return HasComponent(CoreComponentIds.Enemy); }
             set {
                 if(value != isEnemy) {
                     if(value) {
-                        AddComponent(EnemyComponentIds.Enemy, enemyComponent);
+                        AddComponent(CoreComponentIds.Enemy, enemyComponent);
                     } else {
-                        RemoveComponent(EnemyComponentIds.Enemy);
+                        RemoveComponent(CoreComponentIds.Enemy);
                     }
                 }
             }
@@ -34,15 +34,15 @@ namespace Entitas {
     }
 }
 
-    public partial class EnemyMatcher {
+    public partial class CoreMatcher {
 
         static IMatcher _matcherEnemy;
 
         public static IMatcher Enemy {
             get {
                 if(_matcherEnemy == null) {
-                    var matcher = (Matcher)Matcher.AllOf(EnemyComponentIds.Enemy);
-                    matcher.componentNames = EnemyComponentIds.componentNames;
+                    var matcher = (Matcher)Matcher.AllOf(CoreComponentIds.Enemy);
+                    matcher.componentNames = CoreComponentIds.componentNames;
                     _matcherEnemy = matcher;
                 }
 

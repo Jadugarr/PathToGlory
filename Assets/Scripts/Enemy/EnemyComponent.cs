@@ -2,7 +2,7 @@
 
 namespace SemoGames.PTG.Enemy
 {
-    [Enemy]
+    [Core]
     public class EnemyComponent : IComponent
     {
 

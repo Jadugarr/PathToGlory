@@ -15,13 +15,13 @@ namespace Entitas {
         static readonly SemoGames.PTG.GameInput.EnemySpawnInputComponent enemySpawnInputComponent = new SemoGames.PTG.GameInput.EnemySpawnInputComponent();
 
         public bool isEnemySpawnInput {
-            get { return HasComponent(InputComponentIds.EnemySpawnInput); }
+            get { return HasComponent(CoreComponentIds.EnemySpawnInput); }
             set {
                 if(value != isEnemySpawnInput) {
                     if(value) {
-                        AddComponent(InputComponentIds.EnemySpawnInput, enemySpawnInputComponent);
+                        AddComponent(CoreComponentIds.EnemySpawnInput, enemySpawnInputComponent);
                     } else {
-                        RemoveComponent(InputComponentIds.EnemySpawnInput);
+                        RemoveComponent(CoreComponentIds.EnemySpawnInput);
                     }
                 }
             }
@@ -34,15 +34,15 @@ namespace Entitas {
     }
 }
 
-    public partial class InputMatcher {
+    public partial class CoreMatcher {
 
         static IMatcher _matcherEnemySpawnInput;
 
         public static IMatcher EnemySpawnInput {
             get {
                 if(_matcherEnemySpawnInput == null) {
-                    var matcher = (Matcher)Matcher.AllOf(InputComponentIds.EnemySpawnInput);
-                    matcher.componentNames = InputComponentIds.componentNames;
+                    var matcher = (Matcher)Matcher.AllOf(CoreComponentIds.EnemySpawnInput);
+                    matcher.componentNames = CoreComponentIds.componentNames;
                     _matcherEnemySpawnInput = matcher;
                 }
 

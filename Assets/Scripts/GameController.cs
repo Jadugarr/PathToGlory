@@ -2,8 +2,11 @@
 using SemoGames.PTG.Enemy;
 using SemoGames.PTG.GameInput;
 using SemoGames.PTG.Position;
+using System;
+using System.Collections.Generic;
 using UnityEngine;
 
+[Serializable]
 public class GameController : MonoBehaviour
 {
 	private Systems systems;
@@ -30,10 +33,10 @@ public class GameController : MonoBehaviour
 		return new Feature("Systems")
 			//Input
 			.Add(pools.CreateSystem(new InputSystem()))
-			.Add(pools.input.CreateSystem(new ProcessEnemySpawnInputSystem()))
+			.Add(pools.core.CreateSystem(new ProcessEnemySpawnInputSystem()))
 			//Enemy
-			.Add(pools.enemy.CreateSystem(new EnemySpawnCooldownSystem()))
+			.Add(pools.core.CreateSystem(new EnemySpawnCooldownSystem()))
 			//Position
-			.Add(pools.CreateSystem(new RenderPositionSystem()));
+			.Add(pools.core.CreateSystem(new RenderPositionSystem()));
 	}
 }
