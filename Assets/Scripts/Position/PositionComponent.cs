@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace SemoGames.PTG.Position
 {
-    [Core]
+    [Game]
     public class PositionComponent : IComponent
     {
         public Vector3 position;

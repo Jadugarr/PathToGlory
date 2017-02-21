@@ -5,13 +5,13 @@ namespace SemoGames.PTG.GameInput
 {
     public class InputSystem : IExecuteSystem, ICleanupSystem
     {
-        private Context corePool;
-        private Group enemySpawnInput;
+        private GameContext corePool;
+        private IGroup<GameEntity> enemySpawnInput;
 
-        public InputSystem(Context context)
+        public InputSystem(GameContext context)
         {
             corePool = context;
-            enemySpawnInput = corePool.GetGroup(CoreMatcher.EnemySpawnInput);
+            enemySpawnInput = corePool.GetGroup(GameMatcher.EnemySpawnInput);
         }
 
         public void Execute()
@@ -21,13 +21,13 @@ namespace SemoGames.PTG.GameInput
             if (spawnAxis > 0 && !corePool.hasEnemySpawnCooldown)
             {
                 corePool.CreateEntity()
-                    .IsEnemySpawnInput(true);
+                    .isEnemySpawnInput = true;
             }
         }
 
         public void Cleanup()
         {
-            Entity[] entities = enemySpawnInput.GetEntities();
+            GameEntity[] entities = enemySpawnInput.GetEntities();
 
             for (int i = 0; i < entities.Length; i++)
             {

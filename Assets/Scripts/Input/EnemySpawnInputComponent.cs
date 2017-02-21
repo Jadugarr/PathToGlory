@@ -2,7 +2,7 @@ using Entitas;
 
 namespace SemoGames.PTG.GameInput
 {
-    [Core]
+    [Game]
     public class EnemySpawnInputComponent : IComponent
     {
     }

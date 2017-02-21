@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace SemoGames.PTG.View
 {
-    [Core]
+    [Game]
     public class ViewComponent : IComponent
     {
         public GameObject View;

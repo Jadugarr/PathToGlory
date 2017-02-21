@@ -9,48 +9,46 @@ using UnityEngine;
 [Serializable]
 public class GameController : MonoBehaviour
 {
-    [SerializeField]
-    private SpawnConfiguration spawnConfiguration;
+    [SerializeField] private SpawnConfiguration spawnConfiguration;
 
-    [SerializeField]
-    private CharacterConfiguration characterConfiguration;
+    [SerializeField] private CharacterConfiguration characterConfiguration;
 
-	private Systems systems;
-	
-	// Use this for initialization
-	void Start ()
-	{
+    private Systems systems;
+
+    // Use this for initialization
+    void Start()
+    {
         InitConfigs();
 
-		Contexts pools = Contexts.sharedInstance;
-		pools.SetAllContexts();
+        Contexts pools = Contexts.sharedInstance;
+        pools.SetAllContexts();
 
-		systems = CreateSystems(pools);
-		systems.Initialize();
-	}
+        systems = CreateSystems(pools.game);
+        systems.Initialize();
+    }
 
     private void InitConfigs()
     {
         GameConfigurations.SpawnConfiguration = spawnConfiguration;
         GameConfigurations.CharacterConfiguration = characterConfiguration;
     }
-	
-	// Update is called once per frame
-	void Update ()
-	{
-		systems.Execute();
-		systems.Cleanup();
-	}
 
-	private Systems CreateSystems(Contexts pools)
-	{
-		return new Feature("Systems")
-			//Input
-			.Add((new InputSystem(pools.core)))
-			.Add((new ProcessEnemySpawnInputSystem(pools.core)))
-			//Enemy
-			.Add((new EnemySpawnCooldownSystem(pools.core)))
-			//Position
-			.Add((new RenderPositionSystem(pools.core)));
-	}
+    // Update is called once per frame
+    void Update()
+    {
+        systems.Execute();
+        systems.Cleanup();
+    }
+
+    private Systems CreateSystems(GameContext context)
+    {
+        return new Feature("Systems")
+            //Input
+            .Add((new InputSystem(context)))
+            .Add((new ProcessEnemySpawnInputSystem(context)))
+            //Enemy
+            .Add((new EnemySpawnCooldownSystem(context)))
+            //Position
+            .Add((new RenderPositionSystem(context)));
+    }
 }

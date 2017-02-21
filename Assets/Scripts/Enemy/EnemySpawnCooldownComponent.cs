@@ -1,10 +1,10 @@
 using Entitas;
-using Entitas.CodeGenerator;
+using Entitas.CodeGenerator.Api;
 
 namespace SemoGames.PTG.Enemy
 {
-    [Core]
-    [SingleEntity]
+    [Game]
+    [Unique]
     public class EnemySpawnCooldownComponent : IComponent
     {
         public float cooldown;

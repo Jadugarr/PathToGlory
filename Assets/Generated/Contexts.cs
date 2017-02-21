@@ -6,20 +6,39 @@
 //     the code is regenerated.
 // </auto-generated>
 //------------------------------------------------------------------------------
-namespace Entitas {
+using Entitas;
+            
+public partial class Contexts : IContexts {
 
-    public partial class Contexts {
+    public static Contexts sharedInstance {
+        get {
+            if(_sharedInstance == null) {
+                _sharedInstance = new Contexts();
+            }
 
-        public static Context CreateCoreContext() {
-            return CreateContext("Core", CoreComponentIds.TotalComponents, CoreComponentIds.componentNames, CoreComponentIds.componentTypes);
+            return _sharedInstance;
         }
+        set { _sharedInstance = value; }
+    }
 
-        public Context[] allContexts { get { return new [] { core }; } }
+    static Contexts _sharedInstance;
 
-        public Context core;
-
-        public void SetAllContexts() {
-            core = CreateCoreContext();
+    public static void CreateContextObserver(IContext context) {
+#if(!ENTITAS_DISABLE_VISUAL_DEBUGGING && UNITY_EDITOR)
+        if(UnityEngine.Application.isPlaying) {
+            var observer = new Entitas.Unity.VisualDebugging.ContextObserver(context);
+            UnityEngine.Object.DontDestroyOnLoad(observer.gameObject);
         }
+#endif
+    }
+
+    public GameContext game { get; set; }
+
+    public IContext[] allContexts { get { return new IContext [] { game }; } }
+
+    public void SetAllContexts() {
+        game = new GameContext();
+
+        CreateContextObserver(game);
     }
 }

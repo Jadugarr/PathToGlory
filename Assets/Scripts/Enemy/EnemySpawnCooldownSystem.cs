@@ -5,21 +5,21 @@ namespace SemoGames.PTG.Enemy
 {
     public class EnemySpawnCooldownSystem : IExecuteSystem
     {
-        Context enemyPool;
-        Group cooldowns;
+        GameContext enemyPool;
+        IGroup<GameEntity> cooldowns;
 
-        public EnemySpawnCooldownSystem(Context context)
+        public EnemySpawnCooldownSystem(GameContext context)
         {
             enemyPool = context;
-            cooldowns = enemyPool.GetGroup(CoreMatcher.EnemySpawnCooldown);
+            cooldowns = enemyPool.GetGroup(GameMatcher.EnemySpawnCooldown);
         }
 
         public void Execute()
         {
             if (cooldowns.count > 0)
             {
-                Entity cooldownEntity = cooldowns.GetSingleEntity();
-
+                GameEntity cooldownEntity = cooldowns.GetSingleEntity();
+                
                 if (cooldownEntity.enemySpawnCooldown.cooldown > 0)
                 {
                     cooldownEntity.ReplaceEnemySpawnCooldown(cooldownEntity.enemySpawnCooldown.cooldown - Time.deltaTime);
