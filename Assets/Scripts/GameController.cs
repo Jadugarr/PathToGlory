@@ -4,6 +4,7 @@ using SemoGames.PTG.Enemy;
 using SemoGames.PTG.GameInput;
 using SemoGames.PTG.Position;
 using System;
+using SemoGames.PTG.Battle;
 using UnityEngine;
 
 [Serializable]
@@ -43,12 +44,18 @@ public class GameController : MonoBehaviour
     private Systems CreateSystems(GameContext context)
     {
         return new Feature("Systems")
+            //Initialize
+            .Add(new BattleInitializeSystem(context))
             //Input
-            .Add((new InputSystem(context)))
-            .Add((new ProcessEnemySpawnInputSystem(context)))
+            .Add(new InputSystem(context))
+            .Add(new ProcessEnemySpawnInputSystem(context))
             //Enemy
-            .Add((new EnemySpawnCooldownSystem(context)))
+            .Add(new EnemySpawnCooldownSystem(context))
             //Position
-            .Add((new RenderPositionSystem(context)));
+            .Add(new RenderPositionSystem(context))
+            //Battle
+            .Add(new AttackCharacterSystem(context))
+            .Add(new CharacterDeathSystem(context))
+            .Add(new AttackCooldownSystem(context));
     }
 }

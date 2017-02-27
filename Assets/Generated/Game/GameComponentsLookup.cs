@@ -8,42 +8,51 @@
 //------------------------------------------------------------------------------
 public static class GameComponentsLookup {
 
-    public const int Enemy = 0;
-    public const int EnemySpawnCooldown = 1;
-    public const int EnemySpawnInput = 2;
-    public const int Position = 3;
-    public const int SemoGamesPTGEnemyEnemy = 4;
-    public const int SemoGamesPTGEnemyEnemySpawnCooldown = 5;
-    public const int SemoGamesPTGGameInputEnemySpawnInput = 6;
-    public const int SemoGamesPTGPositionPosition = 7;
-    public const int SemoGamesPTGViewView = 8;
-    public const int View = 9;
+    public const int Attack = 0;
+    public const int AttackCharacter = 1;
+    public const int AttackCooldown = 2;
+    public const int Death = 3;
+    public const int Defense = 4;
+    public const int Enemy = 5;
+    public const int EnemySpawnCooldown = 6;
+    public const int EnemySpawnInput = 7;
+    public const int Health = 8;
+    public const int Player = 9;
+    public const int Position = 10;
+    public const int Speed = 11;
+    public const int View = 12;
 
-    public const int TotalComponents = 10;
+    public const int TotalComponents = 13;
 
     public static readonly string[] componentNames = {
+        "Attack",
+        "AttackCharacter",
+        "AttackCooldown",
+        "Death",
+        "Defense",
         "Enemy",
         "EnemySpawnCooldown",
         "EnemySpawnInput",
+        "Health",
+        "Player",
         "Position",
-        "SemoGamesPTGEnemyEnemy",
-        "SemoGamesPTGEnemyEnemySpawnCooldown",
-        "SemoGamesPTGGameInputEnemySpawnInput",
-        "SemoGamesPTGPositionPosition",
-        "SemoGamesPTGViewView",
+        "Speed",
         "View"
     };
 
     public static readonly System.Type[] componentTypes = {
+        typeof(SemoGames.PTG.Common.AttackComponent),
+        typeof(SemoGames.PTG.Battle.AttackCharacterComponent),
+        typeof(SemoGames.PTG.Battle.AttackCooldownComponent),
+        typeof(SemoGames.PTG.Battle.DeathComponent),
+        typeof(Assets.Scripts.Common.DefenseComponent),
         typeof(SemoGames.PTG.Enemy.EnemyComponent),
         typeof(SemoGames.PTG.Enemy.EnemySpawnCooldownComponent),
         typeof(SemoGames.PTG.GameInput.EnemySpawnInputComponent),
+        typeof(SemoGames.PTG.Common.HealthComponent),
+        typeof(SemoGames.PTG.Player.PlayerComponent),
         typeof(SemoGames.PTG.Position.PositionComponent),
-        typeof(SemoGames.PTG.Enemy.EnemyComponent),
-        typeof(SemoGames.PTG.Enemy.EnemySpawnCooldownComponent),
-        typeof(SemoGames.PTG.GameInput.EnemySpawnInputComponent),
-        typeof(SemoGames.PTG.Position.PositionComponent),
-        typeof(SemoGames.PTG.View.ViewComponent),
+        typeof(SemoGames.PTG.Common.SpeedComponent),
         typeof(SemoGames.PTG.View.ViewComponent)
     };
 }
