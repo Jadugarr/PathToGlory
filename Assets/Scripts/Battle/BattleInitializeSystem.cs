@@ -31,6 +31,8 @@ namespace SemoGames.PTG.Battle
                 entity.AddHealth(100);
                 entity.AddAttack(10);
                 entity.AddDefense(5);
+                entity.AddSpeed(10);
+                entity.AddTimeUntilAction(10f);
             }
         }
 
@@ -47,6 +49,8 @@ namespace SemoGames.PTG.Battle
                 entity.AddHealth(10);
                 entity.AddAttack(10);
                 entity.AddDefense(5);
+                entity.AddSpeed(5);
+                entity.AddTimeUntilAction(10f);
             }
         }
     }

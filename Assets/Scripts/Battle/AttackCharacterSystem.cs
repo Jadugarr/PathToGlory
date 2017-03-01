@@ -8,10 +8,12 @@ namespace SemoGames.PTG.Battle
     public class AttackCharacterSystem : ReactiveSystem<GameEntity>
     {
         private GameContext context;
+        private IGroup<GameEntity> readyToActEntities;
 
         public AttackCharacterSystem(GameContext context) : base(context)
         {
             this.context = context;
+            readyToActEntities = context.GetGroup(GameMatcher.ReadyToAct);
         }
 
         protected override Collector<GameEntity> GetTrigger(IContext<GameEntity> context)
@@ -39,6 +41,15 @@ namespace SemoGames.PTG.Battle
                 if (gameEntity.attackCharacter.DefenderEntity.health.Health <= 0)
                 {
                     context.CreateEntity().AddDeath(gameEntity.attackCharacter.DefenderEntity);
+                }
+
+                foreach (GameEntity entity in readyToActEntities.GetEntities())
+                {
+                    if (entity.readyToAct.EntityReadyToAct == gameEntity.attackCharacter.AttackerEntity)
+                    {
+                        gameEntity.attackCharacter.AttackerEntity.ReplaceTimeUntilAction(10f);
+                        context.DestroyEntity(entity);
+                    }
                 }
 
                 context.DestroyEntity(gameEntity);

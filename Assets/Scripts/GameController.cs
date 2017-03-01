@@ -56,6 +56,8 @@ public class GameController : MonoBehaviour
             //Battle
             .Add(new AttackCharacterSystem(context))
             .Add(new CharacterDeathSystem(context))
-            .Add(new AttackCooldownSystem(context));
+            .Add(new AttackCooldownSystem(context))
+            .Add(new ActTimeSystem(context))
+            .Add(new ReadyToActSystem(context));
     }
 }

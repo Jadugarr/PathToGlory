@@ -19,10 +19,12 @@ public static class GameComponentsLookup {
     public const int Health = 8;
     public const int Player = 9;
     public const int Position = 10;
-    public const int Speed = 11;
-    public const int View = 12;
+    public const int ReadyToAct = 11;
+    public const int Speed = 12;
+    public const int TimeUntilAction = 13;
+    public const int View = 14;
 
-    public const int TotalComponents = 13;
+    public const int TotalComponents = 15;
 
     public static readonly string[] componentNames = {
         "Attack",
@@ -36,7 +38,9 @@ public static class GameComponentsLookup {
         "Health",
         "Player",
         "Position",
+        "ReadyToAct",
         "Speed",
+        "TimeUntilAction",
         "View"
     };
 
@@ -52,7 +56,9 @@ public static class GameComponentsLookup {
         typeof(SemoGames.PTG.Common.HealthComponent),
         typeof(SemoGames.PTG.Player.PlayerComponent),
         typeof(SemoGames.PTG.Position.PositionComponent),
+        typeof(Assets.Scripts.Battle.ReadyToActComponent),
         typeof(SemoGames.PTG.Common.SpeedComponent),
+        typeof(SemoGames.PTG.Battle.TimeUntilActionComponent),
         typeof(SemoGames.PTG.View.ViewComponent)
     };
 }
