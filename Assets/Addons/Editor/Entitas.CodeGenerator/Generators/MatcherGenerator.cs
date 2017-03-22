@@ -9,21 +9,19 @@ namespace Entitas.CodeGenerator {
         public bool isEnabledByDefault { get { return true; } }
 
         const string MATCHER_TEMPLATE =
-@"using Entitas;
+@"public sealed partial class ${ContextName}Matcher {
 
-public sealed partial class ${Context}Matcher {
+    static Entitas.IMatcher<${ContextName}Entity> _matcher${ComponentName};
 
-    static IMatcher<${Context}Entity> _matcher${Name};
-
-    public static IMatcher<${Context}Entity> ${Name} {
+    public static Entitas.IMatcher<${ContextName}Entity> ${ComponentName} {
         get {
-            if(_matcher${Name} == null) {
-                var matcher = (Matcher<${Context}Entity>)Matcher<${Context}Entity>.AllOf(${Index});
+            if(_matcher${ComponentName} == null) {
+                var matcher = (Entitas.Matcher<${ContextName}Entity>)Entitas.Matcher<${ContextName}Entity>.AllOf(${Index});
                 matcher.componentNames = ${ComponentNames};
-                _matcher${Name} = matcher;
+                _matcher${ComponentName} = matcher;
             }
 
-            return _matcher${Name};
+            return _matcher${ComponentName};
         }
     }
 }
@@ -44,18 +42,20 @@ public sealed partial class ${Context}Matcher {
         }
 
         CodeGenFile generateMatcher(string contextName, ComponentData data) {
-            var index = contextName + ComponentsLookupGenerator.COMPONENTS_LOOKUP + "." + data.GetComponentName();
+            var componentName = data.GetFullTypeName().ToComponentName();
+            var index = contextName + ComponentsLookupGenerator.COMPONENTS_LOOKUP + "." + componentName;
             var componentNames = contextName + ComponentsLookupGenerator.COMPONENTS_LOOKUP + ".componentNames";
 
             var fileContent = MATCHER_TEMPLATE
-                .Replace("${Context}", contextName)
-                .Replace("${Name}", data.GetComponentName())
+                .Replace("${ContextName}", contextName)
+                .Replace("${ComponentName}", componentName)
                 .Replace("${Index}", index)
                 .Replace("${ComponentNames}", componentNames);
 
             return new CodeGenFile(
-                contextName + Path.DirectorySeparatorChar + "Matchers" +
-                Path.DirectorySeparatorChar + contextName + "Matcher" + data.GetComponentName() + ".cs",
+                contextName + Path.DirectorySeparatorChar +
+                "Components" + Path.DirectorySeparatorChar +
+                contextName + componentName.AddComponentSuffix() + ".cs",
                 fileContent,
                 GetType().FullName
             );

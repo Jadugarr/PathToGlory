@@ -9,9 +9,7 @@ namespace Entitas.CodeGenerator {
         public bool isEnabledByDefault { get { return true; } }
 
         const string ENTITY_TEMPLATE =
-@"using Entitas;
-
-public sealed partial class ${Context}Entity : Entity {
+@"public sealed partial class ${ContextName}Entity : Entitas.Entity {
 }
 ";
 
@@ -26,7 +24,7 @@ public sealed partial class ${Context}Entity : Entity {
             var contextName = data.GetContextName();
             return new CodeGenFile(
                 contextName + Path.DirectorySeparatorChar + contextName + "Entity.cs",
-                ENTITY_TEMPLATE.Replace("${Context}", contextName),
+                ENTITY_TEMPLATE.Replace("${ContextName}", contextName),
                 GetType().FullName
             );
         }

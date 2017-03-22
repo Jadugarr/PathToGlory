@@ -61,6 +61,7 @@ namespace Entitas {
 
         readonly Dictionary<IMatcher<TEntity>, IGroup<TEntity>> _groups = new Dictionary<IMatcher<TEntity>, IGroup<TEntity>>();
         readonly List<IGroup<TEntity>>[] _groupsForIndex;
+        readonly ObjectPool<List<GroupChanged<TEntity>>> _groupChangedListPool;
 
         readonly Dictionary<string, IEntityIndex> _entityIndices;
 
@@ -96,6 +97,10 @@ namespace Entitas {
             _groupsForIndex = new List<IGroup<TEntity>>[totalComponents];
             _componentPools = new Stack<IComponent>[totalComponents];
             _entityIndices = new Dictionary<string, IEntityIndex>();
+            _groupChangedListPool = new ObjectPool<List<GroupChanged<TEntity>>>(
+                                        () => new List<GroupChanged<TEntity>>(),
+                                        list => list.Clear()
+                                    );
 
             // Cache delegates to avoid gc allocations
             _cachedEntityChanged = updateGroupsComponentAddedOrRemoved;
@@ -258,12 +263,12 @@ namespace Entitas {
 
         /// Adds the IEntityIndex for the specified name.
         /// There can only be one IEntityIndex per name.
-        public void AddEntityIndex(string name, IEntityIndex entityIndex) {
-            if(_entityIndices.ContainsKey(name)) {
-                throw new ContextEntityIndexDoesAlreadyExistException(this, name);
+        public void AddEntityIndex(IEntityIndex entityIndex) {
+            if(_entityIndices.ContainsKey(entityIndex.name)) {
+                throw new ContextEntityIndexDoesAlreadyExistException(this, entityIndex.name);
             }
 
-            _entityIndices.Add(name, entityIndex);
+            _entityIndices.Add(entityIndex.name, entityIndex);
         }
 
         /// Gets the IEntityIndex for the specified name.
@@ -305,10 +310,9 @@ namespace Entitas {
             }
         }
 
-        /// Resets the context (clears all groups, destroys all entities and
+        /// Resets the context (destroys all entities and
         /// resets creationIndex back to 0).
         public void Reset() {
-            ClearGroups();
             DestroyAllEntities();
             ResetCreationIndex();
 
@@ -326,7 +330,7 @@ namespace Entitas {
         void updateGroupsComponentAddedOrRemoved(IEntity entity, int index, IComponent component) {
             var groups = _groupsForIndex[index];
             if(groups != null) {
-                var events = EntitasCache.GetGroupChangedList<TEntity>();
+                var events = _groupChangedListPool.Get();
 
                     var tEntity = (TEntity)entity;
 
@@ -343,7 +347,7 @@ namespace Entitas {
                         }
                     }
 
-                EntitasCache.PushGroupChangedList<TEntity>(events);
+                _groupChangedListPool.Push(events);
             }
         }
 

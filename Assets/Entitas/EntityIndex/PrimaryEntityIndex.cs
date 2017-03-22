@@ -7,22 +7,22 @@ namespace Entitas {
 
         readonly Dictionary<TKey, TEntity> _index;
 
-        public PrimaryEntityIndex(IGroup<TEntity> group, Func<TEntity, IComponent, TKey> getKey) : base(group, getKey) {
+        public PrimaryEntityIndex(string name, IGroup<TEntity> group, Func<TEntity, IComponent, TKey> getKey) : base(name, group, getKey) {
             _index = new Dictionary<TKey, TEntity>();
             Activate();
         }
 
-        public PrimaryEntityIndex(IGroup<TEntity> group, Func<TEntity, IComponent, TKey[]> getKeys) : base(group, getKeys) {
+        public PrimaryEntityIndex(string name, IGroup<TEntity> group, Func<TEntity, IComponent, TKey[]> getKeys) : base(name, group, getKeys) {
             _index = new Dictionary<TKey, TEntity>();
             Activate();
         }
 
-        public PrimaryEntityIndex(IGroup<TEntity> group, Func<TEntity, IComponent, TKey> getKey, IEqualityComparer<TKey> comparer) : base(group, getKey) {
+        public PrimaryEntityIndex(string name, IGroup<TEntity> group, Func<TEntity, IComponent, TKey> getKey, IEqualityComparer<TKey> comparer) : base(name, group, getKey) {
             _index = new Dictionary<TKey, TEntity>(comparer);
             Activate();
         }
 
-        public PrimaryEntityIndex(IGroup<TEntity> group, Func<TEntity, IComponent, TKey[]> getKeys, IEqualityComparer<TKey> comparer) : base(group, getKeys) {
+        public PrimaryEntityIndex(string name, IGroup<TEntity> group, Func<TEntity, IComponent, TKey[]> getKeys, IEqualityComparer<TKey> comparer) : base(name, group, getKeys) {
             _index = new Dictionary<TKey, TEntity>(comparer);
             Activate();
         }
@@ -32,27 +32,14 @@ namespace Entitas {
             indexEntities(_group);
         }
 
-        public bool HasEntity(TKey key) {
-            return _index.ContainsKey(key);
-        }
-
         public TEntity GetEntity(TKey key) {
-            var entity = TryGetEntity(key);
-            if(entity == null) {
-                throw new EntityIndexException(
-                    "Entity for key '" + key + "' doesn't exist!",
-                    "You should check if an entity with that key exists " +
-                    "before getting it."
-                );
-            }
-
-            return entity;
-        }
-
-        public TEntity TryGetEntity(TKey key) {
             TEntity entity;
             _index.TryGetValue(key, out entity);
             return entity;
+        }
+
+        public override string ToString() {
+            return "PrimaryEntityIndex(" + name + ")";
         }
 
         protected override void clear() {

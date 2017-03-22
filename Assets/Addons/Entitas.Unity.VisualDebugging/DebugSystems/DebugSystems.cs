@@ -61,7 +61,7 @@ namespace Entitas.Unity.VisualDebugging {
             }
         }
 
-		public int totalSystemsCount {
+        public int totalSystemsCount {
             get {
                 var total = 0;
                 foreach(var system in _systems) {
@@ -79,8 +79,10 @@ namespace Entitas.Unity.VisualDebugging {
 
         public string name { get { return _name; } }
         public GameObject gameObject { get { return _gameObject; } }
+        public SystemInfo systemInfo { get { return _systemInfo; } }
 
         public double executeDuration { get { return _executeDuration; } }
+        public double cleanupDuration { get { return _cleanupDuration; } }
 
         public SystemInfo[] initializeSystemInfos { get { return _initializeSystemInfos.ToArray(); } }
         public SystemInfo[] executeSystemInfos { get { return _executeSystemInfos.ToArray(); } }
@@ -89,25 +91,37 @@ namespace Entitas.Unity.VisualDebugging {
 
         public bool paused;
 
-        readonly string _name;
+        string _name;
 
-        readonly List<ISystem> _systems;
-        readonly GameObject _gameObject;
-        readonly List<SystemInfo> _initializeSystemInfos;
-        readonly List<SystemInfo> _executeSystemInfos;
-        readonly List<SystemInfo> _cleanupSystemInfos;
-        readonly List<SystemInfo> _tearDownSystemInfos;
+        List<ISystem> _systems;
+        GameObject _gameObject;
+        SystemInfo _systemInfo;
 
-        readonly Stopwatch _stopwatch;
+        List<SystemInfo> _initializeSystemInfos;
+        List<SystemInfo> _executeSystemInfos;
+        List<SystemInfo> _cleanupSystemInfos;
+        List<SystemInfo> _tearDownSystemInfos;
+
+        Stopwatch _stopwatch;
 
         double _executeDuration;
+        double _cleanupDuration;
 
-        public DebugSystems(string name = "Systems") {
+        public DebugSystems(string name) {
+            initialize(name);
+        }
+
+        protected DebugSystems(bool noInit) {
+        }
+
+        protected void initialize(string name) {
             _name = name;
             _gameObject = new GameObject(name);
             _gameObject.AddComponent<DebugSystemsBehaviour>().Init(this);
 
-			_systems = new List<ISystem>();
+            _systemInfo = new SystemInfo(this);
+
+            _systems = new List<ISystem>();
             _initializeSystemInfos = new List<SystemInfo>();
             _executeSystemInfos = new List<SystemInfo>();
             _cleanupSystemInfos = new List<SystemInfo>();
@@ -118,22 +132,30 @@ namespace Entitas.Unity.VisualDebugging {
 
         public override Systems Add(ISystem system) {
             _systems.Add(system);
+
+            SystemInfo childSystemInfo;
+
             var debugSystems = system as DebugSystems;
             if(debugSystems != null) {
+                childSystemInfo = debugSystems.systemInfo;
                 debugSystems.gameObject.transform.SetParent(_gameObject.transform, false);
+            } else {
+                childSystemInfo = new SystemInfo(system);
             }
-            var systemInfo = new SystemInfo(system);
-            if(systemInfo.isInitializeSystems) {
-                _initializeSystemInfos.Add(systemInfo);
+
+            childSystemInfo.parentSystemInfo = _systemInfo;
+
+            if(childSystemInfo.isInitializeSystems) {
+                _initializeSystemInfos.Add(childSystemInfo);
             }
-            if(systemInfo.isExecuteSystems || systemInfo.isReactiveSystems) {
-                _executeSystemInfos.Add(systemInfo);
+            if(childSystemInfo.isExecuteSystems || childSystemInfo.isReactiveSystems) {
+                _executeSystemInfos.Add(childSystemInfo);
             }
-            if(systemInfo.isCleanupSystems) {
-                _cleanupSystemInfos.Add(systemInfo);
+            if(childSystemInfo.isCleanupSystems) {
+                _cleanupSystemInfos.Add(childSystemInfo);
             }
-            if(systemInfo.isTearDownSystems) {
-                _tearDownSystemInfos.Add(systemInfo);
+            if(childSystemInfo.isTearDownSystems) {
+                _tearDownSystemInfos.Add(childSystemInfo);
             }
 
             return base.Add(system);
@@ -154,8 +176,13 @@ namespace Entitas.Unity.VisualDebugging {
 
         public override void Initialize() {
             for (int i = 0; i < _initializeSystems.Count; i++) {
-                if(_initializeSystemInfos[i].isActive) {
+                var systemInfo = _initializeSystemInfos[i];
+                if(systemInfo.isActive) {
+                    _stopwatch.Reset();
+                    _stopwatch.Start();
                     _initializeSystems[i].Initialize();
+                    _stopwatch.Stop();
+                    systemInfo.initializationDuration = _stopwatch.Elapsed.TotalMilliseconds;
                 }
             }
         }
@@ -180,7 +207,11 @@ namespace Entitas.Unity.VisualDebugging {
             for (int i = 0; i < _executeSystems.Count; i++) {
                 var systemInfo = _executeSystemInfos[i];
                 if(systemInfo.isActive) {
-                    var duration = monitorSystemExecutionDuration(_executeSystems[i]);
+                    _stopwatch.Reset();
+                    _stopwatch.Start();
+                    _executeSystems[i].Execute();
+                    _stopwatch.Stop();
+                    var duration = _stopwatch.Elapsed.TotalMilliseconds;
                     _executeDuration += duration;
                     systemInfo.AddExecutionDuration(duration);
                 }
@@ -188,27 +219,32 @@ namespace Entitas.Unity.VisualDebugging {
         }
 
         public void StepCleanup() {
+            _cleanupDuration = 0;
             for (int i = 0; i < _cleanupSystems.Count; i++) {
-                if(_cleanupSystemInfos[i].isActive) {
+                var systemInfo = _cleanupSystemInfos[i];
+                if(systemInfo.isActive) {
+                    _stopwatch.Reset();
+                    _stopwatch.Start();
                     _cleanupSystems[i].Cleanup();
+                    _stopwatch.Stop();
+                    var duration = _stopwatch.Elapsed.TotalMilliseconds;
+                    _cleanupDuration += duration;
+                    systemInfo.AddCleanupDuration(duration);
                 }
             }
         }
 
         public override void TearDown() {
             for (int i = 0; i < _tearDownSystems.Count; i++) {
-                if(_tearDownSystemInfos[i].isActive) {
+                var systemInfo = _tearDownSystemInfos[i];
+                if(systemInfo.isActive) {
+                    _stopwatch.Reset();
+                    _stopwatch.Start();
                     _tearDownSystems[i].TearDown();
+                    _stopwatch.Stop();
+                    systemInfo.teardownDuration = _stopwatch.Elapsed.TotalMilliseconds;
                 }
             }
-        }
-
-        double monitorSystemExecutionDuration(IExecuteSystem system) {
-            _stopwatch.Reset();
-            _stopwatch.Start();
-            system.Execute();
-            _stopwatch.Stop();
-            return _stopwatch.Elapsed.TotalMilliseconds;
         }
     }
 }
