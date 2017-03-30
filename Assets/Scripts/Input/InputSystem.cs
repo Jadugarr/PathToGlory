@@ -37,7 +37,7 @@ public class InputSystem : IExecuteSystem, ICleanupSystem
         {
             float attackAxis = UnityEngine.Input.GetAxis("Attack");
 
-            if (attackAxis > 0 && !context.hasAttackCooldown)
+            if (attackAxis > 0)
             {
                 GameEntity[] players = context.GetEntities(GameMatcher.Player);
                 GameEntity[] enemies = context.GetEntities(GameMatcher.Enemy);
@@ -58,8 +58,6 @@ public class InputSystem : IExecuteSystem, ICleanupSystem
                 {
                     Debug.LogError("Wtf? There's no player entity in the pool.");
                 }
-
-                context.SetAttackCooldown(2f);
             }
         }
     }
