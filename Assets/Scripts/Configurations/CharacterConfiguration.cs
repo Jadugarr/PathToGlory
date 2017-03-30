@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace SemoGames.PTG.Configurations
+namespace Configurations
 {
     [Serializable]
     [CreateAssetMenu(fileName ="CharacterConfiguration", menuName = "Configurations/CharacterConfiguration")]

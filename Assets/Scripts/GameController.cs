@@ -1,10 +1,6 @@
 using Entitas;
-using SemoGames.PTG.Configurations;
-using SemoGames.PTG.Enemy;
-using SemoGames.PTG.GameInput;
-using SemoGames.PTG.Position;
 using System;
-using SemoGames.PTG.Battle;
+using Configurations;
 using UnityEngine;
 
 [Serializable]
@@ -22,7 +18,7 @@ public class GameController : MonoBehaviour
         InitConfigs();
 
         Contexts pools = Contexts.sharedInstance;
-        pools.SetAllContexts();
+        //pools.SetAllContexts();
 
         systems = CreateSystems(pools.game);
         systems.Initialize();

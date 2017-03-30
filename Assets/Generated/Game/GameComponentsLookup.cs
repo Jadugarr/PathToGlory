@@ -8,8 +8,8 @@
 //------------------------------------------------------------------------------
 public static class GameComponentsLookup {
 
-    public const int Attack = 0;
-    public const int AttackCharacter = 1;
+    public const int AttackCharacter = 0;
+    public const int Attack = 1;
     public const int AttackCooldown = 2;
     public const int Death = 3;
     public const int Defense = 4;
@@ -27,8 +27,8 @@ public static class GameComponentsLookup {
     public const int TotalComponents = 15;
 
     public static readonly string[] componentNames = {
-        "Attack",
         "AttackCharacter",
+        "Attack",
         "AttackCooldown",
         "Death",
         "Defense",
@@ -45,20 +45,20 @@ public static class GameComponentsLookup {
     };
 
     public static readonly System.Type[] componentTypes = {
-        typeof(SemoGames.PTG.Common.AttackComponent),
-        typeof(SemoGames.PTG.Battle.AttackCharacterComponent),
-        typeof(SemoGames.PTG.Battle.AttackCooldownComponent),
-        typeof(SemoGames.PTG.Battle.DeathComponent),
-        typeof(Assets.Scripts.Common.DefenseComponent),
-        typeof(SemoGames.PTG.Enemy.EnemyComponent),
-        typeof(SemoGames.PTG.Enemy.EnemySpawnCooldownComponent),
-        typeof(SemoGames.PTG.GameInput.EnemySpawnInputComponent),
-        typeof(SemoGames.PTG.Common.HealthComponent),
-        typeof(SemoGames.PTG.Player.PlayerComponent),
-        typeof(SemoGames.PTG.Position.PositionComponent),
-        typeof(Assets.Scripts.Battle.ReadyToActComponent),
-        typeof(SemoGames.PTG.Common.SpeedComponent),
-        typeof(SemoGames.PTG.Battle.TimeUntilActionComponent),
-        typeof(SemoGames.PTG.View.ViewComponent)
+        typeof(AttackCharacterComponent),
+        typeof(AttackComponent),
+        typeof(AttackCooldownComponent),
+        typeof(DeathComponent),
+        typeof(DefenseComponent),
+        typeof(EnemyComponent),
+        typeof(EnemySpawnCooldownComponent),
+        typeof(EnemySpawnInputComponent),
+        typeof(HealthComponent),
+        typeof(PlayerComponent),
+        typeof(PositionComponent),
+        typeof(ReadyToActComponent),
+        typeof(SpeedComponent),
+        typeof(TimeUntilActionComponent),
+        typeof(ViewComponent)
     };
 }

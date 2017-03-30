@@ -1,10 +1,7 @@
 ﻿using Entitas;
 
-namespace SemoGames.PTG.Common
+[Game]
+public class HealthComponent : IComponent
 {
-    [Game]
-    public class HealthComponent : IComponent
-    {
-        public int Health;
-    }
+    public int Health;
 }

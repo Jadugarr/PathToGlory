@@ -1,11 +1,8 @@
 using Entitas;
 using UnityEngine;
 
-namespace SemoGames.PTG.Position
+[Game]
+public class PositionComponent : IComponent
 {
-    [Game]
-    public class PositionComponent : IComponent
-    {
-        public Vector3 position;
-    }
+    public Vector3 position;
 }

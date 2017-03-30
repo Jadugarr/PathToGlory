@@ -1,4 +1,4 @@
-﻿namespace SemoGames.PTG.Configurations
+﻿namespace Configurations
 {
     public static class GameConfigurations
     {

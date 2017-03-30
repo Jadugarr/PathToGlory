@@ -1,57 +1,55 @@
 ﻿using Entitas;
+using Enums;
 using UnityEngine;
 
-namespace SemoGames.PTG.Battle
+public class BattleInitializeSystem : IInitializeSystem
 {
-    public class BattleInitializeSystem : IInitializeSystem
+    private GameContext context;
+
+    public BattleInitializeSystem(GameContext context)
     {
-        private GameContext context;
+        this.context = context;
+    }
 
-        public BattleInitializeSystem(GameContext context)
+    public void Initialize()
+    {
+        CreatePlayerEntities();
+        CreateEnemyEntities();
+    }
+
+    private void CreatePlayerEntities()
+    {
+        GameObject[] playerCharacters = GameObject.FindGameObjectsWithTag(Tags.Player);
+
+        foreach (GameObject playerCharacter in playerCharacters)
         {
-            this.context = context;
+            GameEntity entity = context.CreateEntity();
+            entity.isPlayer = true;
+            entity.AddView(playerCharacter);
+            entity.AddPosition(playerCharacter.transform.position);
+            entity.AddHealth(100);
+            entity.AddAttack(10);
+            entity.AddDefense(5);
+            entity.AddSpeed(10);
+            entity.AddTimeUntilAction(10f, 10f);
         }
+    }
 
-        public void Initialize()
+    private void CreateEnemyEntities()
+    {
+        GameObject[] enemyCharacters = GameObject.FindGameObjectsWithTag(Tags.Enemy);
+
+        foreach (GameObject enemyCharacter in enemyCharacters)
         {
-            CreatePlayerEntities();
-            CreateEnemyEntities();
-        }
-
-        private void CreatePlayerEntities()
-        {
-            GameObject[] playerCharacters = GameObject.FindGameObjectsWithTag(Tags.Player);
-
-            foreach (GameObject playerCharacter in playerCharacters)
-            {
-                GameEntity entity = context.CreateEntity();
-                entity.isPlayer = true;
-                entity.AddView(playerCharacter);
-                entity.AddPosition(playerCharacter.transform.position);
-                entity.AddHealth(100);
-                entity.AddAttack(10);
-                entity.AddDefense(5);
-                entity.AddSpeed(10);
-                entity.AddTimeUntilAction(10f);
-            }
-        }
-
-        private void CreateEnemyEntities()
-        {
-            GameObject[] enemyCharacters = GameObject.FindGameObjectsWithTag(Tags.Enemy);
-
-            foreach (GameObject enemyCharacter in enemyCharacters)
-            {
-                GameEntity entity = context.CreateEntity();
-                entity.isEnemy = true;
-                entity.AddView(enemyCharacter);
-                entity.AddPosition(enemyCharacter.transform.position);
-                entity.AddHealth(10);
-                entity.AddAttack(10);
-                entity.AddDefense(5);
-                entity.AddSpeed(5);
-                entity.AddTimeUntilAction(10f);
-            }
+            GameEntity entity = context.CreateEntity();
+            entity.isEnemy = true;
+            entity.AddView(enemyCharacter);
+            entity.AddPosition(enemyCharacter.transform.position);
+            entity.AddHealth(10);
+            entity.AddAttack(10);
+            entity.AddDefense(5);
+            entity.AddSpeed(5);
+            entity.AddTimeUntilAction(10f, 10f);
         }
     }
 }

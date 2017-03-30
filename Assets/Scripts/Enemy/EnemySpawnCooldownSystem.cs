@@ -1,33 +1,30 @@
 using Entitas;
 using UnityEngine;
 
-namespace SemoGames.PTG.Enemy
+public class EnemySpawnCooldownSystem : IExecuteSystem
 {
-    public class EnemySpawnCooldownSystem : IExecuteSystem
+    GameContext enemyPool;
+    IGroup<GameEntity> cooldowns;
+
+    public EnemySpawnCooldownSystem(GameContext context)
     {
-        GameContext enemyPool;
-        IGroup<GameEntity> cooldowns;
+        enemyPool = context;
+        cooldowns = enemyPool.GetGroup(GameMatcher.EnemySpawnCooldown);
+    }
 
-        public EnemySpawnCooldownSystem(GameContext context)
+    public void Execute()
+    {
+        if (cooldowns.count > 0)
         {
-            enemyPool = context;
-            cooldowns = enemyPool.GetGroup(GameMatcher.EnemySpawnCooldown);
-        }
+            GameEntity cooldownEntity = cooldowns.GetSingleEntity();
 
-        public void Execute()
-        {
-            if (cooldowns.count > 0)
+            if (cooldownEntity.enemySpawnCooldown.cooldown > 0)
             {
-                GameEntity cooldownEntity = cooldowns.GetSingleEntity();
-                
-                if (cooldownEntity.enemySpawnCooldown.cooldown > 0)
-                {
-                    cooldownEntity.ReplaceEnemySpawnCooldown(cooldownEntity.enemySpawnCooldown.cooldown - Time.deltaTime);
-                }
-                else
-                {
-                    enemyPool.RemoveEnemySpawnCooldown();
-                }
+                cooldownEntity.ReplaceEnemySpawnCooldown(cooldownEntity.enemySpawnCooldown.cooldown - Time.deltaTime);
+            }
+            else
+            {
+                enemyPool.RemoveEnemySpawnCooldown();
             }
         }
     }

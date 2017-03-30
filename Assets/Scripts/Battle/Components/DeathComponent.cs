@@ -1,10 +1,7 @@
 ﻿using Entitas;
 
-namespace SemoGames.PTG.Battle
+[Game]
+public class DeathComponent : IComponent
 {
-    [Game]
-    public class DeathComponent : IComponent
-    {
-        public GameEntity DeadCharacter;
-    }
+    public GameEntity DeadCharacter;
 }

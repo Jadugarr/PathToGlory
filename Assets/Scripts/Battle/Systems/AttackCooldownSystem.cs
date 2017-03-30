@@ -1,27 +1,24 @@
 ﻿using Entitas;
 using UnityEngine;
 
-namespace SemoGames.PTG.Battle
+public class AttackCooldownSystem : IExecuteSystem
 {
-    public class AttackCooldownSystem : IExecuteSystem
+    private GameContext context;
+
+    public AttackCooldownSystem(GameContext context)
     {
-        private GameContext context;
+        this.context = context;
+    }
 
-        public AttackCooldownSystem(GameContext context)
+    public void Execute()
+    {
+        if (context.hasAttackCooldown)
         {
-            this.context = context;
-        }
+            context.attackCooldown.Cooldown -= Time.deltaTime;
 
-        public void Execute()
-        {
-            if (context.hasAttackCooldown)
+            if (context.attackCooldown.Cooldown <= 0f)
             {
-                context.attackCooldown.Cooldown -= Time.deltaTime;
-
-                if (context.attackCooldown.Cooldown <= 0f)
-                {
-                    context.RemoveAttackCooldown();
-                }
+                context.RemoveAttackCooldown();
             }
         }
     }

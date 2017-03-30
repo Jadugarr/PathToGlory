@@ -1,36 +1,33 @@
 ﻿using Entitas;
 using UnityEngine;
 
-namespace SemoGames.PTG.Battle
+public class ActTimeSystem : IExecuteSystem
 {
-    public class ActTimeSystem : IExecuteSystem
+    private GameContext context;
+    private IGroup<GameEntity> actEntities;
+    private IGroup<GameEntity> readyToActEntites;
+
+    public ActTimeSystem(GameContext context)
     {
-        private GameContext context;
-        private IGroup<GameEntity> actEntities;
-        private IGroup<GameEntity> readyToActEntites;
+        this.context = context;
+        actEntities = context.GetGroup(GameMatcher.TimeUntilAction);
+        readyToActEntites = context.GetGroup(GameMatcher.ReadyToAct);
+    }
 
-        public ActTimeSystem(GameContext context)
+    public void Execute()
+    {
+        if (readyToActEntites.count == 0)
         {
-            this.context = context;
-            actEntities = context.GetGroup(GameMatcher.TimeUntilAction);
-            readyToActEntites = context.GetGroup(GameMatcher.ReadyToAct);
-        }
+            GameEntity[] entities = actEntities.GetEntities();
 
-        public void Execute()
-        {
-            if (readyToActEntites.count == 0)
+            foreach (GameEntity gameEntity in entities)
             {
-                GameEntity[] entities = actEntities.GetEntities();
+                gameEntity.timeUntilAction.RemainingTime -= Time.deltaTime * gameEntity.speed.SpeedValue;
 
-                foreach (GameEntity gameEntity in entities)
+                if (gameEntity.timeUntilAction.RemainingTime <= 0f)
                 {
-                    gameEntity.timeUntilAction.RemainingTime -= Time.deltaTime * gameEntity.speed.SpeedValue;
-
-                    if (gameEntity.timeUntilAction.RemainingTime <= 0f)
-                    {
-                        GameEntity readyToAct = context.CreateEntity();
-                        readyToAct.AddReadyToAct(gameEntity);
-                    }
+                    GameEntity readyToAct = context.CreateEntity();
+                    readyToAct.AddReadyToAct(gameEntity);
                 }
             }
         }

@@ -1,10 +1,7 @@
 ﻿using Entitas;
 
-namespace Assets.Scripts.Common
+[Game]
+public class DefenseComponent : IComponent
 {
-    [Game]
-    public class DefenseComponent : IComponent
-    {
-        public int DefenseValue;
-    }
+    public int DefenseValue;
 }
