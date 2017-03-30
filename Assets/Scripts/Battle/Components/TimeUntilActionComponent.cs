@@ -6,5 +6,6 @@ namespace SemoGames.PTG.Battle
     public class TimeUntilActionComponent : IComponent
     {
         public float RemainingTime;
+        public float TotalTime;
     }
 }
