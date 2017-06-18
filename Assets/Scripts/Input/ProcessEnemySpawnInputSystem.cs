@@ -12,7 +12,7 @@ public class ProcessEnemySpawnInputSystem : ReactiveSystem<GameEntity>
         this.context = context;
     }
 
-    protected override Collector<GameEntity> GetTrigger(IContext<GameEntity> pool)
+    protected override ICollector<GameEntity> GetTrigger(IContext<GameEntity> pool)
     {
         return pool.CreateCollector(GameMatcher.EnemySpawnInput);
     }

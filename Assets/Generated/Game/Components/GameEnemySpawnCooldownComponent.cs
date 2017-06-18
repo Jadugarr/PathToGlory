@@ -32,7 +32,7 @@ public partial class GameContext {
     }
 
     public void RemoveEnemySpawnCooldown() {
-        DestroyEntity(enemySpawnCooldownEntity);
+        enemySpawnCooldownEntity.Destroy();
     }
 }
 

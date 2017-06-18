@@ -14,7 +14,7 @@ public class AttackCharacterSystem : ReactiveSystem<GameEntity>
         readyToActEntities = context.GetGroup(GameMatcher.ReadyToAct);
     }
 
-    protected override Collector<GameEntity> GetTrigger(IContext<GameEntity> context)
+    protected override ICollector<GameEntity> GetTrigger(IContext<GameEntity> context)
     {
         return context.CreateCollector(GameMatcher.AttackCharacter);
     }
@@ -46,11 +46,11 @@ public class AttackCharacterSystem : ReactiveSystem<GameEntity>
                 if (entity.readyToAct.EntityReadyToAct == gameEntity.attackCharacter.AttackerEntity)
                 {
                     gameEntity.attackCharacter.AttackerEntity.ReplaceTimeUntilAction(10f, 10f);
-                    context.DestroyEntity(entity);
+                    entity.Destroy();
                 }
             }
 
-            context.DestroyEntity(gameEntity);
+            gameEntity.Destroy();
         }
     }
 }

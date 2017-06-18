@@ -83,7 +83,7 @@ public class InputSystem : IExecuteSystem, ICleanupSystem
 
         for (int i = 0; i < entities.Length; i++)
         {
-            context.DestroyEntity(entities[i]);
+            entities[i].Destroy();
         }
     }
 }

@@ -4,14 +4,11 @@ using UnityEngine;
 
 public class CharacterDeathSystem : ReactiveSystem<GameEntity>
 {
-    private GameContext context;
-
     public CharacterDeathSystem(IContext<GameEntity> context) : base(context)
     {
-        this.context = (GameContext) context;
     }
 
-    protected override Collector<GameEntity> GetTrigger(IContext<GameEntity> context)
+    protected override ICollector<GameEntity> GetTrigger(IContext<GameEntity> context)
     {
         return context.CreateCollector(GameMatcher.Death);
     }
@@ -32,8 +29,8 @@ public class CharacterDeathSystem : ReactiveSystem<GameEntity>
 
             Debug.Log("Enemy died!");
 
-            context.DestroyEntity(gameEntity.death.DeadCharacter);
-            context.DestroyEntity(gameEntity);
+            gameEntity.death.DeadCharacter.Destroy();
+            gameEntity.Destroy();
         }
     }
 }
