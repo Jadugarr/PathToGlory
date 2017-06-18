@@ -13,8 +13,8 @@ public partial class GameEntity {
     public bool isEnemy {
         get { return HasComponent(GameComponentsLookup.Enemy); }
         set {
-            if(value != isEnemy) {
-                if(value) {
+            if (value != isEnemy) {
+                if (value) {
                     AddComponent(GameComponentsLookup.Enemy, enemyComponent);
                 } else {
                     RemoveComponent(GameComponentsLookup.Enemy);
@@ -38,7 +38,7 @@ public sealed partial class GameMatcher {
 
     public static Entitas.IMatcher<GameEntity> Enemy {
         get {
-            if(_matcherEnemy == null) {
+            if (_matcherEnemy == null) {
                 var matcher = (Entitas.Matcher<GameEntity>)Entitas.Matcher<GameEntity>.AllOf(GameComponentsLookup.Enemy);
                 matcher.componentNames = GameComponentsLookup.componentNames;
                 _matcherEnemy = matcher;

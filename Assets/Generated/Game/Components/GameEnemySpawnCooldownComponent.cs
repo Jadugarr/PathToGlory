@@ -13,7 +13,7 @@ public partial class GameContext {
     public bool hasEnemySpawnCooldown { get { return enemySpawnCooldownEntity != null; } }
 
     public GameEntity SetEnemySpawnCooldown(float newCooldown) {
-        if(hasEnemySpawnCooldown) {
+        if (hasEnemySpawnCooldown) {
             throw new Entitas.EntitasException("Could not set EnemySpawnCooldown!\n" + this + " already has an entity with EnemySpawnCooldownComponent!",
                 "You should check if the context already has a enemySpawnCooldownEntity before setting it or use context.ReplaceEnemySpawnCooldown().");
         }
@@ -24,7 +24,7 @@ public partial class GameContext {
 
     public void ReplaceEnemySpawnCooldown(float newCooldown) {
         var entity = enemySpawnCooldownEntity;
-        if(entity == null) {
+        if (entity == null) {
             entity = SetEnemySpawnCooldown(newCooldown);
         } else {
             entity.ReplaceEnemySpawnCooldown(newCooldown);
@@ -82,7 +82,7 @@ public sealed partial class GameMatcher {
 
     public static Entitas.IMatcher<GameEntity> EnemySpawnCooldown {
         get {
-            if(_matcherEnemySpawnCooldown == null) {
+            if (_matcherEnemySpawnCooldown == null) {
                 var matcher = (Entitas.Matcher<GameEntity>)Entitas.Matcher<GameEntity>.AllOf(GameComponentsLookup.EnemySpawnCooldown);
                 matcher.componentNames = GameComponentsLookup.componentNames;
                 _matcherEnemySpawnCooldown = matcher;

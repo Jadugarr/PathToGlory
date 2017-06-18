@@ -44,7 +44,7 @@ public sealed partial class GameMatcher {
 
     public static Entitas.IMatcher<GameEntity> Death {
         get {
-            if(_matcherDeath == null) {
+            if (_matcherDeath == null) {
                 var matcher = (Entitas.Matcher<GameEntity>)Entitas.Matcher<GameEntity>.AllOf(GameComponentsLookup.Death);
                 matcher.componentNames = GameComponentsLookup.componentNames;
                 _matcherDeath = matcher;

@@ -46,7 +46,7 @@ public sealed partial class GameMatcher {
 
     public static Entitas.IMatcher<GameEntity> TimeUntilAction {
         get {
-            if(_matcherTimeUntilAction == null) {
+            if (_matcherTimeUntilAction == null) {
                 var matcher = (Entitas.Matcher<GameEntity>)Entitas.Matcher<GameEntity>.AllOf(GameComponentsLookup.TimeUntilAction);
                 matcher.componentNames = GameComponentsLookup.componentNames;
                 _matcherTimeUntilAction = matcher;
