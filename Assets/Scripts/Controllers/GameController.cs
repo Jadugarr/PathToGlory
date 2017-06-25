@@ -12,12 +12,13 @@ public class GameController : MonoBehaviour
     [SerializeField] private CharacterConfiguration characterConfiguration;
 
     private Systems currentSystems;
+    private Systems universalSystems;
     private GameState currentGameState;
     private Dictionary<GameState, Systems> stateSystemMap;
 
     private void Awake()
     {
-        DontDestroyOnLoad(this.gameObject);
+        DontDestroyOnLoad(gameObject);
     }
 
     // Use this for initialization
@@ -26,15 +27,37 @@ public class GameController : MonoBehaviour
         InitConfigs();
         Contexts pools = Contexts.sharedInstance;
 
-        SetInitialState();
         CreateStateSystemMap(pools.game);
+        CreateUniversalSystems(pools.game);
 
-        currentSystems = stateSystemMap[currentGameState];
+        SetInitialState();
+    }
+
+    private void ChangeState(GameState state)
+    {
+        if (currentSystems != null)
+        {
+            currentSystems.ClearReactiveSystems();
+            currentSystems.DeactivateReactiveSystems();
+        }
+
+        currentGameState = state;
+
+        currentSystems = stateSystemMap[state];
+        currentSystems.Initialize();
+        currentSystems.ActivateReactiveSystems();
     }
 
     private void SetInitialState()
     {
-        currentGameState = GameState.MainMenu;
+        ChangeState(GameState.MainMenu);
+    }
+
+    private void CreateUniversalSystems(GameContext context)
+    {
+        universalSystems = new Feature("UniversalSystems")
+            .Add(new ChangeSceneSystem(context));
+        universalSystems.Initialize();
     }
 
     private void CreateStateSystemMap(GameContext context)
@@ -46,13 +69,12 @@ public class GameController : MonoBehaviour
 
     private void CreateMainMenuSystems(GameContext context)
     {
-        stateSystemMap.Add(GameState.MainMenu, new Systems());
-        stateSystemMap[GameState.MainMenu].Initialize();
+        stateSystemMap.Add(GameState.MainMenu, new Feature("MainMenuSystems"));
     }
 
     private void CreateBattleSystems(GameContext context)
     {
-        stateSystemMap.Add(GameState.Battle, new Systems()
+        stateSystemMap.Add(GameState.Battle, new Feature("BattleSystems")
             //Initialize
             .Add(new BattleInitializeSystem(context))
             //Input
@@ -67,8 +89,6 @@ public class GameController : MonoBehaviour
             .Add(new CharacterDeathSystem(context))
             .Add(new ActTimeSystem(context))
             .Add(new ReadyToActSystem(context)));
-
-        stateSystemMap[GameState.Battle].Initialize();
     }
 
     private void InitConfigs()
@@ -81,6 +101,8 @@ public class GameController : MonoBehaviour
     void Update()
     {
         currentSystems.Execute();
+        universalSystems.Execute();
         currentSystems.Cleanup();
+        universalSystems.Cleanup();
     }
 }
