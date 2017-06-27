@@ -7,7 +7,7 @@ public class CleanupDisplayUISystem : ICleanupSystem
 
     public CleanupDisplayUISystem(GameContext context)
     {
-        uiComponentGroup = context.GetGroup(GameMatcher.UI);
+        uiComponentGroup = context.GetGroup(GameMatcher.DisplayUI);
     }
 
     public void Cleanup()

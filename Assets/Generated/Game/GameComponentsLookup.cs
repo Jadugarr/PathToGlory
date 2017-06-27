@@ -13,17 +13,17 @@ public static class GameComponentsLookup {
     public const int ChangeScene = 2;
     public const int Death = 3;
     public const int Defense = 4;
-    public const int Enemy = 5;
-    public const int EnemySpawnCooldown = 6;
-    public const int EnemySpawnInput = 7;
-    public const int GameState = 8;
-    public const int Health = 9;
-    public const int Player = 10;
-    public const int Position = 11;
-    public const int ReadyToAct = 12;
-    public const int Speed = 13;
-    public const int TimeUntilAction = 14;
-    public const int UI = 15;
+    public const int DisplayUI = 5;
+    public const int Enemy = 6;
+    public const int EnemySpawnCooldown = 7;
+    public const int EnemySpawnInput = 8;
+    public const int GameState = 9;
+    public const int Health = 10;
+    public const int Player = 11;
+    public const int Position = 12;
+    public const int ReadyToAct = 13;
+    public const int Speed = 14;
+    public const int TimeUntilAction = 15;
     public const int View = 16;
 
     public const int TotalComponents = 17;
@@ -34,6 +34,7 @@ public static class GameComponentsLookup {
         "ChangeScene",
         "Death",
         "Defense",
+        "DisplayUI",
         "Enemy",
         "EnemySpawnCooldown",
         "EnemySpawnInput",
@@ -44,7 +45,6 @@ public static class GameComponentsLookup {
         "ReadyToAct",
         "Speed",
         "TimeUntilAction",
-        "UI",
         "View"
     };
 
@@ -54,6 +54,7 @@ public static class GameComponentsLookup {
         typeof(ChangeSceneComponent),
         typeof(DeathComponent),
         typeof(DefenseComponent),
+        typeof(DisplayUIComponent),
         typeof(EnemyComponent),
         typeof(EnemySpawnCooldownComponent),
         typeof(EnemySpawnInputComponent),
@@ -64,7 +65,6 @@ public static class GameComponentsLookup {
         typeof(ReadyToActComponent),
         typeof(SpeedComponent),
         typeof(TimeUntilActionComponent),
-        typeof(UIComponent),
         typeof(ViewComponent)
     };
 }

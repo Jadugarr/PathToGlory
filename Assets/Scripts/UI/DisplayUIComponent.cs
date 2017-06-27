@@ -2,7 +2,7 @@
 using UnityEngine;
 
 [Game]
-public class UIComponent : IComponent
+public class DisplayUIComponent : IComponent
 {
     public GameObject ViewToDisplay;
 }

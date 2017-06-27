@@ -9,7 +9,7 @@ public class UIController : MonoBehaviour
 
     private void Awake()
     {
-        uiEntities = Contexts.sharedInstance.game.GetGroup(GameMatcher.UI);
+        uiEntities = Contexts.sharedInstance.game.GetGroup(GameMatcher.DisplayUI);
         DontDestroyOnLoad(gameObject);
     }
 
@@ -25,7 +25,7 @@ public class UIController : MonoBehaviour
     {
         foreach (GameEntity gameEntity in uiEntities.GetEntities())
         {
-            Instantiate(gameEntity.uI.ViewToDisplay, uiLayer.transform);
+            Instantiate(gameEntity.displayUI.ViewToDisplay, uiLayer.transform);
         }
     }
 }

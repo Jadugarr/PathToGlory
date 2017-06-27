@@ -13,7 +13,7 @@ public class DisplayUISystem : ReactiveSystem<GameEntity>
 
     protected override ICollector<GameEntity> GetTrigger(IContext<GameEntity> context)
     {
-        return context.CreateCollector(GameMatcher.UI);
+        return context.CreateCollector(GameMatcher.DisplayUI);
     }
 
     protected override bool Filter(GameEntity entity)
@@ -25,7 +25,7 @@ public class DisplayUISystem : ReactiveSystem<GameEntity>
     {
         foreach (GameEntity gameEntity in entities)
         {
-            Object.Instantiate(gameEntity.uI.ViewToDisplay, uiLayer.transform);
+            Object.Instantiate(gameEntity.displayUI.ViewToDisplay, uiLayer.transform);
         }
     }
 }

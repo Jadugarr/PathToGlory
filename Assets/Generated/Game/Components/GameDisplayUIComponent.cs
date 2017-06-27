@@ -8,25 +8,25 @@
 //------------------------------------------------------------------------------
 public partial class GameEntity {
 
-    public UIComponent uI { get { return (UIComponent)GetComponent(GameComponentsLookup.UI); } }
-    public bool hasUI { get { return HasComponent(GameComponentsLookup.UI); } }
+    public DisplayUIComponent displayUI { get { return (DisplayUIComponent)GetComponent(GameComponentsLookup.DisplayUI); } }
+    public bool hasDisplayUI { get { return HasComponent(GameComponentsLookup.DisplayUI); } }
 
-    public void AddUI(UnityEngine.GameObject newViewToDisplay) {
-        var index = GameComponentsLookup.UI;
-        var component = CreateComponent<UIComponent>(index);
+    public void AddDisplayUI(UnityEngine.GameObject newViewToDisplay) {
+        var index = GameComponentsLookup.DisplayUI;
+        var component = CreateComponent<DisplayUIComponent>(index);
         component.ViewToDisplay = newViewToDisplay;
         AddComponent(index, component);
     }
 
-    public void ReplaceUI(UnityEngine.GameObject newViewToDisplay) {
-        var index = GameComponentsLookup.UI;
-        var component = CreateComponent<UIComponent>(index);
+    public void ReplaceDisplayUI(UnityEngine.GameObject newViewToDisplay) {
+        var index = GameComponentsLookup.DisplayUI;
+        var component = CreateComponent<DisplayUIComponent>(index);
         component.ViewToDisplay = newViewToDisplay;
         ReplaceComponent(index, component);
     }
 
-    public void RemoveUI() {
-        RemoveComponent(GameComponentsLookup.UI);
+    public void RemoveDisplayUI() {
+        RemoveComponent(GameComponentsLookup.DisplayUI);
     }
 }
 
@@ -40,17 +40,17 @@ public partial class GameEntity {
 //------------------------------------------------------------------------------
 public sealed partial class GameMatcher {
 
-    static Entitas.IMatcher<GameEntity> _matcherUI;
+    static Entitas.IMatcher<GameEntity> _matcherDisplayUI;
 
-    public static Entitas.IMatcher<GameEntity> UI {
+    public static Entitas.IMatcher<GameEntity> DisplayUI {
         get {
-            if (_matcherUI == null) {
-                var matcher = (Entitas.Matcher<GameEntity>)Entitas.Matcher<GameEntity>.AllOf(GameComponentsLookup.UI);
+            if (_matcherDisplayUI == null) {
+                var matcher = (Entitas.Matcher<GameEntity>)Entitas.Matcher<GameEntity>.AllOf(GameComponentsLookup.DisplayUI);
                 matcher.componentNames = GameComponentsLookup.componentNames;
-                _matcherUI = matcher;
+                _matcherDisplayUI = matcher;
             }
 
-            return _matcherUI;
+            return _matcherDisplayUI;
         }
     }
 }

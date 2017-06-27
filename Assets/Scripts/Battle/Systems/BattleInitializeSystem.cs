@@ -15,13 +15,19 @@ public class BattleInitializeSystem : IInitializeSystem
         CreatePlayerEntities();
         CreateEnemyEntities();
         CreateATB();
+        CreateReturnButton();
+    }
+
+    private void CreateReturnButton()
+    {
+        context.CreateEntity()
+            .AddDisplayUI(Resources.Load("ReturnButton") as GameObject);
     }
 
     private void CreateATB()
     {
-        GameObject atb = Resources.Load("ATB") as GameObject;
         context.CreateEntity()
-            .AddUI(atb);
+            .AddDisplayUI(Resources.Load("ATB") as GameObject);
     }
 
     private void CreatePlayerEntities()
