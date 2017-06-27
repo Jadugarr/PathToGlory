@@ -49,8 +49,6 @@ public class AttackCharacterSystem : ReactiveSystem<GameEntity>
                     entity.Destroy();
                 }
             }
-
-            gameEntity.Destroy();
         }
     }
 }

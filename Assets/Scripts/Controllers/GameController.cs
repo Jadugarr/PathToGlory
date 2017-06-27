@@ -13,7 +13,6 @@ public class GameController : MonoBehaviour
 
     private Systems currentSystems;
     private Systems universalSystems;
-    private GameState currentGameState;
     private Dictionary<GameState, Systems> stateSystemMap;
 
     private void Awake()
@@ -29,11 +28,9 @@ public class GameController : MonoBehaviour
 
         CreateStateSystemMap(pools.game);
         CreateUniversalSystems(pools.game);
-
-        SetInitialState();
     }
 
-    private void ChangeState(GameState state)
+    public void ChangeState(GameState state)
     {
         if (currentSystems != null)
         {
@@ -41,22 +38,23 @@ public class GameController : MonoBehaviour
             currentSystems.DeactivateReactiveSystems();
         }
 
-        currentGameState = state;
-
         currentSystems = stateSystemMap[state];
         currentSystems.Initialize();
         currentSystems.ActivateReactiveSystems();
     }
 
-    private void SetInitialState()
-    {
-        ChangeState(GameState.MainMenu);
-    }
-
     private void CreateUniversalSystems(GameContext context)
     {
         universalSystems = new Feature("UniversalSystems")
-            .Add(new ChangeSceneSystem(context));
+            //Scene
+            .Add(new CleanupChangeSceneSystem(context))
+            .Add(new ChangeSceneSystem(context))
+            //Game State
+            .Add(new ChangeGameStateSystem(context, this))
+            .Add(new InitializeGameStateSystem())
+            //UI
+            .Add(new DisplayUISystem(context))
+            .Add(new CleanupDisplayUISystem(context));
         universalSystems.Initialize();
     }
 
@@ -88,7 +86,8 @@ public class GameController : MonoBehaviour
             .Add(new AttackCharacterSystem(context))
             .Add(new CharacterDeathSystem(context))
             .Add(new ActTimeSystem(context))
-            .Add(new ReadyToActSystem(context)));
+            .Add(new ReadyToActSystem(context))
+            .Add(new CleanupAttackCharacterSystem(context)));
     }
 
     private void InitConfigs()
@@ -100,9 +99,18 @@ public class GameController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        currentSystems.Execute();
+        if (currentSystems != null)
+        {
+            currentSystems.Execute();
+        }
+
         universalSystems.Execute();
-        currentSystems.Cleanup();
+
+        if (currentSystems != null)
+        {
+            currentSystems.Cleanup();
+        }
+
         universalSystems.Cleanup();
     }
 }

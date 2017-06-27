@@ -1,5 +1,4 @@
 ﻿using Entitas;
-using Enums;
 using UnityEngine;
 
 public class BattleInitializeSystem : IInitializeSystem
@@ -15,6 +14,14 @@ public class BattleInitializeSystem : IInitializeSystem
     {
         CreatePlayerEntities();
         CreateEnemyEntities();
+        CreateATB();
+    }
+
+    private void CreateATB()
+    {
+        GameObject atb = Resources.Load("ATB") as GameObject;
+        context.CreateEntity()
+            .AddUI(atb);
     }
 
     private void CreatePlayerEntities()

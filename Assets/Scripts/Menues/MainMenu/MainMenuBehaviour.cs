@@ -20,6 +20,7 @@ public class MainMenuBehaviour : MonoBehaviour
     {
         if (arg1.name != GameSceneConstants.MainMenuScene)
         {
+            context.ReplaceGameState(GameState.Battle);
             Destroy(gameObject);
         }
     }
