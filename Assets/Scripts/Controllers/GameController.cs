@@ -11,13 +11,23 @@ public class GameController : MonoBehaviour
 
     [SerializeField] private CharacterConfiguration characterConfiguration;
 
+    private static GameController controller;
+
     private Systems currentSystems;
     private Systems universalSystems;
     private Dictionary<GameState, Systems> stateSystemMap;
 
     private void Awake()
     {
-        DontDestroyOnLoad(gameObject);
+        if (controller == null)
+        {
+            DontDestroyOnLoad(gameObject);
+            controller = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 
     // Use this for initialization
@@ -67,14 +77,15 @@ public class GameController : MonoBehaviour
 
     private void CreateMainMenuSystems(GameContext context)
     {
-        stateSystemMap.Add(GameState.MainMenu, new Feature("MainMenuSystems"));
+        stateSystemMap.Add(GameState.MainMenu, new Feature("MainMenuSystems")
+            .Add(new InitializeMainMenuSystem()));
     }
 
     private void CreateBattleSystems(GameContext context)
     {
         stateSystemMap.Add(GameState.Battle, new Feature("BattleSystems")
             //Initialize
-            .Add(new BattleInitializeSystem(context))
+            .Add(new InitializeBattleSystem(context))
             //Input
             .Add(new InputSystem(context))
             .Add(new ProcessEnemySpawnInputSystem(context))

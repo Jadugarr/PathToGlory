@@ -5,12 +5,22 @@ public class UIController : MonoBehaviour
 {
     [SerializeField] private GameObject uiLayer;
 
+    private static UIController controller;
+
     private IGroup<GameEntity> uiEntities;
 
     private void Awake()
     {
-        uiEntities = Contexts.sharedInstance.game.GetGroup(GameMatcher.DisplayUI);
-        DontDestroyOnLoad(gameObject);
+        if (controller == null)
+        {
+            DontDestroyOnLoad(gameObject);
+            controller = this;
+            uiEntities = Contexts.sharedInstance.game.GetGroup(GameMatcher.DisplayUI);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 
     private void Update()

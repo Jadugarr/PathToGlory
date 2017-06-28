@@ -16,9 +16,9 @@ public class MainMenuBehaviour : MonoBehaviour
         AddEventListeners();
     }
 
-    private void OnSceneChanged(Scene arg0, Scene arg1)
+    private void OnSceneChanged(Scene previousScene, Scene newScene)
     {
-        if (arg1.name != GameSceneConstants.MainMenuScene)
+        if (newScene.name != GameSceneConstants.MainMenuScene)
         {
             context.ReplaceGameState(GameState.Battle);
             Destroy(gameObject);

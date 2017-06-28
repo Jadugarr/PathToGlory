@@ -1,11 +1,11 @@
 ﻿using Entitas;
 using UnityEngine;
 
-public class BattleInitializeSystem : IInitializeSystem
+public class InitializeBattleSystem : IInitializeSystem
 {
     private GameContext context;
 
-    public BattleInitializeSystem(GameContext context)
+    public InitializeBattleSystem(GameContext context)
     {
         this.context = context;
     }
