@@ -5,10 +5,12 @@ using UnityEngine;
 public class DisplayUISystem : ReactiveSystem<GameEntity>
 {
     private GameObject uiLayer;
+    private GameContext gameContext;
 
     public DisplayUISystem(IContext<GameEntity> context) : base(context)
     {
         uiLayer = GameObject.FindGameObjectWithTag(Tags.UILayer);
+        gameContext = (GameContext) context;
     }
 
     protected override ICollector<GameEntity> GetTrigger(IContext<GameEntity> context)
@@ -25,7 +27,9 @@ public class DisplayUISystem : ReactiveSystem<GameEntity>
     {
         foreach (GameEntity gameEntity in entities)
         {
-            Object.Instantiate(gameEntity.displayUI.ViewToDisplay, uiLayer.transform);
+            GameEntity newEntity = gameContext.CreateEntity();
+            newEntity.AddView(Object.Instantiate(gameEntity.displayUI.ViewToDisplay, uiLayer.transform));
+            newEntity.isUI = true;
         }
     }
 }

@@ -46,6 +46,7 @@ public class GameController : MonoBehaviour
         {
             currentSystems.ClearReactiveSystems();
             currentSystems.DeactivateReactiveSystems();
+            currentSystems.TearDown();
         }
 
         currentSystems = stateSystemMap[state];
@@ -78,7 +79,8 @@ public class GameController : MonoBehaviour
     private void CreateMainMenuSystems(GameContext context)
     {
         stateSystemMap.Add(GameState.MainMenu, new Feature("MainMenuSystems")
-            .Add(new InitializeMainMenuSystem()));
+            .Add(new InitializeMainMenuSystem())
+            .Add(new TeardownUISystem(context)));
     }
 
     private void CreateBattleSystems(GameContext context)
@@ -98,7 +100,11 @@ public class GameController : MonoBehaviour
             .Add(new CharacterDeathSystem(context))
             .Add(new ActTimeSystem(context))
             .Add(new ReadyToActSystem(context))
-            .Add(new CleanupAttackCharacterSystem(context)));
+            .Add(new CleanupAttackCharacterSystem(context))
+            .Add(new TeardownCharacterSystem(context))
+            .Add(new TeardownReadyToActSystem(context))
+            //UI
+            .Add(new TeardownUISystem(context)));
     }
 
     private void InitConfigs()
