@@ -1,13 +1,8 @@
-﻿using Entitas;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class UIController : MonoBehaviour
 {
-    [SerializeField] private GameObject uiLayer;
-
     private static UIController controller;
-
-    private IGroup<GameEntity> uiEntities;
 
     private void Awake()
     {
@@ -15,27 +10,10 @@ public class UIController : MonoBehaviour
         {
             DontDestroyOnLoad(gameObject);
             controller = this;
-            uiEntities = Contexts.sharedInstance.game.GetGroup(GameMatcher.DisplayUI);
         }
         else
         {
             Destroy(gameObject);
-        }
-    }
-
-    private void Update()
-    {
-        if (uiEntities.count > 0)
-        {
-            InstatiateUIComponents();
-        }
-    }
-
-    private void InstatiateUIComponents()
-    {
-        foreach (GameEntity gameEntity in uiEntities.GetEntities())
-        {
-            Instantiate(gameEntity.displayUI.ViewToDisplay, uiLayer.transform);
         }
     }
 }

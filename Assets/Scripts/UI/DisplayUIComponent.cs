@@ -5,4 +5,5 @@ using UnityEngine;
 public class DisplayUIComponent : IComponent
 {
     public GameObject ViewToDisplay;
+    public UiComponentType UiComponentType;
 }

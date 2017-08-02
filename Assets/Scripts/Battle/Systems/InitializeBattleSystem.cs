@@ -21,13 +21,13 @@ public class InitializeBattleSystem : IInitializeSystem
     private void CreateReturnButton()
     {
         context.CreateEntity()
-            .AddDisplayUI(Resources.Load("ReturnButton") as GameObject);
+            .AddDisplayUI(Resources.Load("ReturnButton") as GameObject, UiComponentType.Static);
     }
 
     private void CreateATB()
     {
         context.CreateEntity()
-            .AddDisplayUI(Resources.Load("ATB") as GameObject);
+            .AddDisplayUI(Resources.Load("ATB") as GameObject, UiComponentType.Dynamic);
     }
 
     private void CreatePlayerEntities()
