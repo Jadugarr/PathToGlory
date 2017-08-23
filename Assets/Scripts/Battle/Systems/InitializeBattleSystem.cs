@@ -14,7 +14,6 @@ public class InitializeBattleSystem : IInitializeSystem
     {
         CreatePlayerEntities();
         CreateEnemyEntities();
-        CreateATB();
         CreateReturnButton();
     }
 
@@ -22,12 +21,6 @@ public class InitializeBattleSystem : IInitializeSystem
     {
         context.CreateEntity()
             .AddDisplayUI(Resources.Load("ReturnButton") as GameObject, UiComponentType.Static);
-    }
-
-    private void CreateATB()
-    {
-        context.CreateEntity()
-            .AddDisplayUI(Resources.Load("ATB") as GameObject, UiComponentType.Dynamic);
     }
 
     private void CreatePlayerEntities()
@@ -45,6 +38,11 @@ public class InitializeBattleSystem : IInitializeSystem
             entity.AddDefense(5);
             entity.AddSpeed(10);
             entity.AddTimeUntilAction(10f, 10f);
+            entity.isBattle = true;
+
+            GameEntity atbEntity = context.CreateEntity();
+            atbEntity.isUI = true;
+            atbEntity.isATBItem = true;
         }
     }
 
@@ -63,6 +61,7 @@ public class InitializeBattleSystem : IInitializeSystem
             entity.AddDefense(5);
             entity.AddSpeed(5);
             entity.AddTimeUntilAction(10f, 10f);
+            entity.isBattle = true;
         }
     }
 }

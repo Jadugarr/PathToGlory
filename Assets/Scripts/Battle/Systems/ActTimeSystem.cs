@@ -10,7 +10,7 @@ public class ActTimeSystem : IExecuteSystem
     public ActTimeSystem(GameContext context)
     {
         this.context = context;
-        actEntities = context.GetGroup(GameMatcher.TimeUntilAction);
+        actEntities = context.GetGroup(GameMatcher.AllOf(GameMatcher.TimeUntilAction, GameMatcher.Battle));
         readyToActEntites = context.GetGroup(GameMatcher.ReadyToAct);
     }
 

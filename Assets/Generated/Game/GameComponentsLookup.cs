@@ -8,30 +8,34 @@
 //------------------------------------------------------------------------------
 public static class GameComponentsLookup {
 
-    public const int AttackCharacter = 0;
-    public const int Attack = 1;
-    public const int ChangeScene = 2;
-    public const int Death = 3;
-    public const int Defense = 4;
-    public const int DisplayUI = 5;
-    public const int Enemy = 6;
-    public const int EnemySpawnCooldown = 7;
-    public const int EnemySpawnInput = 8;
-    public const int GameState = 9;
-    public const int Health = 10;
-    public const int Player = 11;
-    public const int Position = 12;
-    public const int ReadyToAct = 13;
-    public const int Speed = 14;
-    public const int TimeUntilAction = 15;
-    public const int UI = 16;
-    public const int View = 17;
+    public const int ATBItem = 0;
+    public const int AttackCharacter = 1;
+    public const int Attack = 2;
+    public const int Battle = 3;
+    public const int ChangeScene = 4;
+    public const int Death = 5;
+    public const int Defense = 6;
+    public const int DisplayUI = 7;
+    public const int Enemy = 8;
+    public const int EnemySpawnCooldown = 9;
+    public const int EnemySpawnInput = 10;
+    public const int GameState = 11;
+    public const int Health = 12;
+    public const int Player = 13;
+    public const int Position = 14;
+    public const int ReadyToAct = 15;
+    public const int Speed = 16;
+    public const int TimeUntilAction = 17;
+    public const int UI = 18;
+    public const int View = 19;
 
-    public const int TotalComponents = 18;
+    public const int TotalComponents = 20;
 
     public static readonly string[] componentNames = {
+        "ATBItem",
         "AttackCharacter",
         "Attack",
+        "Battle",
         "ChangeScene",
         "Death",
         "Defense",
@@ -51,8 +55,10 @@ public static class GameComponentsLookup {
     };
 
     public static readonly System.Type[] componentTypes = {
+        typeof(ATBItemComponent),
         typeof(AttackCharacterComponent),
         typeof(AttackComponent),
+        typeof(BattleComponent),
         typeof(ChangeSceneComponent),
         typeof(DeathComponent),
         typeof(DefenseComponent),
