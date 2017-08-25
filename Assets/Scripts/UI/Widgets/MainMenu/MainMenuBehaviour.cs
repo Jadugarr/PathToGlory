@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class MainMenuBehaviour : AWidget
@@ -31,15 +30,6 @@ public class MainMenuBehaviour : AWidget
         return UiComponentType.Static;
     }
 
-    private void OnSceneChanged(Scene previousScene, Scene newScene)
-    {
-        if (newScene.name != GameSceneConstants.MainMenuScene)
-        {
-            context.ReplaceGameState(GameState.Battle);
-            Destroy(gameObject);
-        }
-    }
-
     private void OnBattleButtonClicked()
     {
         context.CreateEntity()
@@ -59,13 +49,11 @@ public class MainMenuBehaviour : AWidget
     {
         battlePrototypeButton.onClick.AddListener(OnBattleButtonClicked);
         exitGameButton.onClick.AddListener(OnExitGameButtonClicked);
-        SceneManager.activeSceneChanged += OnSceneChanged;
     }
 
     private void RemoveEventListeners()
     {
         battlePrototypeButton.onClick.RemoveListener(OnBattleButtonClicked);
         exitGameButton.onClick.RemoveListener(OnExitGameButtonClicked);
-        SceneManager.activeSceneChanged -= OnSceneChanged;
     }
 }

@@ -11,16 +11,18 @@ public partial class GameEntity {
     public SceneChangedComponent sceneChanged { get { return (SceneChangedComponent)GetComponent(GameComponentsLookup.SceneChanged); } }
     public bool hasSceneChanged { get { return HasComponent(GameComponentsLookup.SceneChanged); } }
 
-    public void AddSceneChanged(string newNewSceneName) {
+    public void AddSceneChanged(string newPreviousSceneName, string newNewSceneName) {
         var index = GameComponentsLookup.SceneChanged;
         var component = CreateComponent<SceneChangedComponent>(index);
+        component.PreviousSceneName = newPreviousSceneName;
         component.NewSceneName = newNewSceneName;
         AddComponent(index, component);
     }
 
-    public void ReplaceSceneChanged(string newNewSceneName) {
+    public void ReplaceSceneChanged(string newPreviousSceneName, string newNewSceneName) {
         var index = GameComponentsLookup.SceneChanged;
         var component = CreateComponent<SceneChangedComponent>(index);
+        component.PreviousSceneName = newPreviousSceneName;
         component.NewSceneName = newNewSceneName;
         ReplaceComponent(index, component);
     }

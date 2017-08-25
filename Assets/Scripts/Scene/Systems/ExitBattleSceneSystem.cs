@@ -1,13 +1,10 @@
 ﻿using System.Collections.Generic;
 using Entitas;
 
-public class ChangedToMainMenuSceneSystem : ReactiveSystem<GameEntity>
+public class ExitBattleSceneSystem : ReactiveSystem<GameEntity>
 {
-    private GameContext context;
-
-    public ChangedToMainMenuSceneSystem(GameContext context) : base(context)
+    public ExitBattleSceneSystem(GameContext context) : base(context)
     {
-        this.context = context;
     }
 
     protected override ICollector<GameEntity> GetTrigger(IContext<GameEntity> context)
@@ -17,12 +14,11 @@ public class ChangedToMainMenuSceneSystem : ReactiveSystem<GameEntity>
 
     protected override bool Filter(GameEntity entity)
     {
-        return entity.sceneChanged.NewSceneName == GameSceneConstants.MainMenuScene;
+        return entity.sceneChanged.PreviousSceneName == GameSceneConstants.BattleScene;
     }
 
     protected override void Execute(List<GameEntity> entities)
     {
-        context.ReplaceGameState(GameState.MainMenu);
         UIService.HideWidget(AssetTypes.ReturnButton);
     }
 }

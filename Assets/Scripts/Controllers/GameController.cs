@@ -60,7 +60,10 @@ public class GameController : MonoBehaviour
             //Scene
             .Add(new CleanupChangeSceneSystem(context))
             .Add(new ChangeSceneSystem(context))
-            .Add(new ChangedToMainMenuSceneSystem(context))
+            .Add(new EnterBattleSceneSystem(context))
+            .Add(new ExitBattleSceneSystem(context))
+            .Add(new EnterMainMenuSceneSystem(context))
+            .Add(new ExitMainMenuSceneSystem(context))
             //Game State
             .Add(new ChangeGameStateSystem(context, this))
             .Add(new InitializeGameStateSystem())
