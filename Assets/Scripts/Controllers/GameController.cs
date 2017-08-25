@@ -60,6 +60,7 @@ public class GameController : MonoBehaviour
             //Scene
             .Add(new CleanupChangeSceneSystem(context))
             .Add(new ChangeSceneSystem(context))
+            .Add(new ChangedToMainMenuSceneSystem(context))
             //Game State
             .Add(new ChangeGameStateSystem(context, this))
             .Add(new InitializeGameStateSystem())
@@ -79,8 +80,7 @@ public class GameController : MonoBehaviour
     private void CreateMainMenuSystems(GameContext context)
     {
         stateSystemMap.Add(GameState.MainMenu, new Feature("MainMenuSystems")
-            .Add(new InitializeMainMenuSystem())
-            .Add(new TeardownUISystem(context)));
+            .Add(new InitializeMainMenuSystem()));
     }
 
     private void CreateBattleSystems(GameContext context)
@@ -102,9 +102,7 @@ public class GameController : MonoBehaviour
             .Add(new ReadyToActSystem(context))
             .Add(new CleanupAttackCharacterSystem(context))
             .Add(new TeardownCharacterSystem(context))
-            .Add(new TeardownReadyToActSystem(context))
-            //UI
-            .Add(new TeardownUISystem(context)));
+            .Add(new TeardownReadyToActSystem(context)));
     }
 
     private void InitConfigs()

@@ -12,6 +12,6 @@ public class InitializeATBSystem : IInitializeSystem
     public void Initialize()
     {
         context.CreateEntity()
-            .AddDisplayUI(AssetTypes.Atb, UiComponentType.Dynamic);
+            .AddDisplayUI(AssetTypes.Atb, new ATBBarProperties());
     }
 }

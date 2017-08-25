@@ -8,31 +8,29 @@
 //------------------------------------------------------------------------------
 public static class GameComponentsLookup {
 
-    public const int ATBItem = 0;
-    public const int AttackCharacter = 1;
-    public const int Attack = 2;
-    public const int Battle = 3;
-    public const int ChangeScene = 4;
-    public const int Death = 5;
-    public const int Defense = 6;
-    public const int DisplayUI = 7;
-    public const int Enemy = 8;
-    public const int EnemySpawnCooldown = 9;
-    public const int EnemySpawnInput = 10;
-    public const int GameState = 11;
-    public const int Health = 12;
-    public const int Player = 13;
-    public const int Position = 14;
-    public const int ReadyToAct = 15;
+    public const int AttackCharacter = 0;
+    public const int Attack = 1;
+    public const int Battle = 2;
+    public const int ChangeScene = 3;
+    public const int Death = 4;
+    public const int Defense = 5;
+    public const int DisplayUI = 6;
+    public const int Enemy = 7;
+    public const int EnemySpawnCooldown = 8;
+    public const int EnemySpawnInput = 9;
+    public const int GameState = 10;
+    public const int Health = 11;
+    public const int Player = 12;
+    public const int Position = 13;
+    public const int ReadyToAct = 14;
+    public const int SceneChanged = 15;
     public const int Speed = 16;
     public const int TimeUntilAction = 17;
-    public const int UI = 18;
-    public const int View = 19;
+    public const int View = 18;
 
-    public const int TotalComponents = 20;
+    public const int TotalComponents = 19;
 
     public static readonly string[] componentNames = {
-        "ATBItem",
         "AttackCharacter",
         "Attack",
         "Battle",
@@ -48,14 +46,13 @@ public static class GameComponentsLookup {
         "Player",
         "Position",
         "ReadyToAct",
+        "SceneChanged",
         "Speed",
         "TimeUntilAction",
-        "UI",
         "View"
     };
 
     public static readonly System.Type[] componentTypes = {
-        typeof(ATBItemComponent),
         typeof(AttackCharacterComponent),
         typeof(AttackComponent),
         typeof(BattleComponent),
@@ -71,9 +68,9 @@ public static class GameComponentsLookup {
         typeof(PlayerComponent),
         typeof(PositionComponent),
         typeof(ReadyToActComponent),
+        typeof(SceneChangedComponent),
         typeof(SpeedComponent),
         typeof(TimeUntilActionComponent),
-        typeof(UIComponent),
         typeof(ViewComponent)
     };
 }

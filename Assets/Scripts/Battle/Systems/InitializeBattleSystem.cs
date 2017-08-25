@@ -20,7 +20,7 @@ public class InitializeBattleSystem : IInitializeSystem
     private void CreateReturnButton()
     {
         context.CreateEntity()
-            .AddDisplayUI(AssetTypes.ReturnButton, UiComponentType.Static);
+            .AddDisplayUI(AssetTypes.ReturnButton, new ReturnButtonProperties());
     }
 
     private void CreatePlayerEntities()
@@ -39,10 +39,6 @@ public class InitializeBattleSystem : IInitializeSystem
             entity.AddSpeed(10);
             entity.AddTimeUntilAction(10f, 10f);
             entity.isBattle = true;
-
-            GameEntity atbEntity = context.CreateEntity();
-            atbEntity.isUI = true;
-            atbEntity.isATBItem = true;
         }
     }
 
