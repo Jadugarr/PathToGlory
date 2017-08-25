@@ -1,5 +1,4 @@
 ﻿using Entitas;
-using UnityEngine;
 
 public class InitializeATBSystem : IInitializeSystem
 {
@@ -12,8 +11,7 @@ public class InitializeATBSystem : IInitializeSystem
 
     public void Initialize()
     {
-        GameObject atbGameObject = Resources.Load("ATB") as GameObject;
         context.CreateEntity()
-            .AddDisplayUI(atbGameObject, UiComponentType.Dynamic);
+            .AddDisplayUI(AssetTypes.Atb, UiComponentType.Dynamic);
     }
 }

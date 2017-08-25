@@ -20,7 +20,7 @@ public class InitializeBattleSystem : IInitializeSystem
     private void CreateReturnButton()
     {
         context.CreateEntity()
-            .AddDisplayUI(Resources.Load("ReturnButton") as GameObject, UiComponentType.Static);
+            .AddDisplayUI(AssetTypes.ReturnButton, UiComponentType.Static);
     }
 
     private void CreatePlayerEntities()

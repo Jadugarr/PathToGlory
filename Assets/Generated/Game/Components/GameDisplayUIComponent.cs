@@ -11,18 +11,18 @@ public partial class GameEntity {
     public DisplayUIComponent displayUI { get { return (DisplayUIComponent)GetComponent(GameComponentsLookup.DisplayUI); } }
     public bool hasDisplayUI { get { return HasComponent(GameComponentsLookup.DisplayUI); } }
 
-    public void AddDisplayUI(UnityEngine.GameObject newViewToDisplay, UiComponentType newUiComponentType) {
+    public void AddDisplayUI(string newAssetName, UiComponentType newUiComponentType) {
         var index = GameComponentsLookup.DisplayUI;
         var component = CreateComponent<DisplayUIComponent>(index);
-        component.ViewToDisplay = newViewToDisplay;
+        component.AssetName = newAssetName;
         component.UiComponentType = newUiComponentType;
         AddComponent(index, component);
     }
 
-    public void ReplaceDisplayUI(UnityEngine.GameObject newViewToDisplay, UiComponentType newUiComponentType) {
+    public void ReplaceDisplayUI(string newAssetName, UiComponentType newUiComponentType) {
         var index = GameComponentsLookup.DisplayUI;
         var component = CreateComponent<DisplayUIComponent>(index);
-        component.ViewToDisplay = newViewToDisplay;
+        component.AssetName = newAssetName;
         component.UiComponentType = newUiComponentType;
         ReplaceComponent(index, component);
     }
