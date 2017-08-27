@@ -22,7 +22,6 @@ public class EnterMainMenuSceneSystem : ReactiveSystem<GameEntity>
 
     protected override void Execute(List<GameEntity> entities)
     {
-        GameEntity newEntity = context.CreateEntity();
-        newEntity.ReplaceGameState(GameState.MainMenu);
+        context.ReplaceGameState(GameState.MainMenu);
     }
 }

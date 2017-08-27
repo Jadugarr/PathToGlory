@@ -72,6 +72,7 @@ public class GameController : MonoBehaviour
         universalSystems = new Feature("UniversalSystems")
             //Scene
             .Add(new CleanupChangeSceneSystem(context))
+            .Add(new CleanupSceneChangedSystem(context))
             .Add(new ChangeSceneSystem(context))
             .Add(new EnterBattleSceneSystem(context))
             .Add(new ExitBattleSceneSystem(context))

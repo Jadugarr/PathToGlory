@@ -22,7 +22,6 @@ public class EnterBattleSceneSystem : ReactiveSystem<GameEntity>
 
     protected override void Execute(List<GameEntity> entities)
     {
-        GameEntity newEntity = context.CreateEntity();
-        newEntity.ReplaceGameState(GameState.Battle);
+        context.ReplaceGameState(GameState.Battle);
     }
 }
