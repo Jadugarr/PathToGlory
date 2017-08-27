@@ -15,6 +15,7 @@ public abstract class AWidget : MonoBehaviour
     public void ApplyProperties(IWidgetProperties newProperties)
     {
         properties = newProperties;
+        OnNewProperties();
     }
 
     protected virtual void OnNewProperties()
@@ -24,6 +25,7 @@ public abstract class AWidget : MonoBehaviour
     public void Show()
     {
         gameObject.SetActive(true);
+        OnShow();
     }
 
     protected virtual void OnShow()
@@ -33,6 +35,7 @@ public abstract class AWidget : MonoBehaviour
     public void Hide()
     {
         gameObject.SetActive(false);
+        OnHide();
     }
 
     protected virtual void OnHide()
