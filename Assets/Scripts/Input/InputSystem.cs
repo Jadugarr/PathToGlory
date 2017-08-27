@@ -47,7 +47,7 @@ public class InputSystem : IExecuteSystem, ICleanupSystem
                     if (enemies.Length > 0)
                     {
                         GameEntity attackEntity = context.CreateEntity();
-                        attackEntity.AddAttackCharacter(players[0], enemies[Random.Range(0, enemies.Length)]);
+                        attackEntity.AddAttackCharacter(players[0].id.Id, enemies[Random.Range(0, enemies.Length)].id.Id);
                     }
                     else
                     {
@@ -68,7 +68,9 @@ public class InputSystem : IExecuteSystem, ICleanupSystem
 
         foreach (GameEntity gameEntity in entities)
         {
-            if (gameEntity.readyToAct.EntityReadyToAct.isPlayer)
+            GameEntity readyToActEntity = context.GetEntityWithId(gameEntity.readyToAct.EntityReadyToActId);
+
+            if (readyToActEntity.isPlayer)
             {
                 return true;
             }

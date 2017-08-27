@@ -27,7 +27,7 @@ public class ActTimeSystem : IExecuteSystem
                 if (gameEntity.timeUntilAction.RemainingTime <= 0f)
                 {
                     GameEntity readyToAct = context.CreateEntity();
-                    readyToAct.AddReadyToAct(gameEntity);
+                    readyToAct.AddReadyToAct(gameEntity.id.Id);
                 }
             }
         }

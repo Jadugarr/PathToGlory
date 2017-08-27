@@ -11,17 +11,17 @@ public partial class GameEntity {
     public ReadyToActComponent readyToAct { get { return (ReadyToActComponent)GetComponent(GameComponentsLookup.ReadyToAct); } }
     public bool hasReadyToAct { get { return HasComponent(GameComponentsLookup.ReadyToAct); } }
 
-    public void AddReadyToAct(GameEntity newEntityReadyToAct) {
+    public void AddReadyToAct(int newEntityReadyToActId) {
         var index = GameComponentsLookup.ReadyToAct;
         var component = CreateComponent<ReadyToActComponent>(index);
-        component.EntityReadyToAct = newEntityReadyToAct;
+        component.EntityReadyToActId = newEntityReadyToActId;
         AddComponent(index, component);
     }
 
-    public void ReplaceReadyToAct(GameEntity newEntityReadyToAct) {
+    public void ReplaceReadyToAct(int newEntityReadyToActId) {
         var index = GameComponentsLookup.ReadyToAct;
         var component = CreateComponent<ReadyToActComponent>(index);
-        component.EntityReadyToAct = newEntityReadyToAct;
+        component.EntityReadyToActId = newEntityReadyToActId;
         ReplaceComponent(index, component);
     }
 

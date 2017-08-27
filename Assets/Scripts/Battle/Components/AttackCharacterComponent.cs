@@ -3,6 +3,6 @@
 [Game]
 public class AttackCharacterComponent : IComponent
 {
-    public GameEntity AttackerEntity;
-    public GameEntity DefenderEntity;
+    public int AttackerEntityId;
+    public int DefenderEntityId;
 }

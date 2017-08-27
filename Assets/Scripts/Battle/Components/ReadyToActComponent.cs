@@ -3,5 +3,5 @@
 [Game]
 public class ReadyToActComponent : IComponent
 {
-    public GameEntity EntityReadyToAct;
+    public int EntityReadyToActId;
 }

@@ -20,15 +20,16 @@ public static class GameComponentsLookup {
     public const int EnemySpawnInput = 9;
     public const int GameState = 10;
     public const int Health = 11;
-    public const int Player = 12;
-    public const int Position = 13;
-    public const int ReadyToAct = 14;
-    public const int SceneChanged = 15;
-    public const int Speed = 16;
-    public const int TimeUntilAction = 17;
-    public const int View = 18;
+    public const int Id = 12;
+    public const int Player = 13;
+    public const int Position = 14;
+    public const int ReadyToAct = 15;
+    public const int SceneChanged = 16;
+    public const int Speed = 17;
+    public const int TimeUntilAction = 18;
+    public const int View = 19;
 
-    public const int TotalComponents = 19;
+    public const int TotalComponents = 20;
 
     public static readonly string[] componentNames = {
         "AttackCharacter",
@@ -43,6 +44,7 @@ public static class GameComponentsLookup {
         "EnemySpawnInput",
         "GameState",
         "Health",
+        "Id",
         "Player",
         "Position",
         "ReadyToAct",
@@ -65,6 +67,7 @@ public static class GameComponentsLookup {
         typeof(EnemySpawnInputComponent),
         typeof(GameStateComponent),
         typeof(HealthComponent),
+        typeof(IdComponent),
         typeof(PlayerComponent),
         typeof(PositionComponent),
         typeof(ReadyToActComponent),

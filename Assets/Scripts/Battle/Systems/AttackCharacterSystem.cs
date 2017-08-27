@@ -28,24 +28,27 @@ public class AttackCharacterSystem : ReactiveSystem<GameEntity>
     {
         foreach (GameEntity gameEntity in entities)
         {
-            gameEntity.attackCharacter.DefenderEntity.ReplaceHealth(
-                gameEntity.attackCharacter.DefenderEntity.health.Health -
+            GameEntity attacker = context.GetEntityWithId(gameEntity.attackCharacter.AttackerEntityId);
+            GameEntity defender = context.GetEntityWithId(gameEntity.attackCharacter.DefenderEntityId); ;
+            defender.ReplaceHealth(
+                defender.health.Health -
                 Math.Max(0,
-                    gameEntity.attackCharacter.AttackerEntity.attack.AttackValue -
-                    gameEntity.attackCharacter.DefenderEntity.defense.DefenseValue));
+                    attacker.attack.AttackValue -
+                    defender.defense.DefenseValue));
 
-            Debug.Log("Enemy attacked! Remaining health: " + gameEntity.attackCharacter.DefenderEntity.health.Health);
+            Debug.Log("Enemy attacked! Remaining health: " + defender.health.Health);
 
-            if (gameEntity.attackCharacter.DefenderEntity.health.Health <= 0)
+            if (defender.health.Health <= 0)
             {
-                context.CreateEntity().AddDeath(gameEntity.attackCharacter.DefenderEntity);
+                context.CreateEntity().AddDeath(defender);
             }
 
             foreach (GameEntity entity in readyToActEntities.GetEntities())
             {
-                if (entity.readyToAct.EntityReadyToAct == gameEntity.attackCharacter.AttackerEntity)
+                GameEntity readyToActEntity = context.GetEntityWithId(entity.readyToAct.EntityReadyToActId);
+                if (readyToActEntity == attacker)
                 {
-                    gameEntity.attackCharacter.AttackerEntity.ReplaceTimeUntilAction(10f, 10f);
+                    attacker.ReplaceTimeUntilAction(10f, 10f);
                     entity.Destroy();
                 }
             }

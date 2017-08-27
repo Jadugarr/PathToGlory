@@ -1,6 +1,7 @@
 using Entitas;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Configurations;
 using UnityEngine;
 
@@ -23,6 +24,12 @@ public class GameController : MonoBehaviour
         {
             DontDestroyOnLoad(gameObject);
             controller = this;
+
+            Contexts contexts = Contexts.sharedInstance;
+            foreach (var context in contexts.allContexts)
+            {
+                context.OnEntityCreated += OnEntityCreated;
+            }
         }
         else
         {
@@ -52,6 +59,12 @@ public class GameController : MonoBehaviour
         currentSystems = stateSystemMap[state];
         currentSystems.Initialize();
         currentSystems.ActivateReactiveSystems();
+    }
+
+    // add an id to every entity as it's created
+    private void OnEntityCreated(IContext context, IEntity entity)
+    {
+        (entity as GameEntity).AddId(entity.creationIndex);
     }
 
     private void CreateUniversalSystems(GameContext context)

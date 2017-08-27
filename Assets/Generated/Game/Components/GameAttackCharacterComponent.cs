@@ -11,19 +11,19 @@ public partial class GameEntity {
     public AttackCharacterComponent attackCharacter { get { return (AttackCharacterComponent)GetComponent(GameComponentsLookup.AttackCharacter); } }
     public bool hasAttackCharacter { get { return HasComponent(GameComponentsLookup.AttackCharacter); } }
 
-    public void AddAttackCharacter(GameEntity newAttackerEntity, GameEntity newDefenderEntity) {
+    public void AddAttackCharacter(int newAttackerEntityId, int newDefenderEntityId) {
         var index = GameComponentsLookup.AttackCharacter;
         var component = CreateComponent<AttackCharacterComponent>(index);
-        component.AttackerEntity = newAttackerEntity;
-        component.DefenderEntity = newDefenderEntity;
+        component.AttackerEntityId = newAttackerEntityId;
+        component.DefenderEntityId = newDefenderEntityId;
         AddComponent(index, component);
     }
 
-    public void ReplaceAttackCharacter(GameEntity newAttackerEntity, GameEntity newDefenderEntity) {
+    public void ReplaceAttackCharacter(int newAttackerEntityId, int newDefenderEntityId) {
         var index = GameComponentsLookup.AttackCharacter;
         var component = CreateComponent<AttackCharacterComponent>(index);
-        component.AttackerEntity = newAttackerEntity;
-        component.DefenderEntity = newDefenderEntity;
+        component.AttackerEntityId = newAttackerEntityId;
+        component.DefenderEntityId = newDefenderEntityId;
         ReplaceComponent(index, component);
     }
 
