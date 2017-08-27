@@ -105,6 +105,7 @@ public class GameController : MonoBehaviour
         stateSystemMap.Add(GameState.Battle, new Feature("BattleSystems")
             //Initialize
             .Add(new InitializeBattleSystem(context))
+            .Add(new InitializeATBSystem(context))
             //Input
             .Add(new InputSystem(context))
             .Add(new ProcessEnemySpawnInputSystem(context))
