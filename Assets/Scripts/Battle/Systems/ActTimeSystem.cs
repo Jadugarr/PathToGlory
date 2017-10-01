@@ -22,7 +22,7 @@ public class ActTimeSystem : IExecuteSystem
 
             foreach (GameEntity gameEntity in entities)
             {
-                gameEntity.timeUntilAction.RemainingTime -= Time.deltaTime * gameEntity.speed.SpeedValue;
+                gameEntity.ReplaceTimeUntilAction(gameEntity.timeUntilAction.RemainingTime - Time.deltaTime * gameEntity.speed.SpeedValue, gameEntity.timeUntilAction.TotalTime);
 
                 if (gameEntity.timeUntilAction.RemainingTime <= 0f)
                 {

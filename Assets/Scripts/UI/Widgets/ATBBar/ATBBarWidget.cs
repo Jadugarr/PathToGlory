@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Entitas;
 using UnityEngine;
 
@@ -8,6 +9,9 @@ public class ATBBarWidget : AWidget
     [SerializeField] private GameObject ChooseMarker;
     [SerializeField] private GameObject ActMarker;
 
+    // Distance between ATB start point and point where characters can choose an action
+    private float chooseCommandDistance = 0f;
+
     private IGroup<GameEntity> battleEntityGroup;
     private IGroup<GameEntity> timeLeftEntityGroup;
     private List<ATBItemWidget> atbItems = new List<ATBItemWidget>(6);
@@ -16,6 +20,7 @@ public class ATBBarWidget : AWidget
     public override void Open()
     {
         itemPrefab = UIService.GetAsset(AssetTypes.AtbItem);
+        chooseCommandDistance = ChooseMarker.transform.localPosition.x - StartMarker.transform.localPosition.x;
     }
 
     public override void Close()
@@ -38,8 +43,8 @@ public class ATBBarWidget : AWidget
 
         if (battleEntityGroup != null)
         {
-            battleEntityGroup.OnEntityAdded -= BattleEntityGroupOnOnEntityAdded;
-            battleEntityGroup.OnEntityRemoved -= BattleEntityGroupOnOnEntityRemoved;
+            battleEntityGroup.OnEntityAdded -= OnBattleEntityAdded;
+            battleEntityGroup.OnEntityRemoved -= OnBattleEntityRemoved;
             for (int i = atbItems.Count - 1; i >= 0; i--)
             {
                 atbItems[i].Close();
@@ -47,11 +52,29 @@ public class ATBBarWidget : AWidget
             }
         }
 
-        battleEntityGroup = props.context.GetGroup(GameMatcher.Battle);
+        if (timeLeftEntityGroup != null)
+        {
+            timeLeftEntityGroup.OnEntityUpdated -= OnTimeLeftEntityUpdated;
+        }
 
-        battleEntityGroup.OnEntityAdded += BattleEntityGroupOnOnEntityAdded;
-        battleEntityGroup.OnEntityRemoved += BattleEntityGroupOnOnEntityRemoved;
+        battleEntityGroup = props.context.GetGroup(GameMatcher.Battle);
+        timeLeftEntityGroup = props.context.GetGroup(GameMatcher.TimeUntilAction);
+
+        timeLeftEntityGroup.OnEntityUpdated += OnTimeLeftEntityUpdated;
+        battleEntityGroup.OnEntityAdded += OnBattleEntityAdded;
+        battleEntityGroup.OnEntityRemoved += OnBattleEntityRemoved;
         InitItems();
+    }
+
+    private void OnTimeLeftEntityUpdated(IGroup<GameEntity> @group, GameEntity entity, int index,
+        IComponent previousComponent, IComponent newComponent)
+    {
+        ATBItemWidget linkedItem = GetLinkedItem(entity.id.Id);
+        TimeUntilActionComponent timeComponent = entity.timeUntilAction;
+        float progressPercentage = 1 - (timeComponent.RemainingTime / timeComponent.TotalTime);
+        linkedItem.gameObject.transform.localPosition = new Vector3(StartMarker.transform.localPosition.x +
+                                                         (chooseCommandDistance * progressPercentage),
+            linkedItem.transform.localPosition.y, linkedItem.transform.localPosition.z);
     }
 
     private void InitItems()
@@ -91,7 +114,7 @@ public class ATBBarWidget : AWidget
         return null;
     }
 
-    private void BattleEntityGroupOnOnEntityRemoved(IGroup<GameEntity> group, GameEntity entity, int index,
+    private void OnBattleEntityRemoved(IGroup<GameEntity> group, GameEntity entity, int index,
         IComponent component)
     {
         ATBItemWidget item = GetLinkedItem(entity.id.Id);
@@ -100,7 +123,7 @@ public class ATBBarWidget : AWidget
         Destroy(item.gameObject);
     }
 
-    private void BattleEntityGroupOnOnEntityAdded(IGroup<GameEntity> group, GameEntity entity, int index,
+    private void OnBattleEntityAdded(IGroup<GameEntity> group, GameEntity entity, int index,
         IComponent component)
     {
         CreateNewItem(entity);
