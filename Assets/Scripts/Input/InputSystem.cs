@@ -33,50 +33,13 @@ public class InputSystem : IExecuteSystem, ICleanupSystem
 
     private void CheckAttackInput()
     {
-        if (IsPlayerReadyToAct())
+        float attackAxis = Input.GetAxis("Attack");
+
+        if (attackAxis > 0)
         {
-            float attackAxis = UnityEngine.Input.GetAxis("Attack");
-
-            if (attackAxis > 0)
-            {
-                GameEntity[] players = context.GetEntities(GameMatcher.Player);
-                GameEntity[] enemies = context.GetEntities(GameMatcher.Enemy);
-
-                if (players.Length > 0)
-                {
-                    if (enemies.Length > 0)
-                    {
-                        GameEntity attackEntity = context.CreateEntity();
-                        attackEntity.AddAttackCharacter(players[0].id.Id, enemies[Random.Range(0, enemies.Length)].id.Id);
-                    }
-                    else
-                    {
-                        Debug.LogError("There are no enemies in the pool!");
-                    }
-                }
-                else
-                {
-                    Debug.LogError("Wtf? There's no player entity in the pool.");
-                }
-            }
+            GameEntity attackInputEntity = context.CreateEntity();
+            attackInputEntity.isAttackInput = true;
         }
-    }
-
-    private bool IsPlayerReadyToAct()
-    {
-        GameEntity[] entities = readyToActEntities.GetEntities();
-
-        foreach (GameEntity gameEntity in entities)
-        {
-            GameEntity readyToActEntity = context.GetEntityWithId(gameEntity.readyToAct.EntityReadyToActId);
-
-            if (readyToActEntity.isPlayer)
-            {
-                return true;
-            }
-        }
-
-        return false;
     }
 
     public void Cleanup()

@@ -20,5 +20,6 @@ public class ExitBattleSceneSystem : ReactiveSystem<GameEntity>
     protected override void Execute(List<GameEntity> entities)
     {
         UIService.HideWidget(AssetTypes.ReturnButton);
+        UIService.HideWidget(AssetTypes.Atb);
     }
 }

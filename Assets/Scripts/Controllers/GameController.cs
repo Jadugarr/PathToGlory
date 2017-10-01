@@ -1,7 +1,6 @@
 using Entitas;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using Configurations;
 using UnityEngine;
 
@@ -109,6 +108,8 @@ public class GameController : MonoBehaviour
             //Input
             .Add(new InputSystem(context))
             .Add(new ProcessEnemySpawnInputSystem(context))
+            .Add(new ProcessAttackInputSystem(context))
+            .Add(new CleanupAttackInputSystem(context))
             //Enemy
             .Add(new EnemySpawnCooldownSystem(context))
             //Position

@@ -10,32 +10,34 @@ public static class GameComponentsLookup {
 
     public const int AttackCharacter = 0;
     public const int Attack = 1;
-    public const int Battle = 2;
-    public const int BattleImage = 3;
-    public const int ChangeScene = 4;
-    public const int CharacterBattleState = 5;
-    public const int Death = 6;
-    public const int Defense = 7;
-    public const int DisplayUI = 8;
-    public const int Enemy = 9;
-    public const int EnemySpawnCooldown = 10;
-    public const int EnemySpawnInput = 11;
-    public const int GameState = 12;
-    public const int Health = 13;
-    public const int Id = 14;
-    public const int Player = 15;
-    public const int Position = 16;
-    public const int ReadyToAct = 17;
-    public const int SceneChanged = 18;
-    public const int Speed = 19;
-    public const int TimeUntilAction = 20;
-    public const int View = 21;
+    public const int AttackInput = 2;
+    public const int Battle = 3;
+    public const int BattleImage = 4;
+    public const int ChangeScene = 5;
+    public const int CharacterBattleState = 6;
+    public const int Death = 7;
+    public const int Defense = 8;
+    public const int DisplayUI = 9;
+    public const int Enemy = 10;
+    public const int EnemySpawnCooldown = 11;
+    public const int EnemySpawnInput = 12;
+    public const int GameState = 13;
+    public const int Health = 14;
+    public const int Id = 15;
+    public const int Player = 16;
+    public const int Position = 17;
+    public const int ReadyToAct = 18;
+    public const int SceneChanged = 19;
+    public const int Speed = 20;
+    public const int TimeUntilAction = 21;
+    public const int View = 22;
 
-    public const int TotalComponents = 22;
+    public const int TotalComponents = 23;
 
     public static readonly string[] componentNames = {
         "AttackCharacter",
         "Attack",
+        "AttackInput",
         "Battle",
         "BattleImage",
         "ChangeScene",
@@ -61,6 +63,7 @@ public static class GameComponentsLookup {
     public static readonly System.Type[] componentTypes = {
         typeof(AttackCharacterComponent),
         typeof(AttackComponent),
+        typeof(AttackInputComponent),
         typeof(BattleComponent),
         typeof(BattleImageComponent),
         typeof(ChangeSceneComponent),
