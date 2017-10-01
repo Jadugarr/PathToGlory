@@ -2,18 +2,18 @@
 using Entitas;
 using UnityEngine;
 
-public class ReadyToActSystem : ReactiveSystem<GameEntity>
+public class ReadyToChooseActionSystem : ReactiveSystem<GameEntity>
 {
     private GameContext context;
 
-    public ReadyToActSystem(GameContext context) : base(context)
+    public ReadyToChooseActionSystem(GameContext context) : base(context)
     {
         this.context = context;
     }
 
     protected override ICollector<GameEntity> GetTrigger(IContext<GameEntity> context)
     {
-        return context.CreateCollector(GameMatcher.ReadyToAct);
+        return context.CreateCollector(GameMatcher.ReadyToChooseAction);
     }
 
     protected override bool Filter(GameEntity entity)
@@ -25,12 +25,12 @@ public class ReadyToActSystem : ReactiveSystem<GameEntity>
     {
         foreach (GameEntity gameEntity in entities)
         {
-            GameEntity readyToActEntity = context.GetEntityWithId(gameEntity.readyToAct.EntityReadyToActId);
+            GameEntity readyToActEntity = context.GetEntityWithId(gameEntity.readyToChooseAction.EntityReadyToActId);
 
             if (readyToActEntity.isEnemy)
             {
                 Debug.Log("Skipping enemy turn!");
-                readyToActEntity.ReplaceTimeUntilChooseAction(10f, 10f);
+                readyToActEntity.ReplaceTimeUntilAction(10f, 10f);
                 gameEntity.Destroy();
             }
         }

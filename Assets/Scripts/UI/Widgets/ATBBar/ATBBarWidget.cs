@@ -11,6 +11,8 @@ public class ATBBarWidget : AWidget
 
     // Distance between ATB start point and point where characters can choose an action
     private float chooseCommandDistance = 0f;
+    // Distance between chosen action marker and actual execution marker
+    private float executeActionDistance = 0f;
 
     private IGroup<GameEntity> battleEntityGroup;
     private IGroup<GameEntity> timeLeftEntityGroup;
@@ -21,6 +23,7 @@ public class ATBBarWidget : AWidget
     {
         itemPrefab = UIService.GetAsset(AssetTypes.AtbItem);
         chooseCommandDistance = ChooseMarker.transform.localPosition.x - StartMarker.transform.localPosition.x;
+        executeActionDistance = ActMarker.transform.localPosition.x - ChooseMarker.transform.localPosition.x;
     }
 
     public override void Close()
@@ -58,7 +61,7 @@ public class ATBBarWidget : AWidget
         }
 
         battleEntityGroup = props.context.GetGroup(GameMatcher.Battle);
-        timeLeftEntityGroup = props.context.GetGroup(GameMatcher.TimeUntilChooseAction);
+        timeLeftEntityGroup = props.context.GetGroup(GameMatcher.TimeUntilAction);
 
         timeLeftEntityGroup.OnEntityUpdated += OnTimeLeftEntityUpdated;
         battleEntityGroup.OnEntityAdded += OnBattleEntityAdded;
@@ -70,7 +73,7 @@ public class ATBBarWidget : AWidget
         IComponent previousComponent, IComponent newComponent)
     {
         ATBItemWidget linkedItem = GetLinkedItem(entity.id.Id);
-        TimeUntilChooseActionComponent timeComponent = entity.timeUntilChooseAction;
+        TimeUntilActionComponent timeComponent = entity.timeUntilAction;
         float progressPercentage = 1 - (timeComponent.RemainingTime / timeComponent.TotalTime);
         linkedItem.gameObject.transform.localPosition = new Vector3(StartMarker.transform.localPosition.x +
                                                          (chooseCommandDistance * progressPercentage),

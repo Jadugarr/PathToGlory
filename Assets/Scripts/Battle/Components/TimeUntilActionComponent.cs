@@ -1,7 +1,7 @@
 ﻿using Entitas;
 
 [Game]
-public class TimeUntilChooseActionComponent : IComponent
+public class TimeUntilActionComponent : IComponent
 {
     public float RemainingTime;
     public float TotalTime;

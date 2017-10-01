@@ -10,8 +10,8 @@ public class ActTimeSystem : IExecuteSystem
     public ActTimeSystem(GameContext context)
     {
         this.context = context;
-        actEntities = context.GetGroup(GameMatcher.AllOf(GameMatcher.TimeUntilChooseAction, GameMatcher.Battle));
-        readyToActEntites = context.GetGroup(GameMatcher.ReadyToAct);
+        actEntities = context.GetGroup(GameMatcher.AllOf(GameMatcher.TimeUntilAction, GameMatcher.Battle));
+        readyToActEntites = context.GetGroup(GameMatcher.ReadyToChooseAction);
     }
 
     public void Execute()
@@ -22,12 +22,12 @@ public class ActTimeSystem : IExecuteSystem
 
             foreach (GameEntity gameEntity in entities)
             {
-                gameEntity.ReplaceTimeUntilChooseAction(gameEntity.timeUntilChooseAction.RemainingTime - Time.deltaTime * gameEntity.speed.SpeedValue, gameEntity.timeUntilChooseAction.TotalTime);
+                gameEntity.ReplaceTimeUntilAction(gameEntity.timeUntilAction.RemainingTime - Time.deltaTime * gameEntity.speed.SpeedValue, gameEntity.timeUntilAction.TotalTime);
 
-                if (gameEntity.timeUntilChooseAction.RemainingTime <= 0f)
+                if (gameEntity.timeUntilAction.RemainingTime <= 0f)
                 {
                     GameEntity readyToAct = context.CreateEntity();
-                    readyToAct.AddReadyToAct(gameEntity.id.Id);
+                    readyToAct.AddReadyToChooseAction(gameEntity.id.Id);
                 }
             }
         }

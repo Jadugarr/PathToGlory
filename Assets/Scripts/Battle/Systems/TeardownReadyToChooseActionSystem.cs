@@ -1,13 +1,13 @@
 ﻿using System;
 using Entitas;
 
-public class TeardownReadyToActSystem : ITearDownSystem
+public class TeardownReadyToChooseActionSystem : ITearDownSystem
 {
     private IGroup<GameEntity> readyToAct;
 
-    public TeardownReadyToActSystem(GameContext context)
+    public TeardownReadyToChooseActionSystem(GameContext context)
     {
-        readyToAct = context.GetGroup(GameMatcher.ReadyToAct);
+        readyToAct = context.GetGroup(GameMatcher.ReadyToChooseAction);
     }
 
     public void TearDown()

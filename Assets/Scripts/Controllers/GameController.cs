@@ -117,10 +117,10 @@ public class GameController : MonoBehaviour
             .Add(new AttackCharacterSystem(context))
             .Add(new CharacterDeathSystem(context))
             .Add(new ActTimeSystem(context))
-            .Add(new ReadyToActSystem(context))
+            .Add(new ReadyToChooseActionSystem(context))
             .Add(new CleanupAttackCharacterSystem(context))
             .Add(new TeardownCharacterSystem(context))
-            .Add(new TeardownReadyToActSystem(context)));
+            .Add(new TeardownReadyToChooseActionSystem(context)));
     }
 
     private void InitConfigs()
