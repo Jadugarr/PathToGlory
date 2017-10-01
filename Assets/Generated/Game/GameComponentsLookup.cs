@@ -11,30 +11,32 @@ public static class GameComponentsLookup {
     public const int AttackCharacter = 0;
     public const int Attack = 1;
     public const int Battle = 2;
-    public const int ChangeScene = 3;
-    public const int Death = 4;
-    public const int Defense = 5;
-    public const int DisplayUI = 6;
-    public const int Enemy = 7;
-    public const int EnemySpawnCooldown = 8;
-    public const int EnemySpawnInput = 9;
-    public const int GameState = 10;
-    public const int Health = 11;
-    public const int Id = 12;
-    public const int Player = 13;
-    public const int Position = 14;
-    public const int ReadyToAct = 15;
-    public const int SceneChanged = 16;
-    public const int Speed = 17;
-    public const int TimeUntilAction = 18;
-    public const int View = 19;
+    public const int BattleImage = 3;
+    public const int ChangeScene = 4;
+    public const int Death = 5;
+    public const int Defense = 6;
+    public const int DisplayUI = 7;
+    public const int Enemy = 8;
+    public const int EnemySpawnCooldown = 9;
+    public const int EnemySpawnInput = 10;
+    public const int GameState = 11;
+    public const int Health = 12;
+    public const int Id = 13;
+    public const int Player = 14;
+    public const int Position = 15;
+    public const int ReadyToAct = 16;
+    public const int SceneChanged = 17;
+    public const int Speed = 18;
+    public const int TimeUntilChooseAction = 19;
+    public const int View = 20;
 
-    public const int TotalComponents = 20;
+    public const int TotalComponents = 21;
 
     public static readonly string[] componentNames = {
         "AttackCharacter",
         "Attack",
         "Battle",
+        "BattleImage",
         "ChangeScene",
         "Death",
         "Defense",
@@ -50,7 +52,7 @@ public static class GameComponentsLookup {
         "ReadyToAct",
         "SceneChanged",
         "Speed",
-        "TimeUntilAction",
+        "TimeUntilChooseAction",
         "View"
     };
 
@@ -58,6 +60,7 @@ public static class GameComponentsLookup {
         typeof(AttackCharacterComponent),
         typeof(AttackComponent),
         typeof(BattleComponent),
+        typeof(BattleImageComponent),
         typeof(ChangeSceneComponent),
         typeof(DeathComponent),
         typeof(DefenseComponent),
@@ -73,7 +76,7 @@ public static class GameComponentsLookup {
         typeof(ReadyToActComponent),
         typeof(SceneChangedComponent),
         typeof(SpeedComponent),
-        typeof(TimeUntilActionComponent),
+        typeof(TimeUntilChooseActionComponent),
         typeof(ViewComponent)
     };
 }

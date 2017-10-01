@@ -48,7 +48,7 @@ public class AttackCharacterSystem : ReactiveSystem<GameEntity>
                 GameEntity readyToActEntity = context.GetEntityWithId(entity.readyToAct.EntityReadyToActId);
                 if (readyToActEntity == attacker)
                 {
-                    attacker.ReplaceTimeUntilAction(10f, 10f);
+                    attacker.ReplaceTimeUntilChooseAction(10f, 10f);
                     entity.Destroy();
                 }
             }

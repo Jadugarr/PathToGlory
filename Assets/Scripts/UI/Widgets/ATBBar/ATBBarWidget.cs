@@ -58,7 +58,7 @@ public class ATBBarWidget : AWidget
         }
 
         battleEntityGroup = props.context.GetGroup(GameMatcher.Battle);
-        timeLeftEntityGroup = props.context.GetGroup(GameMatcher.TimeUntilAction);
+        timeLeftEntityGroup = props.context.GetGroup(GameMatcher.TimeUntilChooseAction);
 
         timeLeftEntityGroup.OnEntityUpdated += OnTimeLeftEntityUpdated;
         battleEntityGroup.OnEntityAdded += OnBattleEntityAdded;
@@ -70,7 +70,7 @@ public class ATBBarWidget : AWidget
         IComponent previousComponent, IComponent newComponent)
     {
         ATBItemWidget linkedItem = GetLinkedItem(entity.id.Id);
-        TimeUntilActionComponent timeComponent = entity.timeUntilAction;
+        TimeUntilChooseActionComponent timeComponent = entity.timeUntilChooseAction;
         float progressPercentage = 1 - (timeComponent.RemainingTime / timeComponent.TotalTime);
         linkedItem.gameObject.transform.localPosition = new Vector3(StartMarker.transform.localPosition.x +
                                                          (chooseCommandDistance * progressPercentage),
@@ -89,7 +89,17 @@ public class ATBBarWidget : AWidget
 
     private void CreateNewItem(GameEntity gameEntity)
     {
-        ATBItemProperties newProps = new ATBItemProperties(new Sprite(), gameEntity.id.Id);
+        ATBItemProperties newProps;
+
+        if (gameEntity.hasBattleImage)
+        {
+            newProps = new ATBItemProperties(gameEntity.battleImage.BattleImage, gameEntity.id.Id);
+        }
+        else
+        {
+            newProps = new ATBItemProperties(new Sprite(), gameEntity.id.Id);
+        }
+
         ATBItemWidget newItem = GameObject.Instantiate(itemPrefab, gameObject.transform)
             .GetComponent<ATBItemWidget>();
         Vector3 itemPosition = new Vector3(StartMarker.transform.position.x, newItem.gameObject.transform.position.y,
