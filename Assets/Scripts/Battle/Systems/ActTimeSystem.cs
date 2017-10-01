@@ -11,7 +11,7 @@ public class ActTimeSystem : IExecuteSystem
     {
         this.context = context;
         actEntities = context.GetGroup(GameMatcher.AllOf(GameMatcher.TimeUntilAction, GameMatcher.Battle));
-        readyToActEntites = context.GetGroup(GameMatcher.ReadyToChooseAction);
+        readyToActEntites = context.GetGroup(GameMatcher.ReadyToAct);
     }
 
     public void Execute()
@@ -27,7 +27,7 @@ public class ActTimeSystem : IExecuteSystem
                 if (gameEntity.timeUntilAction.RemainingTime <= 0f)
                 {
                     GameEntity readyToAct = context.CreateEntity();
-                    readyToAct.AddReadyToChooseAction(gameEntity.id.Id);
+                    readyToAct.AddReadyToAct(gameEntity.id.Id);
                 }
             }
         }

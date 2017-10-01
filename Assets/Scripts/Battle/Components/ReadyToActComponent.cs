@@ -1,7 +1,7 @@
 ﻿using Entitas;
 
 [Game]
-public class ReadyToChooseActionComponent : IComponent
+public class ReadyToActComponent : IComponent
 {
     public int EntityReadyToActId;
 }

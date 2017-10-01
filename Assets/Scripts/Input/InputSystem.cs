@@ -11,7 +11,7 @@ public class InputSystem : IExecuteSystem, ICleanupSystem
     {
         this.context = context;
         enemySpawnInput = this.context.GetGroup(GameMatcher.EnemySpawnInput);
-        readyToActEntities = this.context.GetGroup(GameMatcher.ReadyToChooseAction);
+        readyToActEntities = this.context.GetGroup(GameMatcher.ReadyToAct);
     }
 
     public void Execute()
@@ -68,7 +68,7 @@ public class InputSystem : IExecuteSystem, ICleanupSystem
 
         foreach (GameEntity gameEntity in entities)
         {
-            GameEntity readyToActEntity = context.GetEntityWithId(gameEntity.readyToChooseAction.EntityReadyToActId);
+            GameEntity readyToActEntity = context.GetEntityWithId(gameEntity.readyToAct.EntityReadyToActId);
 
             if (readyToActEntity.isPlayer)
             {

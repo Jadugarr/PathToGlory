@@ -2,18 +2,18 @@
 using Entitas;
 using UnityEngine;
 
-public class ReadyToChooseActionSystem : ReactiveSystem<GameEntity>
+public class ReadyToActSystem : ReactiveSystem<GameEntity>
 {
     private GameContext context;
 
-    public ReadyToChooseActionSystem(GameContext context) : base(context)
+    public ReadyToActSystem(GameContext context) : base(context)
     {
         this.context = context;
     }
 
     protected override ICollector<GameEntity> GetTrigger(IContext<GameEntity> context)
     {
-        return context.CreateCollector(GameMatcher.ReadyToChooseAction);
+        return context.CreateCollector(GameMatcher.ReadyToAct);
     }
 
     protected override bool Filter(GameEntity entity)
@@ -25,7 +25,7 @@ public class ReadyToChooseActionSystem : ReactiveSystem<GameEntity>
     {
         foreach (GameEntity gameEntity in entities)
         {
-            GameEntity readyToActEntity = context.GetEntityWithId(gameEntity.readyToChooseAction.EntityReadyToActId);
+            GameEntity readyToActEntity = context.GetEntityWithId(gameEntity.readyToAct.EntityReadyToActId);
 
             if (readyToActEntity.isEnemy)
             {

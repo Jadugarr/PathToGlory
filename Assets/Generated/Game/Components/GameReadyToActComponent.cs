@@ -8,25 +8,25 @@
 //------------------------------------------------------------------------------
 public partial class GameEntity {
 
-    public ReadyToChooseActionComponent readyToChooseAction { get { return (ReadyToChooseActionComponent)GetComponent(GameComponentsLookup.ReadyToChooseAction); } }
-    public bool hasReadyToChooseAction { get { return HasComponent(GameComponentsLookup.ReadyToChooseAction); } }
+    public ReadyToActComponent readyToAct { get { return (ReadyToActComponent)GetComponent(GameComponentsLookup.ReadyToAct); } }
+    public bool hasReadyToAct { get { return HasComponent(GameComponentsLookup.ReadyToAct); } }
 
-    public void AddReadyToChooseAction(int newEntityReadyToActId) {
-        var index = GameComponentsLookup.ReadyToChooseAction;
-        var component = CreateComponent<ReadyToChooseActionComponent>(index);
+    public void AddReadyToAct(int newEntityReadyToActId) {
+        var index = GameComponentsLookup.ReadyToAct;
+        var component = CreateComponent<ReadyToActComponent>(index);
         component.EntityReadyToActId = newEntityReadyToActId;
         AddComponent(index, component);
     }
 
-    public void ReplaceReadyToChooseAction(int newEntityReadyToActId) {
-        var index = GameComponentsLookup.ReadyToChooseAction;
-        var component = CreateComponent<ReadyToChooseActionComponent>(index);
+    public void ReplaceReadyToAct(int newEntityReadyToActId) {
+        var index = GameComponentsLookup.ReadyToAct;
+        var component = CreateComponent<ReadyToActComponent>(index);
         component.EntityReadyToActId = newEntityReadyToActId;
         ReplaceComponent(index, component);
     }
 
-    public void RemoveReadyToChooseAction() {
-        RemoveComponent(GameComponentsLookup.ReadyToChooseAction);
+    public void RemoveReadyToAct() {
+        RemoveComponent(GameComponentsLookup.ReadyToAct);
     }
 }
 
@@ -40,17 +40,17 @@ public partial class GameEntity {
 //------------------------------------------------------------------------------
 public sealed partial class GameMatcher {
 
-    static Entitas.IMatcher<GameEntity> _matcherReadyToChooseAction;
+    static Entitas.IMatcher<GameEntity> _matcherReadyToAct;
 
-    public static Entitas.IMatcher<GameEntity> ReadyToChooseAction {
+    public static Entitas.IMatcher<GameEntity> ReadyToAct {
         get {
-            if (_matcherReadyToChooseAction == null) {
-                var matcher = (Entitas.Matcher<GameEntity>)Entitas.Matcher<GameEntity>.AllOf(GameComponentsLookup.ReadyToChooseAction);
+            if (_matcherReadyToAct == null) {
+                var matcher = (Entitas.Matcher<GameEntity>)Entitas.Matcher<GameEntity>.AllOf(GameComponentsLookup.ReadyToAct);
                 matcher.componentNames = GameComponentsLookup.componentNames;
-                _matcherReadyToChooseAction = matcher;
+                _matcherReadyToAct = matcher;
             }
 
-            return _matcherReadyToChooseAction;
+            return _matcherReadyToAct;
         }
     }
 }

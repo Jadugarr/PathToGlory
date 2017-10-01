@@ -25,7 +25,7 @@ public static class GameComponentsLookup {
     public const int Id = 14;
     public const int Player = 15;
     public const int Position = 16;
-    public const int ReadyToChooseAction = 17;
+    public const int ReadyToAct = 17;
     public const int SceneChanged = 18;
     public const int Speed = 19;
     public const int TimeUntilAction = 20;
@@ -51,7 +51,7 @@ public static class GameComponentsLookup {
         "Id",
         "Player",
         "Position",
-        "ReadyToChooseAction",
+        "ReadyToAct",
         "SceneChanged",
         "Speed",
         "TimeUntilAction",
@@ -76,7 +76,7 @@ public static class GameComponentsLookup {
         typeof(IdComponent),
         typeof(PlayerComponent),
         typeof(PositionComponent),
-        typeof(ReadyToChooseActionComponent),
+        typeof(ReadyToActComponent),
         typeof(SceneChangedComponent),
         typeof(SpeedComponent),
         typeof(TimeUntilActionComponent),
