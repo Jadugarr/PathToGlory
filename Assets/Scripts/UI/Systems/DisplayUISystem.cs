@@ -3,11 +3,8 @@ using Entitas;
 
 public class DisplayUISystem : ReactiveSystem<GameEntity>
 {
-    private GameContext gameContext;
-
     public DisplayUISystem(IContext<GameEntity> context) : base(context)
     {
-        gameContext = (GameContext) context;
     }
 
     protected override ICollector<GameEntity> GetTrigger(IContext<GameEntity> context)
