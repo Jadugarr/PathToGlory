@@ -4,4 +4,6 @@
     public const string ReturnButton = "ReturnButton";
     public const string MainMenu = "MainMenu";
     public const string AtbItem = "ATBItem";
+    public const string ActionChooser = "ActionChooser";
+    public const string ActionChooserItem = "ActionChooserItem";
 }

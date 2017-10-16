@@ -33,6 +33,12 @@ public class ReadyToActSystem : ReactiveSystem<GameEntity>
                 readyToActEntity.ReplaceTimeUntilAction(10f, 10f);
                 gameEntity.Destroy();
             }
+            else
+            {
+                GameEntity uiEntity = context.CreateEntity();
+                uiEntity.AddDisplayUI(AssetTypes.ActionChooser,
+                    new ActionChooserProperties(new[] {ActionType.AttackCharacter, ActionType.Defend}, context));
+            }
         }
     }
 }

@@ -11,33 +11,35 @@ public static class GameComponentsLookup {
     public const int AttackCharacter = 0;
     public const int Attack = 1;
     public const int AttackInput = 2;
-    public const int Battle = 3;
-    public const int BattleImage = 4;
-    public const int ChangeScene = 5;
-    public const int CharacterBattleState = 6;
-    public const int Death = 7;
-    public const int Defense = 8;
-    public const int DisplayUI = 9;
-    public const int Enemy = 10;
-    public const int EnemySpawnCooldown = 11;
-    public const int EnemySpawnInput = 12;
-    public const int GameState = 13;
-    public const int Health = 14;
-    public const int Id = 15;
-    public const int Player = 16;
-    public const int Position = 17;
-    public const int ReadyToAct = 18;
-    public const int SceneChanged = 19;
-    public const int Speed = 20;
-    public const int TimeUntilAction = 21;
-    public const int View = 22;
+    public const int BattleAction = 3;
+    public const int Battle = 4;
+    public const int BattleImage = 5;
+    public const int ChangeScene = 6;
+    public const int CharacterBattleState = 7;
+    public const int Death = 8;
+    public const int Defense = 9;
+    public const int DisplayUI = 10;
+    public const int Enemy = 11;
+    public const int EnemySpawnCooldown = 12;
+    public const int EnemySpawnInput = 13;
+    public const int GameState = 14;
+    public const int Health = 15;
+    public const int Id = 16;
+    public const int Player = 17;
+    public const int Position = 18;
+    public const int ReadyToAct = 19;
+    public const int SceneChanged = 20;
+    public const int Speed = 21;
+    public const int TimeUntilAction = 22;
+    public const int View = 23;
 
-    public const int TotalComponents = 23;
+    public const int TotalComponents = 24;
 
     public static readonly string[] componentNames = {
         "AttackCharacter",
         "Attack",
         "AttackInput",
+        "BattleAction",
         "Battle",
         "BattleImage",
         "ChangeScene",
@@ -64,6 +66,7 @@ public static class GameComponentsLookup {
         typeof(AttackCharacterComponent),
         typeof(AttackComponent),
         typeof(AttackInputComponent),
+        typeof(BattleActionComponent),
         typeof(BattleComponent),
         typeof(BattleImageComponent),
         typeof(ChangeSceneComponent),
