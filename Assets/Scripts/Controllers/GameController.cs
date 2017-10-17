@@ -121,7 +121,10 @@ public class GameController : MonoBehaviour
             .Add(new ReadyToActSystem(context))
             .Add(new CleanupAttackCharacterSystem(context))
             .Add(new TeardownCharacterSystem(context))
-            .Add(new TeardownReadyToActSystem(context)));
+            .Add(new TeardownReadyToActSystem(context))
+            //Actions
+            .Add(new ExecuteAttackActionSystem(context))
+            .Add(new CleanupChoseActionSystem(context)));
     }
 
     private void InitConfigs()

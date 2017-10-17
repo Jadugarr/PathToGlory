@@ -17,7 +17,7 @@ public class InputSystem : IExecuteSystem, ICleanupSystem
     public void Execute()
     {
         CheckSpawnInput();
-        CheckAttackInput();
+        //CheckAttackInput();
     }
 
     private void CheckSpawnInput()
@@ -31,16 +31,16 @@ public class InputSystem : IExecuteSystem, ICleanupSystem
         }
     }
 
-    private void CheckAttackInput()
-    {
-        float attackAxis = Input.GetAxis("Attack");
+    //private void CheckAttackInput()
+    //{
+    //    float attackAxis = Input.GetAxis("Attack");
 
-        if (attackAxis > 0)
-        {
-            GameEntity attackInputEntity = context.CreateEntity();
-            attackInputEntity.isAttackInput = true;
-        }
-    }
+    //    if (attackAxis > 0)
+    //    {
+    //        GameEntity attackInputEntity = context.CreateEntity();
+    //        attackInputEntity.isAttackInput = true;
+    //    }
+    //}
 
     public void Cleanup()
     {

@@ -3,8 +3,6 @@ using Entitas;
 
 public class ExecuteChooseActionSystem : ReactiveSystem<GameEntity>
 {
-
-
     public ExecuteChooseActionSystem(IContext<GameEntity> context) : base(context)
     {
     }

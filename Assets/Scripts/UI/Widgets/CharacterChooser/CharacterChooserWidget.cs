@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-public class ActionChooserWidget : AWidget
+public class CharacterChooserWidget : AWidget
 {
     private List<ActionChooserItemWidget> chooseItems = new List<ActionChooserItemWidget>();
     private GameObject chooseItemPrefab;

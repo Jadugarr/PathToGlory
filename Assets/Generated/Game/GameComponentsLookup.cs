@@ -16,24 +16,25 @@ public static class GameComponentsLookup {
     public const int BattleImage = 5;
     public const int ChangeScene = 6;
     public const int CharacterBattleState = 7;
-    public const int Death = 8;
-    public const int Defense = 9;
-    public const int DisplayUI = 10;
-    public const int Enemy = 11;
-    public const int EnemySpawnCooldown = 12;
-    public const int EnemySpawnInput = 13;
-    public const int GameState = 14;
-    public const int Health = 15;
-    public const int Id = 16;
-    public const int Player = 17;
-    public const int Position = 18;
-    public const int ReadyToAct = 19;
-    public const int SceneChanged = 20;
-    public const int Speed = 21;
-    public const int TimeUntilAction = 22;
-    public const int View = 23;
+    public const int ChoseAction = 8;
+    public const int Death = 9;
+    public const int Defense = 10;
+    public const int DisplayUI = 11;
+    public const int Enemy = 12;
+    public const int EnemySpawnCooldown = 13;
+    public const int EnemySpawnInput = 14;
+    public const int GameState = 15;
+    public const int Health = 16;
+    public const int Id = 17;
+    public const int Player = 18;
+    public const int Position = 19;
+    public const int ReadyToAct = 20;
+    public const int SceneChanged = 21;
+    public const int Speed = 22;
+    public const int TimeUntilAction = 23;
+    public const int View = 24;
 
-    public const int TotalComponents = 24;
+    public const int TotalComponents = 25;
 
     public static readonly string[] componentNames = {
         "AttackCharacter",
@@ -44,6 +45,7 @@ public static class GameComponentsLookup {
         "BattleImage",
         "ChangeScene",
         "CharacterBattleState",
+        "ChoseAction",
         "Death",
         "Defense",
         "DisplayUI",
@@ -71,6 +73,7 @@ public static class GameComponentsLookup {
         typeof(BattleImageComponent),
         typeof(ChangeSceneComponent),
         typeof(CharacterBattleStateComponent),
+        typeof(ChoseActionComponent),
         typeof(DeathComponent),
         typeof(DefenseComponent),
         typeof(DisplayUIComponent),
