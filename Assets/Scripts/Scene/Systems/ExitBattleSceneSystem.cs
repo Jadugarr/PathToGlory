@@ -21,5 +21,6 @@ public class ExitBattleSceneSystem : ReactiveSystem<GameEntity>
     {
         UIService.HideWidget(AssetTypes.ReturnButton);
         UIService.HideWidget(AssetTypes.Atb);
+        UIService.HideWidget(AssetTypes.ActionChooser);
     }
 }
