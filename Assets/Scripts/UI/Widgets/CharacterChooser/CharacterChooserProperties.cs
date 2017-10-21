@@ -2,12 +2,14 @@
 
 public class CharacterChooserProperties : IWidgetProperties
 {
-    public ActionType[] ActionTypes;
+    public int ChoosingEntityId;
+    public int[] PossibleEntityIds;
     public GameContext Context;
 
-    public CharacterChooserProperties(ActionType[] actionTypes, GameContext context)
+    public CharacterChooserProperties(int choosingEntityId, int[] possibleEntityIds, GameContext context)
     {
-        ActionTypes = actionTypes;
+        ChoosingEntityId = choosingEntityId;
+        PossibleEntityIds = possibleEntityIds;
         Context = context;
     }
 }

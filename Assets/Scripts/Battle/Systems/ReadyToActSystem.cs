@@ -37,7 +37,8 @@ public class ReadyToActSystem : ReactiveSystem<GameEntity>
             {
                 GameEntity uiEntity = context.CreateEntity();
                 uiEntity.AddDisplayUI(AssetTypes.ActionChooser,
-                    new ActionChooserProperties(new[] {ActionType.AttackCharacter, ActionType.Defend}, context));
+                    new ActionChooserProperties(readyToActEntity.id.Id,
+                        new[] {ActionType.AttackCharacter, ActionType.Defend}, context));
             }
         }
     }

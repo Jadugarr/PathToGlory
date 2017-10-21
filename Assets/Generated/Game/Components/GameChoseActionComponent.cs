@@ -11,16 +11,18 @@ public partial class GameEntity {
     public ChoseActionComponent choseAction { get { return (ChoseActionComponent)GetComponent(GameComponentsLookup.ChoseAction); } }
     public bool hasChoseAction { get { return HasComponent(GameComponentsLookup.ChoseAction); } }
 
-    public void AddChoseAction(ActionType newActionType) {
+    public void AddChoseAction(int newEntityId, ActionType newActionType) {
         var index = GameComponentsLookup.ChoseAction;
         var component = CreateComponent<ChoseActionComponent>(index);
+        component.EntityId = newEntityId;
         component.ActionType = newActionType;
         AddComponent(index, component);
     }
 
-    public void ReplaceChoseAction(ActionType newActionType) {
+    public void ReplaceChoseAction(int newEntityId, ActionType newActionType) {
         var index = GameComponentsLookup.ChoseAction;
         var component = CreateComponent<ChoseActionComponent>(index);
+        component.EntityId = newEntityId;
         component.ActionType = newActionType;
         ReplaceComponent(index, component);
     }

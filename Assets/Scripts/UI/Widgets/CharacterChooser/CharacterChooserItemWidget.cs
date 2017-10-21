@@ -19,7 +19,7 @@ public class CharacterChooserItemWidget : AWidget
 
     public override string GetName()
     {
-        return AssetTypes.ActionChooserItem;
+        return AssetTypes.CharacterChooserItem;
     }
 
     public override UiComponentType GetComponentType()
@@ -29,16 +29,16 @@ public class CharacterChooserItemWidget : AWidget
 
     protected override void OnNewProperties()
     {
-        textField.text = ((ActionChooserItemProperties) properties).ButtonText;
+        textField.text = ((CharacterChooserItemProperties) properties).ButtonText;
     }
 
     private void OnChooseButtonClicked()
     {
-        ActionChooserItemProperties props = (ActionChooserItemProperties) properties;
+        CharacterChooserItemProperties props = (CharacterChooserItemProperties) properties;
 
         if (props.Callback != null)
         {
-            props.Callback(props.ActionType);
+            props.Callback(props.EntityId);
         }
     }
 }

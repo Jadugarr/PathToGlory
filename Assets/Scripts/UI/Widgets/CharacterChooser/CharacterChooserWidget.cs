@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class CharacterChooserWidget : AWidget
 {
-    private List<ActionChooserItemWidget> chooseItems = new List<ActionChooserItemWidget>();
+    private List<CharacterChooserItemWidget> chooseItems = new List<CharacterChooserItemWidget>();
     private GameObject chooseItemPrefab;
 
     public override void Open()
@@ -12,25 +12,25 @@ public class CharacterChooserWidget : AWidget
 
     public override void Close()
     {
-        foreach (ActionChooserItemWidget actionChooserItemWidget in chooseItems)
+        foreach (CharacterChooserItemWidget characterChooserItemWidget in chooseItems)
         {
-            actionChooserItemWidget.Close();
+            characterChooserItemWidget.Close();
         }
     }
 
     protected override void OnShow()
     {
-        foreach (ActionChooserItemWidget actionChooserItemWidget in chooseItems)
+        foreach (CharacterChooserItemWidget characterChooserItemWidget in chooseItems)
         {
-            actionChooserItemWidget.Show();
+            characterChooserItemWidget.Show();
         }
     }
 
     protected override void OnHide()
     {
-        foreach (ActionChooserItemWidget actionChooserItemWidget in chooseItems)
+        foreach (CharacterChooserItemWidget characterChooserItemWidget in chooseItems)
         {
-            actionChooserItemWidget.Hide();
+            characterChooserItemWidget.Hide();
         }
     }
 
@@ -38,27 +38,27 @@ public class CharacterChooserWidget : AWidget
     {
         DestroyItems();
 
-        ActionChooserProperties props = (ActionChooserProperties) properties;
+        CharacterChooserProperties props = (CharacterChooserProperties) properties;
 
         if (chooseItemPrefab == null)
         {
-            chooseItemPrefab = UIService.GetAsset(AssetTypes.ActionChooserItem);
+            chooseItemPrefab = UIService.GetAsset(AssetTypes.CharacterChooserItem);
         }
 
-        foreach (ActionType propsActionType in props.ActionTypes)
+        foreach (int possibleEntityId in props.PossibleEntityIds)
         {
-            ActionChooserItemWidget newItem = Instantiate(chooseItemPrefab, gameObject.transform)
-                .GetComponent<ActionChooserItemWidget>();
+            CharacterChooserItemWidget newItem = Instantiate(chooseItemPrefab, gameObject.transform)
+                .GetComponent<CharacterChooserItemWidget>();
             newItem.Open();
             newItem.ApplyProperties(
-                new ActionChooserItemProperties(propsActionType, propsActionType.ToString(), OnItemClicked));
+                new CharacterChooserItemProperties(possibleEntityId, possibleEntityId.ToString(), OnItemClicked));
             chooseItems.Add(newItem);
         }
     }
 
     public override string GetName()
     {
-        return AssetTypes.ActionChooser;
+        return AssetTypes.CharacterChooser;
     }
 
     public override UiComponentType GetComponentType()
@@ -79,10 +79,11 @@ public class CharacterChooserWidget : AWidget
         }
     }
 
-    private void OnItemClicked(ActionType actionType)
+    private void OnItemClicked(int chosenEntityId)
     {
-        GameEntity actionChosenEntity = ((ActionChooserProperties) properties).Context.CreateEntity();
-        actionChosenEntity.AddChoseAction(actionType);
-        UIService.HideWidget(AssetTypes.ActionChooser);
+        CharacterChooserProperties props = (CharacterChooserProperties) properties;
+        GameEntity characterChosenEntity = props.Context.CreateEntity();
+        characterChosenEntity.AddChoseCharacter(props.ChoosingEntityId, chosenEntityId);
+        UIService.HideWidget(AssetTypes.CharacterChooser);
     }
 }

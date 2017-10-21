@@ -2,13 +2,13 @@
 
 public class CharacterChooserItemProperties : IWidgetProperties
 {
-    public ActionType ActionType;
+    public int EntityId;
     public string ButtonText;
-    public Action<ActionType> Callback;
+    public Action<int> Callback;
 
-    public CharacterChooserItemProperties(ActionType actionType, string buttonText, Action<ActionType> callback)
+    public CharacterChooserItemProperties(int entityId, string buttonText, Action<int> callback)
     {
-        ActionType = actionType;
+        EntityId = entityId;
         ButtonText = buttonText;
         Callback = callback;
     }

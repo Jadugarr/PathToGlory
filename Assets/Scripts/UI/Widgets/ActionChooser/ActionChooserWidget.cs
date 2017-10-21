@@ -81,8 +81,9 @@ public class ActionChooserWidget : AWidget
 
     private void OnItemClicked(ActionType actionType)
     {
-        GameEntity actionChosenEntity = ((ActionChooserProperties) properties).Context.CreateEntity();
-        actionChosenEntity.AddChoseAction(actionType);
+        ActionChooserProperties props = (ActionChooserProperties) properties;
+        GameEntity actionChosenEntity = props.Context.CreateEntity();
+        actionChosenEntity.AddChoseAction(props.EntityId, actionType);
         UIService.HideWidget(AssetTypes.ActionChooser);
     }
 }
