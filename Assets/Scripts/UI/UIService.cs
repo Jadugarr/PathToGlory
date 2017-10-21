@@ -71,16 +71,16 @@ public static class UIService
         }
     }
 
-    public static GameObject GetAsset(string assetName)
+    public static GameObject GetAsset(string assetPath)
     {
-        if (loadedAssets.ContainsKey(assetName))
+        if (loadedAssets.ContainsKey(assetPath))
         {
-            return loadedAssets[assetName];
+            return loadedAssets[assetPath];
         }
         else
         {
-            GameObject newAsset = Resources.Load(assetName) as GameObject;
-            loadedAssets.Add(assetName, newAsset);
+            GameObject newAsset = Resources.Load<GameObject>(assetPath);
+            loadedAssets.Add(assetPath, newAsset);
             return newAsset;
         }
     }
