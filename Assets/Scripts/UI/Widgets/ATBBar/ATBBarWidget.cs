@@ -26,7 +26,7 @@ public class ATBBarWidget : AWidget
         executeActionDistance = ActMarker.transform.localPosition.x - ChooseMarker.transform.localPosition.x;
         
         battleEntityGroup = Contexts.sharedInstance.game.GetGroup(GameMatcher.Battle);
-        timeLeftEntityGroup = Contexts.sharedInstance.game.GetGroup(GameMatcher.TimeUntilAction);
+        //timeLeftEntityGroup = Contexts.sharedInstance.game.GetGroup(GameMatcher.TimeUntilAction);
 
         timeLeftEntityGroup.OnEntityUpdated += OnTimeLeftEntityUpdated;
         battleEntityGroup.OnEntityAdded += OnBattleEntityAdded;
@@ -74,12 +74,12 @@ public class ATBBarWidget : AWidget
     private void OnTimeLeftEntityUpdated(IGroup<GameEntity> @group, GameEntity entity, int index,
         IComponent previousComponent, IComponent newComponent)
     {
-        ATBItemWidget linkedItem = GetLinkedItem(entity.id.Id);
-        TimeUntilActionComponent timeComponent = entity.timeUntilAction;
-        float progressPercentage = 1 - (timeComponent.RemainingTime / timeComponent.TotalTime);
-        linkedItem.gameObject.transform.localPosition = new Vector3(StartMarker.transform.localPosition.x +
-                                                         (chooseCommandDistance * progressPercentage),
-            linkedItem.transform.localPosition.y, linkedItem.transform.localPosition.z);
+        //ATBItemWidget linkedItem = GetLinkedItem(entity.id.Id);
+        //TimeUntilActionComponent timeComponent = entity.timeUntilAction;
+        //float progressPercentage = 1 - (timeComponent.RemainingTime / timeComponent.TotalTime);
+        //linkedItem.gameObject.transform.localPosition = new Vector3(StartMarker.transform.localPosition.x +
+        //                                                 (chooseCommandDistance * progressPercentage),
+        //    linkedItem.transform.localPosition.y, linkedItem.transform.localPosition.z);
     }
 
     private void InitItems()

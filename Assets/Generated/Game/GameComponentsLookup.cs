@@ -24,15 +24,15 @@ public static class GameComponentsLookup {
     public const int Enemy = 13;
     public const int EnemySpawnCooldown = 14;
     public const int EnemySpawnInput = 15;
-    public const int GameState = 16;
-    public const int Health = 17;
-    public const int Id = 18;
-    public const int Player = 19;
-    public const int Position = 20;
-    public const int ReadyToAct = 21;
-    public const int SceneChanged = 22;
-    public const int Speed = 23;
-    public const int TimeUntilAction = 24;
+    public const int ExecuteAction = 16;
+    public const int GameState = 17;
+    public const int Health = 18;
+    public const int Id = 19;
+    public const int Player = 20;
+    public const int Position = 21;
+    public const int ReadyToAct = 22;
+    public const int SceneChanged = 23;
+    public const int Speed = 24;
     public const int View = 25;
 
     public const int TotalComponents = 26;
@@ -54,6 +54,7 @@ public static class GameComponentsLookup {
         "Enemy",
         "EnemySpawnCooldown",
         "EnemySpawnInput",
+        "ExecuteAction",
         "GameState",
         "Health",
         "Id",
@@ -62,7 +63,6 @@ public static class GameComponentsLookup {
         "ReadyToAct",
         "SceneChanged",
         "Speed",
-        "TimeUntilAction",
         "View"
     };
 
@@ -83,6 +83,7 @@ public static class GameComponentsLookup {
         typeof(EnemyComponent),
         typeof(EnemySpawnCooldownComponent),
         typeof(EnemySpawnInputComponent),
+        typeof(ExecuteActionComponent),
         typeof(GameStateComponent),
         typeof(HealthComponent),
         typeof(IdComponent),
@@ -91,7 +92,6 @@ public static class GameComponentsLookup {
         typeof(ReadyToActComponent),
         typeof(SceneChangedComponent),
         typeof(SpeedComponent),
-        typeof(TimeUntilActionComponent),
         typeof(ViewComponent)
     };
 }

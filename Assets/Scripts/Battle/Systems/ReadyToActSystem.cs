@@ -30,7 +30,7 @@ public class ReadyToActSystem : ReactiveSystem<GameEntity>
             if (readyToActEntity.isEnemy)
             {
                 Debug.Log("Skipping enemy turn!");
-                readyToActEntity.ReplaceTimeUntilAction(10f, 10f);
+                //readyToActEntity.ReplaceTimeUntilAction(10f, 10f);
                 gameEntity.Destroy();
             }
             else

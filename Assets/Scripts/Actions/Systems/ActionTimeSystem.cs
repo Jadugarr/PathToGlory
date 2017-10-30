@@ -16,8 +16,20 @@ public class ActionTimeSystem : IExecuteSystem
     {
         foreach (GameEntity gameEntity in actionEntities.GetEntities())
         {
-            // TODO: I can't subtract the time like this, because I need to factor in the character's speed, which will be a dynamic value
-            gameEntity.battleAction.RemainingTimeToExecution -= Time.deltaTime;
+            GameEntity performingCharacter = context.GetEntityWithId(gameEntity.battleAction.EntityId);
+            float newRemainingTime = gameEntity.battleAction.RemainingTimeToExecution -
+                                     Time.deltaTime * SpeedUtils.GetActionTimeStep(
+                                         gameEntity.battleAction.ActionType,
+                                         performingCharacter.speed.SpeedValue);
+            gameEntity.ReplaceBattleAction(gameEntity.battleAction.EntityId, gameEntity.battleAction.ActionType,
+                gameEntity.battleAction.ActionAtbType, gameEntity.battleAction.ActionProperties,
+                gameEntity.battleAction.TotalTimeToExecution, newRemainingTime);
+
+            if (newRemainingTime <= 0)
+            {
+                GameEntity executeActionEntity = context.CreateEntity();
+                executeActionEntity.AddExecuteAction(gameEntity.id.Id);
+            }
         }
     }
 }

@@ -11,21 +11,27 @@ public partial class GameEntity {
     public BattleActionComponent battleAction { get { return (BattleActionComponent)GetComponent(GameComponentsLookup.BattleAction); } }
     public bool hasBattleAction { get { return HasComponent(GameComponentsLookup.BattleAction); } }
 
-    public void AddBattleAction(int newEntityId, ActionType newActionType, IActionProperties newActionProperties) {
+    public void AddBattleAction(int newEntityId, ActionType newActionType, ActionATBType newActionAtbType, IActionProperties newActionProperties, float newTotalTimeToExecution, float newRemainingTimeToExecution) {
         var index = GameComponentsLookup.BattleAction;
         var component = CreateComponent<BattleActionComponent>(index);
         component.EntityId = newEntityId;
         component.ActionType = newActionType;
+        component.ActionAtbType = newActionAtbType;
         component.ActionProperties = newActionProperties;
+        component.TotalTimeToExecution = newTotalTimeToExecution;
+        component.RemainingTimeToExecution = newRemainingTimeToExecution;
         AddComponent(index, component);
     }
 
-    public void ReplaceBattleAction(int newEntityId, ActionType newActionType, IActionProperties newActionProperties) {
+    public void ReplaceBattleAction(int newEntityId, ActionType newActionType, ActionATBType newActionAtbType, IActionProperties newActionProperties, float newTotalTimeToExecution, float newRemainingTimeToExecution) {
         var index = GameComponentsLookup.BattleAction;
         var component = CreateComponent<BattleActionComponent>(index);
         component.EntityId = newEntityId;
         component.ActionType = newActionType;
+        component.ActionAtbType = newActionAtbType;
         component.ActionProperties = newActionProperties;
+        component.TotalTimeToExecution = newTotalTimeToExecution;
+        component.RemainingTimeToExecution = newRemainingTimeToExecution;
         ReplaceComponent(index, component);
     }
 
