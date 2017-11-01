@@ -62,7 +62,7 @@ public static class UIService
 
     public static void HideWidget(string widgetName)
     {
-        if (activeWidgets[widgetName])
+        if (activeWidgets.ContainsKey(widgetName))
         {
             AWidget activeWidget = activeWidgets[widgetName];
             activeWidget.Hide();

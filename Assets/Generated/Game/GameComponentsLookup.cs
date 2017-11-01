@@ -89,7 +89,6 @@ public static class GameComponentsLookup {
         typeof(IdComponent),
         typeof(PlayerComponent),
         typeof(PositionComponent),
-        typeof(ReadyToActComponent),
         typeof(SceneChangedComponent),
         typeof(SpeedComponent),
         typeof(ViewComponent)

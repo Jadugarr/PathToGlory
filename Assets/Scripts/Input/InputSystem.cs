@@ -5,13 +5,11 @@ public class InputSystem : IExecuteSystem, ICleanupSystem
 {
     private GameContext context;
     private IGroup<GameEntity> enemySpawnInput;
-    private IGroup<GameEntity> readyToActEntities;
 
     public InputSystem(GameContext context)
     {
         this.context = context;
         enemySpawnInput = this.context.GetGroup(GameMatcher.EnemySpawnInput);
-        readyToActEntities = this.context.GetGroup(GameMatcher.ReadyToAct);
     }
 
     public void Execute()
@@ -30,17 +28,6 @@ public class InputSystem : IExecuteSystem, ICleanupSystem
                 .isEnemySpawnInput = true;
         }
     }
-
-    //private void CheckAttackInput()
-    //{
-    //    float attackAxis = Input.GetAxis("Attack");
-
-    //    if (attackAxis > 0)
-    //    {
-    //        GameEntity attackInputEntity = context.CreateEntity();
-    //        attackInputEntity.isAttackInput = true;
-    //    }
-    //}
 
     public void Cleanup()
     {

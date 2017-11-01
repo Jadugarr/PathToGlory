@@ -5,14 +5,17 @@ using Entitas;
 public class ExecutePlayerAttackActionSystem : ReactiveSystem<GameEntity>
 {
     private GameContext context;
-    private IGroup<GameEntity> readyToActGroup;
+    private IGroup<GameEntity> readyToExecuteGroup;
     private IGroup<GameEntity> enemyGroup;
     private IGroup<GameEntity> characterChosenGroup;
+
+    private Queue<GameEntity> attackQueue = new Queue<GameEntity>();
+    private bool isExecuting;
 
     public ExecutePlayerAttackActionSystem(IContext<GameEntity> context) : base(context)
     {
         this.context = (GameContext) context;
-        readyToActGroup = context.GetGroup(GameMatcher.ReadyToAct);
+        readyToExecuteGroup = context.GetGroup(GameMatcher.ExecuteAction);
         enemyGroup = context.GetGroup(GameMatcher.Enemy);
         characterChosenGroup = context.GetGroup(GameMatcher.ChoseCharacter);
     }
@@ -24,21 +27,36 @@ public class ExecutePlayerAttackActionSystem : ReactiveSystem<GameEntity>
 
     protected override bool Filter(GameEntity entity)
     {
-        GameEntity entityReadyToAct =
-            context.GetEntityWithId(readyToActGroup.GetSingleEntity().readyToAct.EntityReadyToActId);
-        return entity.choseAction.ActionType == ActionType.AttackCharacter && entityReadyToAct.isPlayer;
+        GameEntity actionEntity =
+            context.GetEntityWithId(readyToExecuteGroup.GetSingleEntity().executeAction.ActionId);
+        GameEntity executionerEntity = context.GetEntityWithId(actionEntity.battleAction.EntityId);
+        return entity.battleAction.ActionType == ActionType.AttackCharacter && executionerEntity.isPlayer;
     }
 
     protected override void Execute(List<GameEntity> entities)
     {
+        foreach (GameEntity gameEntity in entities)
+        {
+            attackQueue.Enqueue(gameEntity);
+        }
+
+        if (isExecuting == false)
+        {
+            isExecuting = true;
+            ProcessQueue();
+        }
+    }
+
+    private void ProcessQueue()
+    {
+        GameEntity choseActionEntity = attackQueue.Dequeue();
         List<int> enemyIds = new List<int>(3);
         foreach (GameEntity gameEntity in enemyGroup.GetEntities())
         {
             enemyIds.Add(gameEntity.id.Id);
         }
-
         CharacterChooserProperties props =
-            new CharacterChooserProperties(readyToActGroup.GetSingleEntity().readyToAct.EntityReadyToActId,
+            new CharacterChooserProperties(choseActionEntity.choseAction.EntityId,
                 enemyIds.ToArray(), context);
         GameEntity displayCharacterChooserEntity = context.CreateEntity();
         displayCharacterChooserEntity.AddDisplayUI(AssetTypes.CharacterChooser, props);
@@ -52,5 +70,14 @@ public class ExecutePlayerAttackActionSystem : ReactiveSystem<GameEntity>
 
         GameEntity attackEntity = context.CreateEntity();
         attackEntity.AddAttackCharacter(entity.choseCharacter.ChoosingEntityId, entity.choseCharacter.ChosenEntityId);
+
+        if (attackQueue.Count > 0)
+        {
+            ProcessQueue();
+        }
+        else
+        {
+            isExecuting = false;
+        }
     }
 }

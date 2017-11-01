@@ -108,8 +108,6 @@ public class GameController : MonoBehaviour
             //Input
             .Add(new InputSystem(context))
             .Add(new ProcessEnemySpawnInputSystem(context))
-            .Add(new ProcessAttackInputSystem(context))
-            .Add(new CleanupAttackInputSystem(context))
             //Enemy
             .Add(new EnemySpawnCooldownSystem(context))
             //Position
@@ -118,11 +116,11 @@ public class GameController : MonoBehaviour
             .Add(new AttackCharacterSystem(context))
             .Add(new CharacterDeathSystem(context))
             .Add(new ActionTimeSystem(context))
-            .Add(new ReadyToActSystem(context))
             .Add(new CleanupAttackCharacterSystem(context))
             .Add(new TeardownCharacterSystem(context))
-            .Add(new TeardownReadyToActSystem(context))
+            .Add(new TeardownBattleSystem(context))
             //Actions
+            .Add(new ExecuteChooseActionSystem(context))
             .Add(new ExecutePlayerAttackActionSystem(context))
             .Add(new CleanupChoseActionSystem(context))
             .Add(new CleanupChoseCharacterSystem(context)));
