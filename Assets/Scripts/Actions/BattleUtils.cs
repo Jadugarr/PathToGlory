@@ -1,4 +1,4 @@
-﻿public static class SpeedUtils
+﻿public static class BattleUtils
 {
     /// <summary>
     /// Returns how much you can deduct from the remaining action time per second
@@ -8,6 +8,6 @@
     public static float GetActionTimeStep(ActionType actionType, float characterSpeed)
     {
         // TODO: Think of a formula that returns reasonable values
-        return 1f;
+        return characterSpeed;
     }
 }
