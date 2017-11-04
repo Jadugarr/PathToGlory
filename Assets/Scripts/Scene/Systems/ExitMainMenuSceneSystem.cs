@@ -3,8 +3,11 @@ using Entitas;
 
 public class ExitMainMenuSceneSystem : ReactiveSystem<GameEntity>
 {
+    private GameContext context;
+
     public ExitMainMenuSceneSystem(GameContext context) : base(context)
     {
+        this.context = context;
     }
 
     protected override ICollector<GameEntity> GetTrigger(IContext<GameEntity> context)
@@ -19,6 +22,7 @@ public class ExitMainMenuSceneSystem : ReactiveSystem<GameEntity>
 
     protected override void Execute(List<GameEntity> entities)
     {
-        UIService.HideWidget(AssetTypes.MainMenu);
+        GameEntity hideUiEntity = context.CreateEntity();
+        hideUiEntity.AddHideUi(new[] {AssetTypes.MainMenu});
     }
 }

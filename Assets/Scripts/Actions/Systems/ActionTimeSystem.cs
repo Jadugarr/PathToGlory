@@ -10,7 +10,7 @@ public class ActionTimeSystem : IExecuteSystem
     public ActionTimeSystem(IContext<GameEntity> context)
     {
         this.context = (GameContext) context;
-        actionEntities = this.context.GetGroup(GameMatcher.BattleAction);
+        actionEntities = this.context.GetGroup(GameMatcher.AllOf(GameMatcher.BattleAction, GameMatcher.ExecutionTime));
         readyEntities = this.context.GetGroup(GameMatcher.ExecuteAction);
     }
 
@@ -18,21 +18,19 @@ public class ActionTimeSystem : IExecuteSystem
     {
         if (readyEntities.count == 0)
         {
-            foreach (GameEntity gameEntity in actionEntities.GetEntities())
+            foreach (GameEntity actionEntity in actionEntities.GetEntities())
             {
-                GameEntity performingCharacter = context.GetEntityWithId(gameEntity.battleAction.EntityId);
-                float newRemainingTime = gameEntity.battleAction.RemainingTimeToExecution -
+                GameEntity performingCharacter = context.GetEntityWithId(actionEntity.battleAction.EntityId);
+                float newRemainingTime = actionEntity.executionTime.RemainingTime -
                                          Time.deltaTime * BattleUtils.GetActionTimeStep(
-                                             gameEntity.battleAction.ActionType,
+                                             actionEntity.battleAction.ActionType,
                                              performingCharacter.speed.SpeedValue);
-                gameEntity.ReplaceBattleAction(gameEntity.battleAction.EntityId, gameEntity.battleAction.ActionType,
-                    gameEntity.battleAction.ActionAtbType, gameEntity.battleAction.ActionProperties,
-                    gameEntity.battleAction.TotalTimeToExecution, newRemainingTime);
+                actionEntity.ReplaceExecutionTime(actionEntity.executionTime.TotalTime,
+                    newRemainingTime);
 
                 if (newRemainingTime <= 0)
                 {
-                    GameEntity executeActionEntity = context.CreateEntity();
-                    executeActionEntity.AddExecuteAction(gameEntity.id.Id);
+                    actionEntity.isExecuteAction = true;
                 }
             }
         }

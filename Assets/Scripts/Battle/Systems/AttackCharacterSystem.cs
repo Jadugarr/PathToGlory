@@ -24,22 +24,6 @@ public class AttackCharacterSystem : ReactiveSystem<GameEntity>
 
     protected override void Execute(List<GameEntity> entities)
     {
-        foreach (GameEntity gameEntity in entities)
-        {
-            GameEntity attacker = context.GetEntityWithId(gameEntity.attackCharacter.AttackerEntityId);
-            GameEntity defender = context.GetEntityWithId(gameEntity.attackCharacter.DefenderEntityId); ;
-            defender.ReplaceHealth(
-                defender.health.Health -
-                Math.Max(0,
-                    attacker.attack.AttackValue -
-                    defender.defense.DefenseValue));
-
-            Debug.Log("Enemy attacked! Remaining health: " + defender.health.Health);
-
-            if (defender.health.Health <= 0)
-            {
-                context.CreateEntity().AddDeath(defender);
-            }
-        }
+        
     }
 }

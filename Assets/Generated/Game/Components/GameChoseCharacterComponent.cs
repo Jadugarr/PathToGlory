@@ -11,18 +11,16 @@ public partial class GameEntity {
     public ChoseCharacterComponent choseCharacter { get { return (ChoseCharacterComponent)GetComponent(GameComponentsLookup.ChoseCharacter); } }
     public bool hasChoseCharacter { get { return HasComponent(GameComponentsLookup.ChoseCharacter); } }
 
-    public void AddChoseCharacter(int newChoosingEntityId, int newChosenEntityId) {
+    public void AddChoseCharacter(int newChosenEntityId) {
         var index = GameComponentsLookup.ChoseCharacter;
         var component = CreateComponent<ChoseCharacterComponent>(index);
-        component.ChoosingEntityId = newChoosingEntityId;
         component.ChosenEntityId = newChosenEntityId;
         AddComponent(index, component);
     }
 
-    public void ReplaceChoseCharacter(int newChoosingEntityId, int newChosenEntityId) {
+    public void ReplaceChoseCharacter(int newChosenEntityId) {
         var index = GameComponentsLookup.ChoseCharacter;
         var component = CreateComponent<ChoseCharacterComponent>(index);
-        component.ChoosingEntityId = newChoosingEntityId;
         component.ChosenEntityId = newChosenEntityId;
         ReplaceComponent(index, component);
     }

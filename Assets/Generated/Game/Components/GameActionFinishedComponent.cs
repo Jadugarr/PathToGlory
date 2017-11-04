@@ -8,16 +8,16 @@
 //------------------------------------------------------------------------------
 public partial class GameEntity {
 
-    static readonly ExecuteActionComponent executeActionComponent = new ExecuteActionComponent();
+    static readonly ActionFinishedComponent actionFinishedComponent = new ActionFinishedComponent();
 
-    public bool isExecuteAction {
-        get { return HasComponent(GameComponentsLookup.ExecuteAction); }
+    public bool isActionFinished {
+        get { return HasComponent(GameComponentsLookup.ActionFinished); }
         set {
-            if (value != isExecuteAction) {
+            if (value != isActionFinished) {
                 if (value) {
-                    AddComponent(GameComponentsLookup.ExecuteAction, executeActionComponent);
+                    AddComponent(GameComponentsLookup.ActionFinished, actionFinishedComponent);
                 } else {
-                    RemoveComponent(GameComponentsLookup.ExecuteAction);
+                    RemoveComponent(GameComponentsLookup.ActionFinished);
                 }
             }
         }
@@ -34,17 +34,17 @@ public partial class GameEntity {
 //------------------------------------------------------------------------------
 public sealed partial class GameMatcher {
 
-    static Entitas.IMatcher<GameEntity> _matcherExecuteAction;
+    static Entitas.IMatcher<GameEntity> _matcherActionFinished;
 
-    public static Entitas.IMatcher<GameEntity> ExecuteAction {
+    public static Entitas.IMatcher<GameEntity> ActionFinished {
         get {
-            if (_matcherExecuteAction == null) {
-                var matcher = (Entitas.Matcher<GameEntity>)Entitas.Matcher<GameEntity>.AllOf(GameComponentsLookup.ExecuteAction);
+            if (_matcherActionFinished == null) {
+                var matcher = (Entitas.Matcher<GameEntity>)Entitas.Matcher<GameEntity>.AllOf(GameComponentsLookup.ActionFinished);
                 matcher.componentNames = GameComponentsLookup.componentNames;
-                _matcherExecuteAction = matcher;
+                _matcherActionFinished = matcher;
             }
 
-            return _matcherExecuteAction;
+            return _matcherActionFinished;
         }
     }
 }

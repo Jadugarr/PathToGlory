@@ -83,7 +83,7 @@ public class CharacterChooserWidget : AWidget
     {
         CharacterChooserProperties props = (CharacterChooserProperties) properties;
         GameEntity characterChosenEntity = props.Context.CreateEntity();
-        characterChosenEntity.AddChoseCharacter(props.ChoosingEntityId, chosenEntityId);
+        characterChosenEntity.AddChoseCharacter(chosenEntityId);
         UIService.HideWidget(AssetTypes.CharacterChooser);
     }
 }

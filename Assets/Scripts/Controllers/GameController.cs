@@ -82,7 +82,9 @@ public class GameController : MonoBehaviour
             .Add(new InitializeGameStateSystem())
             //UI
             .Add(new DisplayUISystem(context))
-            .Add(new CleanupDisplayUISystem(context));
+            .Add(new CleanupDisplayUISystem(context))
+            .Add(new HideUiSystem(context))
+            .Add(new CleanupHideUiSystem(context));
         universalSystems.Initialize();
     }
 
@@ -120,10 +122,12 @@ public class GameController : MonoBehaviour
             .Add(new TeardownCharacterSystem(context))
             .Add(new TeardownBattleSystem(context))
             //Actions
-            .Add(new ExecuteChooseActionSystem(context))
+            .Add(new ExecutePlayerChooseActionSystem(context))
+            .Add(new ExecuteEnemyChooseActionSystem(context))
             .Add(new ExecutePlayerAttackActionSystem(context))
             .Add(new CleanupChoseActionSystem(context))
-            .Add(new CleanupChoseCharacterSystem(context)));
+            .Add(new CleanupChoseCharacterSystem(context))
+            .Add(new ActionFinishedSystem(context)));
     }
 
     private void InitConfigs()

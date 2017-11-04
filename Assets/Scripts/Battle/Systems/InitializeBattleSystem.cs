@@ -48,7 +48,8 @@ public class InitializeBattleSystem : IInitializeSystem
             entity.isBattle = true;
 
             GameEntity actionEntity = context.CreateEntity();
-            actionEntity.AddBattleAction(entity.id.Id, ActionType.ChooseAction, ActionATBType.Waiting, new ChooseActionProperties(), 10f, 10f);
+            actionEntity.AddExecutionTime(10f, 10f);
+            actionEntity.AddBattleAction(entity.id.Id, ActionType.ChooseAction, ActionATBType.Waiting);
         }
     }
 
@@ -76,7 +77,8 @@ public class InitializeBattleSystem : IInitializeSystem
             entity.isBattle = true;
 
             GameEntity actionEntity = context.CreateEntity();
-            actionEntity.AddBattleAction(entity.id.Id, ActionType.ChooseAction, ActionATBType.Waiting, new ChooseActionProperties(), 10f, 10f);
+            actionEntity.AddExecutionTime(10f, 10f);
+            actionEntity.AddBattleAction(entity.id.Id, ActionType.ChooseAction, ActionATBType.Waiting);
         }
     }
 }

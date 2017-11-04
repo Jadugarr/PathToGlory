@@ -11,11 +11,13 @@ public class ATBBarWidget : AWidget
 
     // Distance between ATB start point and point where characters can choose an action
     private float chooseCommandDistance = 0f;
+
     // Distance between chosen action marker and actual execution marker
     private float executeActionDistance = 0f;
 
+    private GameContext context;
     private IGroup<GameEntity> battleEntityGroup;
-    private IGroup<GameEntity> battleActionEntityGroup;
+    private IGroup<GameEntity> executionTimeEntityGroup;
     private List<ATBItemWidget> atbItems = new List<ATBItemWidget>(6);
     private GameObject itemPrefab;
 
@@ -24,24 +26,25 @@ public class ATBBarWidget : AWidget
         itemPrefab = UIService.GetAsset(AssetTypes.AtbItem);
         chooseCommandDistance = ChooseMarker.transform.localPosition.x - StartMarker.transform.localPosition.x;
         executeActionDistance = ActMarker.transform.localPosition.x - ChooseMarker.transform.localPosition.x;
-        
-        battleEntityGroup = Contexts.sharedInstance.game.GetGroup(GameMatcher.Battle);
-        battleActionEntityGroup = Contexts.sharedInstance.game.GetGroup(GameMatcher.BattleAction);
 
-        battleActionEntityGroup.OnEntityUpdated += OnBattleActionEntityUpdated;
+        context = Contexts.sharedInstance.game;
+        battleEntityGroup = context.GetGroup(GameMatcher.Battle);
+        executionTimeEntityGroup = context.GetGroup(GameMatcher.ExecutionTime);
+
         battleEntityGroup.OnEntityAdded += OnBattleEntityAdded;
         battleEntityGroup.OnEntityRemoved += OnBattleEntityRemoved;
+        executionTimeEntityGroup.OnEntityUpdated += OnExecutionTimeUpdated;
     }
 
     public override void Close()
     {
         DestroyItems();
-        battleActionEntityGroup.OnEntityUpdated -= OnBattleActionEntityUpdated;
         battleEntityGroup.OnEntityAdded -= OnBattleEntityAdded;
         battleEntityGroup.OnEntityRemoved -= OnBattleEntityRemoved;
+        executionTimeEntityGroup.OnEntityUpdated -= OnExecutionTimeUpdated;
 
         battleEntityGroup = null;
-        battleActionEntityGroup = null;
+        executionTimeEntityGroup = null;
     }
 
     public override string GetName()
@@ -71,15 +74,35 @@ public class ATBBarWidget : AWidget
         atbItems.Clear();
     }
 
-    private void OnBattleActionEntityUpdated(IGroup<GameEntity> @group, GameEntity entity, int index,
+    private void OnExecutionTimeUpdated(IGroup<GameEntity> @group, GameEntity actionEntity, int index,
         IComponent previousComponent, IComponent newComponent)
     {
-        ATBItemWidget linkedItem = GetLinkedItem(entity.battleAction.EntityId);
-        BattleActionComponent battleActionComponent = entity.battleAction;
-        float progressPercentage = 1 - (battleActionComponent.RemainingTimeToExecution / battleActionComponent.TotalTimeToExecution);
-        linkedItem.gameObject.transform.localPosition = new Vector3(StartMarker.transform.localPosition.x +
-                                                         (chooseCommandDistance * progressPercentage),
-            linkedItem.transform.localPosition.y, linkedItem.transform.localPosition.z);
+        ATBItemWidget linkedItem = GetLinkedItem(actionEntity.battleAction.EntityId);
+
+        if (linkedItem == null)
+        {
+            Debug.LogError("No linked item found for action id: " + actionEntity.battleAction.EntityId);
+        }
+
+        ExecutionTimeComponent executionTimeComponent = actionEntity.executionTime;
+        float progressPercentage = 1 - (executionTimeComponent.RemainingTime / executionTimeComponent.TotalTime);
+
+        if (actionEntity.battleAction.ActionAtbType == ActionATBType.Waiting)
+        {
+            linkedItem.gameObject.transform.localPosition = new Vector3(StartMarker.transform.localPosition.x +
+                                                                        (chooseCommandDistance * progressPercentage),
+                linkedItem.transform.localPosition.y, linkedItem.transform.localPosition.z);
+        }
+        else if (actionEntity.battleAction.ActionAtbType == ActionATBType.Acting)
+        {
+            linkedItem.gameObject.transform.localPosition = new Vector3(ChooseMarker.transform.localPosition.x +
+                                                                        (executeActionDistance * progressPercentage),
+                linkedItem.transform.localPosition.y, linkedItem.transform.localPosition.z);
+        }
+        else
+        {
+            Debug.LogWarning("Not handling atb type: " + actionEntity.battleAction.ActionAtbType);
+        }
     }
 
     private void InitItems()
@@ -142,19 +165,5 @@ public class ATBBarWidget : AWidget
         IComponent component)
     {
         CreateNewItem(entity);
-    }
-
-    protected override void OnShow()
-    {
-        battleActionEntityGroup.OnEntityUpdated += OnBattleActionEntityUpdated;
-        battleEntityGroup.OnEntityAdded += OnBattleEntityAdded;
-        battleEntityGroup.OnEntityRemoved += OnBattleEntityRemoved;
-    }
-
-    protected override void OnHide()
-    {
-        battleActionEntityGroup.OnEntityUpdated -= OnBattleActionEntityUpdated;
-        battleEntityGroup.OnEntityAdded -= OnBattleEntityAdded;
-        battleEntityGroup.OnEntityRemoved -= OnBattleEntityRemoved;
     }
 }

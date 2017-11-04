@@ -8,36 +8,40 @@
 //------------------------------------------------------------------------------
 public static class GameComponentsLookup {
 
-    public const int AttackCharacter = 0;
-    public const int Attack = 1;
-    public const int AttackInput = 2;
-    public const int BattleAction = 3;
-    public const int Battle = 4;
-    public const int BattleImage = 5;
-    public const int ChangeScene = 6;
-    public const int CharacterBattleState = 7;
-    public const int ChoseAction = 8;
-    public const int ChoseCharacter = 9;
-    public const int Death = 10;
-    public const int Defense = 11;
-    public const int DisplayUI = 12;
-    public const int Enemy = 13;
-    public const int EnemySpawnCooldown = 14;
-    public const int EnemySpawnInput = 15;
-    public const int ExecuteAction = 16;
-    public const int GameState = 17;
-    public const int Health = 18;
-    public const int Id = 19;
-    public const int Player = 20;
-    public const int Position = 21;
-    public const int ReadyToAct = 22;
-    public const int SceneChanged = 23;
-    public const int Speed = 24;
-    public const int View = 25;
+    public const int ActionFinished = 0;
+    public const int AttackCharacter = 1;
+    public const int Attack = 2;
+    public const int AttackInput = 3;
+    public const int BattleAction = 4;
+    public const int Battle = 5;
+    public const int BattleImage = 6;
+    public const int ChangeScene = 7;
+    public const int CharacterBattleState = 8;
+    public const int ChoseAction = 9;
+    public const int ChoseCharacter = 10;
+    public const int Death = 11;
+    public const int Defense = 12;
+    public const int DisplayUI = 13;
+    public const int Enemy = 14;
+    public const int EnemySpawnCooldown = 15;
+    public const int EnemySpawnInput = 16;
+    public const int ExecuteAction = 17;
+    public const int ExecutionTime = 18;
+    public const int GameState = 19;
+    public const int Health = 20;
+    public const int HideUi = 21;
+    public const int Id = 22;
+    public const int Player = 23;
+    public const int Position = 24;
+    public const int SceneChanged = 25;
+    public const int Speed = 26;
+    public const int Target = 27;
+    public const int View = 28;
 
-    public const int TotalComponents = 26;
+    public const int TotalComponents = 29;
 
     public static readonly string[] componentNames = {
+        "ActionFinished",
         "AttackCharacter",
         "Attack",
         "AttackInput",
@@ -55,18 +59,21 @@ public static class GameComponentsLookup {
         "EnemySpawnCooldown",
         "EnemySpawnInput",
         "ExecuteAction",
+        "ExecutionTime",
         "GameState",
         "Health",
+        "HideUi",
         "Id",
         "Player",
         "Position",
-        "ReadyToAct",
         "SceneChanged",
         "Speed",
+        "Target",
         "View"
     };
 
     public static readonly System.Type[] componentTypes = {
+        typeof(ActionFinishedComponent),
         typeof(AttackCharacterComponent),
         typeof(AttackComponent),
         typeof(AttackInputComponent),
@@ -84,13 +91,16 @@ public static class GameComponentsLookup {
         typeof(EnemySpawnCooldownComponent),
         typeof(EnemySpawnInputComponent),
         typeof(ExecuteActionComponent),
+        typeof(ExecutionTimeComponent),
         typeof(GameStateComponent),
         typeof(HealthComponent),
+        typeof(HideUiComponent),
         typeof(IdComponent),
         typeof(PlayerComponent),
         typeof(PositionComponent),
         typeof(SceneChangedComponent),
         typeof(SpeedComponent),
+        typeof(TargetComponent),
         typeof(ViewComponent)
     };
 }

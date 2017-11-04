@@ -3,8 +3,11 @@ using Entitas;
 
 public class ExitBattleSceneSystem : ReactiveSystem<GameEntity>
 {
+    private GameContext context;
+
     public ExitBattleSceneSystem(GameContext context) : base(context)
     {
+        this.context = context;
     }
 
     protected override ICollector<GameEntity> GetTrigger(IContext<GameEntity> context)
@@ -19,8 +22,7 @@ public class ExitBattleSceneSystem : ReactiveSystem<GameEntity>
 
     protected override void Execute(List<GameEntity> entities)
     {
-        UIService.HideWidget(AssetTypes.ReturnButton);
-        UIService.HideWidget(AssetTypes.Atb);
-        UIService.HideWidget(AssetTypes.ActionChooser);
+        GameEntity hideUiEntity = context.CreateEntity();
+        hideUiEntity.AddHideUi(new[] {AssetTypes.ReturnButton, AssetTypes.Atb, AssetTypes.ActionChooser});
     }
 }
