@@ -81,7 +81,7 @@ public class ExecutePlayerChooseActionSystem : ReactiveSystem<GameEntity>
         {
             BattleActionComponent currentBattleAction = currentActionEntity.battleAction;
             GameEntity newActionEntity = context.CreateEntity();
-            newActionEntity.AddBattleAction(currentBattleAction.EntityId, ActionType.AttackCharacter,
+            newActionEntity.AddBattleAction(currentBattleAction.EntityId, choseActionEntity.choseAction.ActionType,
                 ActionATBType.Acting);
             ActionBuilder.Instance.ChooseActionSequence(newActionEntity, context, OnSuccess, OnError);
         }
