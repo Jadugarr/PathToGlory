@@ -107,9 +107,7 @@ public class ATBBarWidget : AWidget
 
     private void InitItems()
     {
-        GameEntity[] entities = battleEntityGroup.GetEntities();
-
-        foreach (GameEntity gameEntity in entities)
+        foreach (GameEntity gameEntity in battleEntityGroup)
         {
             CreateNewItem(gameEntity);
         }

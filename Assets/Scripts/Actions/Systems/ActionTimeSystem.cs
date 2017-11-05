@@ -18,7 +18,7 @@ public class ActionTimeSystem : IExecuteSystem
     {
         if (readyEntities.count == 0)
         {
-            foreach (GameEntity actionEntity in actionEntities.GetEntities())
+            foreach (GameEntity actionEntity in actionEntities)
             {
                 GameEntity performingCharacter = context.GetEntityWithId(actionEntity.battleAction.EntityId);
                 float newRemainingTime = actionEntity.executionTime.RemainingTime -

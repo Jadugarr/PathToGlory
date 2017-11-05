@@ -34,7 +34,7 @@ public class ChooseCharacterPropertyAdder : IActionPropertyAdder
     {
         List<int> enemyIds = new List<int>(enemyGroup.count);
 
-        foreach (GameEntity gameEntity in enemyGroup.GetEntities())
+        foreach (GameEntity gameEntity in enemyGroup)
         {
             enemyIds.Add(gameEntity.id.Id);
         }

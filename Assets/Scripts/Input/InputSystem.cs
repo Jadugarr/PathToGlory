@@ -31,11 +31,9 @@ public class InputSystem : IExecuteSystem, ICleanupSystem
 
     public void Cleanup()
     {
-        GameEntity[] entities = enemySpawnInput.GetEntities();
-
-        for (int i = 0; i < entities.Length; i++)
+        foreach (GameEntity gameEntity in enemySpawnInput)
         {
-            entities[i].Destroy();
+            gameEntity.Destroy();
         }
     }
 }
