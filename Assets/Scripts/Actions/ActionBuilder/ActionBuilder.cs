@@ -20,6 +20,10 @@ public class ActionBuilder
             {
                 ActionType.AttackCharacter,
                 new IActionPropertyAdder[] {new ChooseCharacterPropertyAdder(), new AttackCharacterTimePropertyAdder()}
+            },
+            {
+                ActionType.Defend,
+                new[] {new DefenseActionTimePropertyAdder()}
             }
         };
 
@@ -29,14 +33,16 @@ public class ActionBuilder
     private GameEntity actionEntity;
     private Action<GameEntity> successCallback;
     private Action<string> errorCallback;
+    private Action cancelCallback;
 
     public void ChooseActionSequence(GameEntity actionEntity, GameContext context,
-        Action<GameEntity> successCallback, Action<string> errorCallback)
+        Action<GameEntity> successCallback, Action<string> errorCallback, Action cancelCallback)
     {
         this.actionEntity = actionEntity;
         this.context = context;
         this.successCallback = successCallback;
         this.errorCallback = errorCallback;
+        this.cancelCallback = cancelCallback;
 
         if (actionSequenceMap.ContainsKey(actionEntity.battleAction.ActionType))
         {
@@ -81,6 +87,7 @@ public class ActionBuilder
         actionEntity = null;
         successCallback = null;
         errorCallback = null;
+        cancelCallback = null;
     }
 
     private void OnSuccess()
@@ -93,5 +100,23 @@ public class ActionBuilder
     {
         errorCallback(error);
         Reset();
+    }
+
+    public void Cancel()
+    {
+        if (currentSequence != null)
+        {
+            if (currentIndex > 0)
+            {
+                currentSequence[currentIndex].Cancel();
+                currentIndex--;
+                currentSequence[currentIndex].Execute(context, actionEntity, OnSuccess, OnError);
+            }
+            else
+            {
+                cancelCallback();
+                Reset();
+            }
+        }
     }
 }

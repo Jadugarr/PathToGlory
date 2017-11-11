@@ -20,25 +20,26 @@ public static class GameComponentsLookup {
     public const int ChoseAction = 9;
     public const int ChoseCharacter = 10;
     public const int Death = 11;
-    public const int Defense = 12;
-    public const int DisplayUI = 13;
-    public const int Enemy = 14;
-    public const int EnemySpawnCooldown = 15;
-    public const int EnemySpawnInput = 16;
-    public const int ExecuteAction = 17;
-    public const int ExecutionTime = 18;
-    public const int GameState = 19;
-    public const int Health = 20;
-    public const int HideUi = 21;
-    public const int Id = 22;
-    public const int Player = 23;
-    public const int Position = 24;
-    public const int SceneChanged = 25;
-    public const int Speed = 26;
-    public const int Target = 27;
-    public const int View = 28;
+    public const int Defend = 12;
+    public const int DefenseStat = 13;
+    public const int DisplayUI = 14;
+    public const int Enemy = 15;
+    public const int EnemySpawnCooldown = 16;
+    public const int EnemySpawnInput = 17;
+    public const int ExecuteAction = 18;
+    public const int ExecutionTime = 19;
+    public const int GameState = 20;
+    public const int Health = 21;
+    public const int HideUi = 22;
+    public const int Id = 23;
+    public const int Player = 24;
+    public const int Position = 25;
+    public const int SceneChanged = 26;
+    public const int Speed = 27;
+    public const int Target = 28;
+    public const int View = 29;
 
-    public const int TotalComponents = 29;
+    public const int TotalComponents = 30;
 
     public static readonly string[] componentNames = {
         "ActionFinished",
@@ -53,7 +54,8 @@ public static class GameComponentsLookup {
         "ChoseAction",
         "ChoseCharacter",
         "Death",
-        "Defense",
+        "Defend",
+        "DefenseStat",
         "DisplayUI",
         "Enemy",
         "EnemySpawnCooldown",
@@ -85,7 +87,8 @@ public static class GameComponentsLookup {
         typeof(ChoseActionComponent),
         typeof(ChoseCharacterComponent),
         typeof(DeathComponent),
-        typeof(DefenseComponent),
+        typeof(DefendComponent),
+        typeof(DefenseStatComponent),
         typeof(DisplayUIComponent),
         typeof(EnemyComponent),
         typeof(EnemySpawnCooldownComponent),

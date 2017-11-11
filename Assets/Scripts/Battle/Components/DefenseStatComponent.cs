@@ -1,7 +1,7 @@
 ﻿using Entitas;
 
 [Game]
-public class DefenseComponent : IComponent
+public class DefenseStatComponent : IComponent
 {
     public int DefenseValue;
 }

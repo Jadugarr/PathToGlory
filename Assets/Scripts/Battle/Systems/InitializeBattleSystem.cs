@@ -35,7 +35,7 @@ public class InitializeBattleSystem : IInitializeSystem
             entity.AddPosition(playerCharacter.transform.position);
             entity.AddHealth(100);
             entity.AddAttack(10);
-            entity.AddDefense(5);
+            entity.AddDefenseStat(5);
             entity.AddSpeed(10);
             entity.AddCharacterBattleState(CharacterBattleState.WaitingToChoose);
             //entity.AddTimeUntilAction(10f, 10f);
@@ -65,7 +65,7 @@ public class InitializeBattleSystem : IInitializeSystem
             entity.AddPosition(enemyCharacter.transform.position);
             entity.AddHealth(10);
             entity.AddAttack(10);
-            entity.AddDefense(5);
+            entity.AddDefenseStat(5);
             entity.AddSpeed(5);
             entity.AddCharacterBattleState(CharacterBattleState.WaitingToChoose);
             SpriteRenderer spriteRenderer = enemyCharacter.GetComponent<SpriteRenderer>();

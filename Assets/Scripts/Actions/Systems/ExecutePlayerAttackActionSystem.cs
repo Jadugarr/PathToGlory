@@ -33,7 +33,7 @@ public class ExecutePlayerAttackActionSystem : ReactiveSystem<GameEntity>
                 defender.health.Health -
                 Math.Max(0,
                     attacker.attack.AttackValue -
-                    defender.defense.DefenseValue));
+                    defender.defenseStat.DefenseValue));
 
             Debug.Log("Enemy attacked! Remaining health: " + defender.health.Health);
 

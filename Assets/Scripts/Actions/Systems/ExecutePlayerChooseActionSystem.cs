@@ -50,10 +50,15 @@ public class ExecutePlayerChooseActionSystem : ReactiveSystem<GameEntity>
     private void ProcessQueue()
     {
         currentActionEntity = executeActionQueue.Dequeue();
+        DisplayChoices();
+    }
+
+    private void DisplayChoices()
+    {
         GameEntity choosingEntity = context.GetEntityWithId(currentActionEntity.battleAction.EntityId);
         GameEntity displayUi = context.CreateEntity();
         displayUi.AddDisplayUI(AssetTypes.ActionChooser,
-            new ActionChooserProperties(choosingEntity.id.Id, new[] {ActionType.AttackCharacter, ActionType.Defend},
+            new ActionChooserProperties(choosingEntity.id.Id, new[] { ActionType.AttackCharacter, ActionType.Defend },
                 context));
     }
 
@@ -83,7 +88,7 @@ public class ExecutePlayerChooseActionSystem : ReactiveSystem<GameEntity>
             GameEntity newActionEntity = context.CreateEntity();
             newActionEntity.AddBattleAction(currentBattleAction.EntityId, choseActionEntity.choseAction.ActionType,
                 ActionATBType.Acting);
-            ActionBuilder.Instance.ChooseActionSequence(newActionEntity, context, OnSuccess, OnError);
+            ActionBuilder.Instance.ChooseActionSequence(newActionEntity, context, OnSuccess, OnError, OnCancel);
         }
         else
         {
@@ -103,6 +108,11 @@ public class ExecutePlayerChooseActionSystem : ReactiveSystem<GameEntity>
         {
             isExecuting = false;
         }
+    }
+
+    private void OnCancel()
+    {
+        DisplayChoices();
     }
 
     private void OnError(string error)

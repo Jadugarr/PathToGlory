@@ -27,6 +27,11 @@ public class InputSystem : IExecuteSystem, ICleanupSystem
             context.CreateEntity()
                 .isEnemySpawnInput = true;
         }
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            ActionBuilder.Instance.Cancel();
+        }
     }
 
     public void Cleanup()

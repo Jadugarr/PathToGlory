@@ -89,14 +89,18 @@ public class ATBBarWidget : AWidget
 
         if (actionEntity.battleAction.ActionAtbType == ActionATBType.Waiting)
         {
-            linkedItem.gameObject.transform.localPosition = new Vector3(StartMarker.transform.localPosition.x +
-                                                                        (chooseCommandDistance * progressPercentage),
+            linkedItem.gameObject.transform.localPosition = new Vector3(Mathf.Clamp(
+                    StartMarker.transform.localPosition.x +
+                    (chooseCommandDistance * progressPercentage), StartMarker.transform.localPosition.x,
+                    ChooseMarker.transform.localPosition.x),
                 linkedItem.transform.localPosition.y, linkedItem.transform.localPosition.z);
         }
         else if (actionEntity.battleAction.ActionAtbType == ActionATBType.Acting)
         {
-            linkedItem.gameObject.transform.localPosition = new Vector3(ChooseMarker.transform.localPosition.x +
-                                                                        (executeActionDistance * progressPercentage),
+            linkedItem.gameObject.transform.localPosition = new Vector3(
+                Mathf.Clamp(ChooseMarker.transform.localPosition.x +
+                            (executeActionDistance * progressPercentage), ChooseMarker.transform.localPosition.x,
+                    ActMarker.transform.localPosition.x),
                 linkedItem.transform.localPosition.y, linkedItem.transform.localPosition.z);
         }
         else

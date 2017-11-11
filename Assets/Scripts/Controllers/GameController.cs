@@ -125,6 +125,8 @@ public class GameController : MonoBehaviour
             .Add(new ExecutePlayerChooseActionSystem(context))
             .Add(new ExecuteEnemyChooseActionSystem(context))
             .Add(new ExecutePlayerAttackActionSystem(context))
+            .Add(new ExecuteDefenseActionSystem(context))
+            .Add(new ReleaseDefenseActionSystem(context))
             .Add(new CleanupChoseActionSystem(context))
             .Add(new CleanupChoseCharacterSystem(context))
             .Add(new ActionFinishedSystem(context)));
