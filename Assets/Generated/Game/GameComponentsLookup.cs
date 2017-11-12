@@ -32,14 +32,15 @@ public static class GameComponentsLookup {
     public const int Health = 21;
     public const int HideUi = 22;
     public const int Id = 23;
-    public const int Player = 24;
-    public const int Position = 25;
-    public const int SceneChanged = 26;
-    public const int Speed = 27;
-    public const int Target = 28;
-    public const int View = 29;
+    public const int Input = 24;
+    public const int Player = 25;
+    public const int Position = 26;
+    public const int SceneChanged = 27;
+    public const int Speed = 28;
+    public const int Target = 29;
+    public const int View = 30;
 
-    public const int TotalComponents = 30;
+    public const int TotalComponents = 31;
 
     public static readonly string[] componentNames = {
         "ActionFinished",
@@ -66,6 +67,7 @@ public static class GameComponentsLookup {
         "Health",
         "HideUi",
         "Id",
+        "Input",
         "Player",
         "Position",
         "SceneChanged",
@@ -99,6 +101,7 @@ public static class GameComponentsLookup {
         typeof(HealthComponent),
         typeof(HideUiComponent),
         typeof(IdComponent),
+        typeof(InputComponent),
         typeof(PlayerComponent),
         typeof(PositionComponent),
         typeof(SceneChangedComponent),

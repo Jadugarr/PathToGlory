@@ -8,8 +8,8 @@ using UnityEngine;
 public class GameController : MonoBehaviour
 {
     [SerializeField] private SpawnConfiguration spawnConfiguration;
-
     [SerializeField] private CharacterConfiguration characterConfiguration;
+    [SerializeField] private InputConfiguration inputConfiguration;
 
     private static GameController controller;
 
@@ -121,6 +121,7 @@ public class GameController : MonoBehaviour
             .Add(new CleanupAttackCharacterSystem(context))
             .Add(new TeardownCharacterSystem(context))
             .Add(new TeardownBattleSystem(context))
+            .Add(new ProcessBattleCancelInputSystem(context))
             //Actions
             .Add(new ExecutePlayerChooseActionSystem(context))
             .Add(new ExecuteEnemyChooseActionSystem(context))
@@ -136,6 +137,7 @@ public class GameController : MonoBehaviour
     {
         GameConfigurations.SpawnConfiguration = spawnConfiguration;
         GameConfigurations.CharacterConfiguration = characterConfiguration;
+        GameConfigurations.InputConfiguration = inputConfiguration;
     }
 
     // Update is called once per frame

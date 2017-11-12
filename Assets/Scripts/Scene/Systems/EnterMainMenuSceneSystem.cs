@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Configurations;
 using Entitas;
 
 public class EnterMainMenuSceneSystem : ReactiveSystem<GameEntity>
@@ -22,6 +23,7 @@ public class EnterMainMenuSceneSystem : ReactiveSystem<GameEntity>
 
     protected override void Execute(List<GameEntity> entities)
     {
+        GameConfigurations.InputConfiguration.ChangeActiveInputMap(GameState.MainMenu);
         context.ReplaceGameState(GameState.MainMenu);
     }
 }
