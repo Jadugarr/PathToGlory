@@ -23,7 +23,7 @@ public class EnterBattleSceneSystem : ReactiveSystem<GameEntity>
 
     protected override void Execute(List<GameEntity> entities)
     {
-        GameConfigurations.InputConfiguration.ChangeActiveInputMap(GameState.Battle);
+        InputConfiguration.ChangeActiveInputMap(GameState.Battle);
         context.ReplaceGameState(GameState.Battle);
     }
 }

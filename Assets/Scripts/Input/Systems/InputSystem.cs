@@ -29,7 +29,7 @@ public class InputSystem : IExecuteSystem, ICleanupSystem
                 if (axisValue != 0)
                 {
                     InputCommand commandToExecute =
-                        GameConfigurations.InputConfiguration.GetCommandByAxisName(currentAxis);
+                        InputConfiguration.GetCommandByAxisName(currentAxis);
                     if (commandToExecute != InputCommand.Undefined)
                     {
                         GameEntity inputEntity = context.CreateEntity();

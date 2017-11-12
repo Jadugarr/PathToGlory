@@ -1,17 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
-[Serializable]
-[CreateAssetMenu(fileName = "InputConfiguration", menuName = "Configurations/InputConfiguration")]
-public class InputConfiguration : ScriptableObject
+public static class InputConfiguration
 {
     // "string" is the name of the defined axis
-    [SerializeField] public Dictionary<GameState, Dictionary<string, InputCommand>> InputMaps;
+    private static Dictionary<GameState, Dictionary<string, InputCommand>> InputMaps;
 
-    private Dictionary<string, InputCommand> activeInputMap;
+    private static Dictionary<string, InputCommand> activeInputMap;
 
-    public InputConfiguration()
+    static InputConfiguration()
     {
         InputMaps = new Dictionary<GameState, Dictionary<string, InputCommand>>()
         {
@@ -36,7 +33,7 @@ public class InputConfiguration : ScriptableObject
         };
     }
 
-    public InputCommand GetCommandByAxisName(string axisName)
+    public static InputCommand GetCommandByAxisName(string axisName)
     {
         if (activeInputMap.ContainsKey(axisName))
         {
@@ -47,7 +44,7 @@ public class InputConfiguration : ScriptableObject
         return InputCommand.Undefined;
     }
 
-    public void ChangeActiveInputMap(GameState state)
+    public static void ChangeActiveInputMap(GameState state)
     {
         Dictionary<string, InputCommand> newMap;
 

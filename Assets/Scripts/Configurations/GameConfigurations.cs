@@ -4,6 +4,5 @@
     {
         public static SpawnConfiguration SpawnConfiguration;
         public static CharacterConfiguration CharacterConfiguration;
-        public static InputConfiguration InputConfiguration;
     }
 }

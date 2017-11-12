@@ -9,7 +9,6 @@ public class GameController : MonoBehaviour
 {
     [SerializeField] private SpawnConfiguration spawnConfiguration;
     [SerializeField] private CharacterConfiguration characterConfiguration;
-    [SerializeField] private InputConfiguration inputConfiguration;
 
     private static GameController controller;
 
@@ -137,7 +136,6 @@ public class GameController : MonoBehaviour
     {
         GameConfigurations.SpawnConfiguration = spawnConfiguration;
         GameConfigurations.CharacterConfiguration = characterConfiguration;
-        GameConfigurations.InputConfiguration = inputConfiguration;
     }
 
     // Update is called once per frame
