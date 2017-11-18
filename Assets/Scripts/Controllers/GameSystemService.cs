@@ -7,7 +7,9 @@ public static class GameSystemService
     private static List<Systems> activeSystems = new List<Systems>();
     private static List<Systems> systemsToAdd;
     private static List<Systems> systemsToRemove;
-    private static Dictionary<GameState, Systems> systemMap = new Dictionary<GameState, Systems>();
+    private static Dictionary<GameState, Systems> stateSystemMap = new Dictionary<GameState, Systems>();
+    // TODO: Create substate system
+    private static Dictionary<SubState, Systems> subStateSystemMap = new Dictionary<SubState, Systems>();
 
     public static void AddActiveSystems(Systems systems)
     {
@@ -75,9 +77,9 @@ public static class GameSystemService
 
     public static void AddSystemMapping(GameState state, Systems systems)
     {
-        if (!systemMap.ContainsKey(state))
+        if (!stateSystemMap.ContainsKey(state))
         {
-            systemMap.Add(state, systems);
+            stateSystemMap.Add(state, systems);
         }
         else
         {
@@ -89,7 +91,7 @@ public static class GameSystemService
     {
         Systems returnValue;
 
-        if (systemMap.TryGetValue(state, out returnValue))
+        if (stateSystemMap.TryGetValue(state, out returnValue))
         {
             return returnValue;
         }
@@ -101,6 +103,6 @@ public static class GameSystemService
 
     public static bool HasSystemMapping(GameState state)
     {
-        return systemMap.ContainsKey(state);
+        return stateSystemMap.ContainsKey(state);
     }
 }
