@@ -12,10 +12,6 @@ public class GameController : MonoBehaviour
 
     private static GameController controller;
 
-    private Systems currentSystems;
-    private Systems universalSystems;
-    private Dictionary<GameState, Systems> stateSystemMap;
-
     private void Awake()
     {
         if (controller == null)
@@ -41,22 +37,7 @@ public class GameController : MonoBehaviour
         InitConfigs();
         Contexts pools = Contexts.sharedInstance;
 
-        CreateStateSystemMap(pools.game);
         CreateUniversalSystems(pools.game);
-    }
-
-    public void ChangeState(GameState state)
-    {
-        if (currentSystems != null)
-        {
-            currentSystems.ClearReactiveSystems();
-            currentSystems.DeactivateReactiveSystems();
-            currentSystems.TearDown();
-        }
-
-        currentSystems = stateSystemMap[state];
-        currentSystems.Initialize();
-        currentSystems.ActivateReactiveSystems();
     }
 
     // add an id to every entity as it's created
@@ -67,69 +48,22 @@ public class GameController : MonoBehaviour
 
     private void CreateUniversalSystems(GameContext context)
     {
-        universalSystems = new Feature("UniversalSystems")
+        Systems universalSystems = new Feature("UniversalSystems")
             //Scene
-            .Add(new CleanupChangeSceneSystem(context))
-            .Add(new CleanupSceneChangedSystem(context))
+            .Add(new EnterBattleStateSystem(context))
+            .Add(new ExitBattleStateSystem(context))
+            .Add(new EnterMainMenuStateSystem(context))
+            .Add(new ExitMainMenuStateSystem(context))
             .Add(new ChangeSceneSystem(context))
-            .Add(new EnterBattleSceneSystem(context))
-            .Add(new ExitBattleSceneSystem(context))
-            .Add(new EnterMainMenuSceneSystem(context))
-            .Add(new ExitMainMenuSceneSystem(context))
+            .Add(new CleanupSceneChangedSystem(context))
             //Game State
-            .Add(new ChangeGameStateSystem(context, this))
             .Add(new InitializeGameStateSystem())
             //UI
             .Add(new DisplayUISystem(context))
-            .Add(new CleanupDisplayUISystem(context))
-            .Add(new HideUiSystem(context))
-            .Add(new CleanupHideUiSystem(context));
+            .Add(new HideUiSystem(context));
         universalSystems.Initialize();
-    }
 
-    private void CreateStateSystemMap(GameContext context)
-    {
-        stateSystemMap = new Dictionary<GameState, Systems>();
-        CreateMainMenuSystems(context);
-        CreateBattleSystems(context);
-    }
-
-    private void CreateMainMenuSystems(GameContext context)
-    {
-        stateSystemMap.Add(GameState.MainMenu, new Feature("MainMenuSystems")
-            .Add(new InitializeMainMenuSystem()));
-    }
-
-    private void CreateBattleSystems(GameContext context)
-    {
-        stateSystemMap.Add(GameState.Battle, new Feature("BattleSystems")
-            //Initialize
-            .Add(new InitializeBattleSystem(context))
-            .Add(new InitializeATBSystem(context))
-            //Input
-            .Add(new InputSystem(context))
-            .Add(new ProcessEnemySpawnInputSystem(context))
-            //Enemy
-            .Add(new EnemySpawnCooldownSystem(context))
-            //Position
-            .Add(new RenderPositionSystem(context))
-            //Battle
-            .Add(new AttackCharacterSystem(context))
-            .Add(new CharacterDeathSystem(context))
-            .Add(new ActionTimeSystem(context))
-            .Add(new CleanupAttackCharacterSystem(context))
-            .Add(new TeardownCharacterSystem(context))
-            .Add(new TeardownBattleSystem(context))
-            .Add(new ProcessBattleCancelInputSystem(context))
-            //Actions
-            .Add(new ExecutePlayerChooseActionSystem(context))
-            .Add(new ExecuteEnemyChooseActionSystem(context))
-            .Add(new ExecutePlayerAttackActionSystem(context))
-            .Add(new ExecuteDefenseActionSystem(context))
-            .Add(new ReleaseDefenseActionSystem(context))
-            .Add(new CleanupChoseActionSystem(context))
-            .Add(new CleanupChoseCharacterSystem(context))
-            .Add(new ActionFinishedSystem(context)));
+        GameSystemService.AddActiveSystems(universalSystems);
     }
 
     private void InitConfigs()
@@ -141,18 +75,14 @@ public class GameController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (currentSystems != null)
+        List<Systems> activeSystems = GameSystemService.GetActiveSystems();
+
+        foreach (Systems activeSystem in activeSystems)
         {
-            currentSystems.Execute();
+            activeSystem.Execute();
+            activeSystem.Cleanup();
         }
 
-        universalSystems.Execute();
-
-        if (currentSystems != null)
-        {
-            currentSystems.Cleanup();
-        }
-
-        universalSystems.Cleanup();
+        GameSystemService.RefreshActiveSystems();
     }
 }

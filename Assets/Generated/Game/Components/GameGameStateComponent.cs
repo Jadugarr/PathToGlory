@@ -12,22 +12,22 @@ public partial class GameContext {
     public GameStateComponent gameState { get { return gameStateEntity.gameState; } }
     public bool hasGameState { get { return gameStateEntity != null; } }
 
-    public GameEntity SetGameState(GameState newCurrentGameState) {
+    public GameEntity SetGameState(GameState newPreviousGameState, GameState newCurrentGameState) {
         if (hasGameState) {
             throw new Entitas.EntitasException("Could not set GameState!\n" + this + " already has an entity with GameStateComponent!",
                 "You should check if the context already has a gameStateEntity before setting it or use context.ReplaceGameState().");
         }
         var entity = CreateEntity();
-        entity.AddGameState(newCurrentGameState);
+        entity.AddGameState(newPreviousGameState, newCurrentGameState);
         return entity;
     }
 
-    public void ReplaceGameState(GameState newCurrentGameState) {
+    public void ReplaceGameState(GameState newPreviousGameState, GameState newCurrentGameState) {
         var entity = gameStateEntity;
         if (entity == null) {
-            entity = SetGameState(newCurrentGameState);
+            entity = SetGameState(newPreviousGameState, newCurrentGameState);
         } else {
-            entity.ReplaceGameState(newCurrentGameState);
+            entity.ReplaceGameState(newPreviousGameState, newCurrentGameState);
         }
     }
 
@@ -49,16 +49,18 @@ public partial class GameEntity {
     public GameStateComponent gameState { get { return (GameStateComponent)GetComponent(GameComponentsLookup.GameState); } }
     public bool hasGameState { get { return HasComponent(GameComponentsLookup.GameState); } }
 
-    public void AddGameState(GameState newCurrentGameState) {
+    public void AddGameState(GameState newPreviousGameState, GameState newCurrentGameState) {
         var index = GameComponentsLookup.GameState;
         var component = CreateComponent<GameStateComponent>(index);
+        component.PreviousGameState = newPreviousGameState;
         component.CurrentGameState = newCurrentGameState;
         AddComponent(index, component);
     }
 
-    public void ReplaceGameState(GameState newCurrentGameState) {
+    public void ReplaceGameState(GameState newPreviousGameState, GameState newCurrentGameState) {
         var index = GameComponentsLookup.GameState;
         var component = CreateComponent<GameStateComponent>(index);
+        component.PreviousGameState = newPreviousGameState;
         component.CurrentGameState = newCurrentGameState;
         ReplaceComponent(index, component);
     }

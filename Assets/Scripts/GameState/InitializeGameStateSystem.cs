@@ -4,7 +4,6 @@ public class InitializeGameStateSystem : IInitializeSystem
 {
     public void Initialize()
     {
-        Contexts.sharedInstance.game.CreateEntity()
-            .AddGameState(GameState.MainMenu);
+        Contexts.sharedInstance.game.SetGameState(GameState.Undefined, GameState.MainMenu);
     }
 }

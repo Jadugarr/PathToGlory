@@ -32,8 +32,7 @@ public class MainMenuBehaviour : AWidget
 
     private void OnBattleButtonClicked()
     {
-        context.CreateEntity()
-            .AddChangeScene(GameSceneConstants.BattleScene);
+        context.ReplaceGameState(context.gameState.CurrentGameState, GameState.Battle);
     }
 
     private void OnExitGameButtonClicked()

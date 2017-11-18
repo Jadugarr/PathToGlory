@@ -5,5 +5,6 @@ using Entitas.CodeGeneration.Attributes;
 [Unique]
 public class GameStateComponent : IComponent
 {
+    public GameState PreviousGameState;
     public GameState CurrentGameState;
 }

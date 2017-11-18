@@ -3,10 +3,13 @@ using System.Collections.Generic;
 using Entitas;
 using UnityEngine.SceneManagement;
 
-public class ChangeSceneSystem : ReactiveSystem<GameEntity>
+public class ChangeSceneSystem : ReactiveSystem<GameEntity>, ICleanupSystem
 {
+    private IGroup<GameEntity> sceneChangeGroup;
+
     public ChangeSceneSystem(IContext<GameEntity> context) : base(context)
     {
+        sceneChangeGroup = context.GetGroup(GameMatcher.ChangeScene);
     }
 
     protected override ICollector<GameEntity> GetTrigger(IContext<GameEntity> context)
@@ -28,6 +31,14 @@ public class ChangeSceneSystem : ReactiveSystem<GameEntity>
         else
         {
             SceneManager.LoadScene(entities[0].changeScene.SceneName);
+        }
+    }
+
+    public void Cleanup()
+    {
+        foreach (GameEntity gameEntity in sceneChangeGroup.GetEntities())
+        {
+            gameEntity.Destroy();
         }
     }
 }

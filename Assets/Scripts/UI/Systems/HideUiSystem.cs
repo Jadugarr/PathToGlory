@@ -1,10 +1,13 @@
 ﻿using System.Collections.Generic;
 using Entitas;
 
-public class HideUiSystem : ReactiveSystem<GameEntity>
+public class HideUiSystem : ReactiveSystem<GameEntity>, ICleanupSystem
 {
+    private IGroup<GameEntity> entityGroup;
+
     public HideUiSystem(IContext<GameEntity> context) : base(context)
     {
+        entityGroup = context.GetGroup(GameMatcher.HideUi);
     }
 
     protected override ICollector<GameEntity> GetTrigger(IContext<GameEntity> context)
@@ -25,6 +28,14 @@ public class HideUiSystem : ReactiveSystem<GameEntity>
             {
                 UIService.HideWidget(assetName);
             }
+        }
+    }
+
+    public void Cleanup()
+    {
+        foreach (GameEntity gameEntity in entityGroup.GetEntities())
+        {
+            gameEntity.Destroy();
         }
     }
 }

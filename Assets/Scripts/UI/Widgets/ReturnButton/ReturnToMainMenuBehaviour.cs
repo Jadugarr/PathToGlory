@@ -31,8 +31,7 @@ public class ReturnToMainMenuBehaviour : AWidget
 
     private void OnButtonClicked()
     {
-        context.CreateEntity()
-            .AddChangeScene(GameSceneConstants.MainMenuScene);
+        context.ReplaceGameState(context.gameState.CurrentGameState, GameState.MainMenu);
     }
 
     private void AddEventListener()
