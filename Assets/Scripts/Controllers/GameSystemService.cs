@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Entitas;
+using UnityEditor;
 using UnityEngine;
 
 public static class GameSystemService
@@ -7,7 +8,9 @@ public static class GameSystemService
     private static List<Systems> activeSystems = new List<Systems>();
     private static List<Systems> systemsToAdd;
     private static List<Systems> systemsToRemove;
+
     private static Dictionary<GameState, Systems> stateSystemMap = new Dictionary<GameState, Systems>();
+
     // TODO: Create substate system
     private static Dictionary<SubState, Systems> subStateSystemMap = new Dictionary<SubState, Systems>();
 
@@ -87,6 +90,42 @@ public static class GameSystemService
         }
     }
 
+    public static void RemoveSystemMapping(GameState state)
+    {
+        if (stateSystemMap.ContainsKey(state))
+        {
+            stateSystemMap.Remove(state);
+        }
+        else
+        {
+            Debug.LogWarning("System map was never added or has already been removed for GameState: " + state);
+        }
+    }
+
+    public static void AddSubSystemMapping(SubState subState, Systems systems)
+    {
+        if (!subStateSystemMap.ContainsKey(subState))
+        {
+            subStateSystemMap.Add(subState, systems);
+        }
+        else
+        {
+            Debug.LogWarning("Subsystem map already contains system for SubState: " + subState);
+        }
+    }
+
+    public static void RemoveSubSystemMapping(SubState subState)
+    {
+        if (subStateSystemMap.ContainsKey(subState))
+        {
+            subStateSystemMap.Remove(subState);
+        }
+        else
+        {
+            Debug.LogWarning("Subsystem map was never added or has already been removed for SubState: " + subState);
+        }
+    }
+
     public static Systems GetSystemMapping(GameState state)
     {
         Systems returnValue;
@@ -101,8 +140,27 @@ public static class GameSystemService
         }
     }
 
+    public static Systems GetSubSystemMapping(SubState subState)
+    {
+        Systems returnValue;
+
+        if (subStateSystemMap.TryGetValue(subState, out returnValue))
+        {
+            return returnValue;
+        }
+        else
+        {
+            return null;
+        }
+    }
+
     public static bool HasSystemMapping(GameState state)
     {
         return stateSystemMap.ContainsKey(state);
+    }
+
+    public static bool HasSubSystemMapping(SubState state)
+    {
+        return subStateSystemMap.ContainsKey(state);
     }
 }

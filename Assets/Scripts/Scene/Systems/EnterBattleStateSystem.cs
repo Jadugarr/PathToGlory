@@ -27,7 +27,7 @@ public class EnterBattleStateSystem : ReactiveSystem<GameEntity>
     {
         sceneChangedGroup.OnEntityAdded += OnBattleSceneLoaded;
 
-        InputConfiguration.ChangeActiveInputMap(GameState.Battle);
+        InputConfiguration.ChangeActiveGameStateInputMap(GameState.Battle);
         GameEntity changeSceneEntity = context.CreateEntity();
         changeSceneEntity.AddChangeScene(GameSceneConstants.BattleScene);
     }
@@ -45,6 +45,7 @@ public class EnterBattleStateSystem : ReactiveSystem<GameEntity>
         battleSystems.ActivateReactiveSystems();
         battleSystems.Initialize();
         GameSystemService.AddActiveSystems(battleSystems);
+        context.ReplaceSubState(context.subState.CurrentSubState, SubState.Waiting);
     }
 
     private void CreateBattleSystems()
@@ -52,21 +53,14 @@ public class EnterBattleStateSystem : ReactiveSystem<GameEntity>
         Systems battleSystems = new Systems()
             .Add(new InitializeBattleSystem(context))
             .Add(new InitializeATBSystem(context))
-            //Input
-            .Add(new InputSystem(context))
-            .Add(new ProcessEnemySpawnInputSystem(context))
             //Enemy
             .Add(new EnemySpawnCooldownSystem(context))
-            //Position
-            .Add(new RenderPositionSystem(context))
             //Battle
             .Add(new AttackCharacterSystem(context))
             .Add(new CharacterDeathSystem(context))
-            .Add(new ActionTimeSystem(context))
             .Add(new CleanupAttackCharacterSystem(context))
             .Add(new TeardownCharacterSystem(context))
             .Add(new TeardownBattleSystem(context))
-            .Add(new ProcessBattleCancelInputSystem(context))
             //Actions
             .Add(new ExecutePlayerChooseActionSystem(context))
             .Add(new ExecuteEnemyChooseActionSystem(context))
@@ -75,7 +69,10 @@ public class EnterBattleStateSystem : ReactiveSystem<GameEntity>
             .Add(new ReleaseDefenseActionSystem(context))
             .Add(new CleanupChoseActionSystem(context))
             .Add(new CleanupChoseCharacterSystem(context))
-            .Add(new ActionFinishedSystem(context));
+            .Add(new ActionFinishedSystem(context))
+            //Substates
+            .Add(new EnterWaitingSubStateSystem(context))
+            .Add(new ExitWaitingSubStateSystem(context));
 
         GameSystemService.AddSystemMapping(GameState.Battle, battleSystems);
     }

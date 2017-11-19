@@ -2,9 +2,11 @@
 public static class InputAxis
 {
     public static string Cancel = "Cancel";
+    public static string Pause = "Pause";
 
     public static readonly string[] AxisList =
     {
-        Cancel
+        Cancel,
+        Pause
     };
 }

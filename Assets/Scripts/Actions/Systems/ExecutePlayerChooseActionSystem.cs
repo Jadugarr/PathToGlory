@@ -35,6 +35,8 @@ public class ExecutePlayerChooseActionSystem : ReactiveSystem<GameEntity>
 
     protected override void Execute(List<GameEntity> entities)
     {
+        context.ReplaceSubState(context.subState.CurrentSubState, SubState.Choosing);
+
         foreach (GameEntity gameEntity in entities)
         {
             executeActionQueue.Enqueue(gameEntity);
@@ -58,7 +60,7 @@ public class ExecutePlayerChooseActionSystem : ReactiveSystem<GameEntity>
         GameEntity choosingEntity = context.GetEntityWithId(currentActionEntity.battleAction.EntityId);
         GameEntity displayUi = context.CreateEntity();
         displayUi.AddDisplayUI(AssetTypes.ActionChooser,
-            new ActionChooserProperties(choosingEntity.id.Id, new[] { ActionType.AttackCharacter, ActionType.Defend },
+            new ActionChooserProperties(choosingEntity.id.Id, new[] {ActionType.AttackCharacter, ActionType.Defend},
                 context));
     }
 
@@ -74,7 +76,7 @@ public class ExecutePlayerChooseActionSystem : ReactiveSystem<GameEntity>
         IComponent previousComponent, IComponent newComponent)
     {
         if (entity.gameState.CurrentGameState != GameState.Battle &&
-            entity.gameState.CurrentGameState != GameState.Paused)
+            entity.subState.CurrentSubState != SubState.Paused)
         {
             Reset();
         }
@@ -107,6 +109,7 @@ public class ExecutePlayerChooseActionSystem : ReactiveSystem<GameEntity>
         else
         {
             isExecuting = false;
+            context.ReplaceSubState(context.subState.CurrentSubState, SubState.Waiting);
         }
     }
 

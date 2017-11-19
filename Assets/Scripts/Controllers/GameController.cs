@@ -58,9 +58,18 @@ public class GameController : MonoBehaviour
             .Add(new CleanupSceneChangedSystem(context))
             //Game State
             .Add(new InitializeGameStateSystem())
+            //Sub State
+            .Add(new EnterPausedSubStateSystem(context))
             //UI
             .Add(new DisplayUISystem(context))
-            .Add(new HideUiSystem(context));
+            .Add(new HideUiSystem(context))
+            //Position
+            .Add(new RenderPositionSystem(context))
+            //Input
+            .Add(new InputSystem(context))
+            .Add(new ProcessPauseInputSystem(context))
+            .Add(new ProcessUnpauseInputSystem(context))
+            .Add(new ProcessBattleCancelInputSystem(context));
         universalSystems.Initialize();
 
         GameSystemService.AddActiveSystems(universalSystems);

@@ -4,5 +4,6 @@
     Undefined,
     CancelAction,
     ExitMenu,
+    Pause,
     Unpause
 }

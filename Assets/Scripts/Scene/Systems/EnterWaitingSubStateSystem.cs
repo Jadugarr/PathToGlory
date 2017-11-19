@@ -22,6 +22,23 @@ public class EnterWaitingSubStateSystem : ReactiveSystem<GameEntity>
 
     protected override void Execute(List<GameEntity> entities)
     {
+        if (!GameSystemService.HasSubSystemMapping(SubState.Waiting))
+        {
+            CreateWaitingSystems();
+        }
 
+        Systems waitSystems = GameSystemService.GetSubSystemMapping(SubState.Waiting);
+        waitSystems.ActivateReactiveSystems();
+        waitSystems.Initialize();
+        GameSystemService.AddActiveSystems(waitSystems);
+        InputConfiguration.ChangeActiveSubStateInputMap(SubState.Waiting);
+    }
+
+    private void CreateWaitingSystems()
+    {
+        Systems waitStateSystems = new Systems()
+            .Add(new ActionTimeSystem(context));
+
+        GameSystemService.AddSubSystemMapping(SubState.Waiting, waitStateSystems);
     }
 }

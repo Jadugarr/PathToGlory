@@ -4,5 +4,4 @@
     Loading,
     MainMenu,
     Battle,
-    Paused
 }

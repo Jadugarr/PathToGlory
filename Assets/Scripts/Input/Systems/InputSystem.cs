@@ -20,7 +20,7 @@ public class InputSystem : IExecuteSystem, ICleanupSystem
 
     private void CheckInput()
     {
-        if (Input.anyKey)
+        if (Input.anyKeyDown)
         {
             foreach (string currentAxis in InputAxis.AxisList)
             {

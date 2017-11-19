@@ -34,5 +34,6 @@ public class ExitBattleStateSystem : ReactiveSystem<GameEntity>
 
         GameEntity hideUiEntity = context.CreateEntity();
         hideUiEntity.AddHideUi(new[] {AssetTypes.ReturnButton, AssetTypes.Atb, AssetTypes.ActionChooser});
+        context.ReplaceSubState(context.subState.CurrentSubState, SubState.Undefined);
     }
 }

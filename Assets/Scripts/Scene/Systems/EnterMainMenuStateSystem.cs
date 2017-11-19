@@ -25,7 +25,7 @@ public class EnterMainMenuStateSystem : ReactiveSystem<GameEntity>
 
     protected override void Execute(List<GameEntity> entities)
     {
-        InputConfiguration.ChangeActiveInputMap(GameState.MainMenu);
+        InputConfiguration.ChangeActiveGameStateInputMap(GameState.MainMenu);
         GameEntity changeSceneEntity = context.CreateEntity();
         changeSceneEntity.AddChangeScene(GameSceneConstants.MainMenuScene);
         sceneChangedGroup.OnEntityAdded += OnMainMenuSceneLoaded;
