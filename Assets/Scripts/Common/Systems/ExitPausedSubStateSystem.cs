@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
 using Entitas;
 
-public class EnterPausedSubStateSystem : ReactiveSystem<GameEntity>
+public class ExitPausedSubStateSystem : ReactiveSystem<GameEntity>
 {
     private GameContext context;
 
-    public EnterPausedSubStateSystem(IContext<GameEntity> context) : base(context)
+    public ExitPausedSubStateSystem(IContext<GameEntity> context) : base(context)
     {
         this.context = (GameContext) context;
     }
@@ -17,14 +17,12 @@ public class EnterPausedSubStateSystem : ReactiveSystem<GameEntity>
 
     protected override bool Filter(GameEntity entity)
     {
-        return context.subState.CurrentSubState == SubState.Paused;
+        return context.subState.PreviousSubState == SubState.Paused;
     }
 
     protected override void Execute(List<GameEntity> entities)
     {
-        InputConfiguration.ChangeActiveSubStateInputMap(SubState.Paused);
-
-        GameEntity displayPauseOverlayEntity = context.CreateEntity();
-        displayPauseOverlayEntity.AddDisplayUI(AssetTypes.PauseOverlay, null);
+        GameEntity hidePauseOverlayEntity = context.CreateEntity();
+        hidePauseOverlayEntity.AddHideUi(new[] {AssetTypes.PauseOverlay});
     }
 }

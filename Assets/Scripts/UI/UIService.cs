@@ -5,6 +5,7 @@ public static class UIService
 {
     private static GameObject staticUiLayer;
     private static GameObject dynamicUiLayer;
+    private static GameObject overlayUiLayer;
     private static Dictionary<string, GameObject> loadedAssets = new Dictionary<string, GameObject>();
     private static Dictionary<string, AWidget> inactiveWidgetPool = new Dictionary<string, AWidget>();
     private static Dictionary<string, AWidget> activeWidgets = new Dictionary<string, AWidget>();
@@ -22,6 +23,14 @@ public static class UIService
         if (dynamicUiLayer == null)
         {
             dynamicUiLayer = layer;
+        }
+    }
+
+    public static void RegisterOverlayLayer(GameObject layer)
+    {
+        if (overlayUiLayer == null)
+        {
+            overlayUiLayer = layer;
         }
     }
 
@@ -48,9 +57,18 @@ public static class UIService
             {
                 parentLayer = staticUiLayer;
             }
-            else
+            else if (assetWidget.GetComponentType() == UiComponentType.Dynamic)
             {
                 parentLayer = dynamicUiLayer;
+            }
+            else if (assetWidget.GetComponentType() == UiComponentType.Overlay)
+            {
+                parentLayer = overlayUiLayer;
+            }
+            else
+            {
+                Debug.LogError("Layer has not been defined for Widget: " + assetWidget.name);
+                return;
             }
 
             AWidget newWidget = GameObject.Instantiate(asset, parentLayer.transform).GetComponent<AWidget>();

@@ -2,4 +2,5 @@
 {
     Static,
     Dynamic,
+    Overlay,
 }
