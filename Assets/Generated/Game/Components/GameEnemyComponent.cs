@@ -14,10 +14,16 @@ public partial class GameEntity {
         get { return HasComponent(GameComponentsLookup.Enemy); }
         set {
             if (value != isEnemy) {
+                var index = GameComponentsLookup.Enemy;
                 if (value) {
-                    AddComponent(GameComponentsLookup.Enemy, enemyComponent);
+                    var componentPool = GetComponentPool(index);
+                    var component = componentPool.Count > 0
+                            ? componentPool.Pop()
+                            : enemyComponent;
+
+                    AddComponent(index, component);
                 } else {
-                    RemoveComponent(GameComponentsLookup.Enemy);
+                    RemoveComponent(index);
                 }
             }
         }

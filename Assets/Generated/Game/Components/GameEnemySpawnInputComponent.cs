@@ -14,10 +14,16 @@ public partial class GameEntity {
         get { return HasComponent(GameComponentsLookup.EnemySpawnInput); }
         set {
             if (value != isEnemySpawnInput) {
+                var index = GameComponentsLookup.EnemySpawnInput;
                 if (value) {
-                    AddComponent(GameComponentsLookup.EnemySpawnInput, enemySpawnInputComponent);
+                    var componentPool = GetComponentPool(index);
+                    var component = componentPool.Count > 0
+                            ? componentPool.Pop()
+                            : enemySpawnInputComponent;
+
+                    AddComponent(index, component);
                 } else {
-                    RemoveComponent(GameComponentsLookup.EnemySpawnInput);
+                    RemoveComponent(index);
                 }
             }
         }

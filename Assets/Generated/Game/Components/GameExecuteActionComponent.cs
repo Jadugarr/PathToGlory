@@ -14,10 +14,16 @@ public partial class GameEntity {
         get { return HasComponent(GameComponentsLookup.ExecuteAction); }
         set {
             if (value != isExecuteAction) {
+                var index = GameComponentsLookup.ExecuteAction;
                 if (value) {
-                    AddComponent(GameComponentsLookup.ExecuteAction, executeActionComponent);
+                    var componentPool = GetComponentPool(index);
+                    var component = componentPool.Count > 0
+                            ? componentPool.Pop()
+                            : executeActionComponent;
+
+                    AddComponent(index, component);
                 } else {
-                    RemoveComponent(GameComponentsLookup.ExecuteAction);
+                    RemoveComponent(index);
                 }
             }
         }

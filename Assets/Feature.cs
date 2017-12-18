@@ -8,9 +8,9 @@ namespace Entitas {
         }
 
         public Feature() : base(true) {
-            var typeName = Entitas.Utils.TypeSerializationExtension.ToCompilableString(GetType());
-            var shortType = Entitas.Utils.TypeSerializationExtension.ShortTypeName(typeName);
-            initialize(toSpacedCamelCase(shortType));
+            //var typeName = Entitas.Utils.TypeSerializationExtension.ToCompilableString(GetType());
+            //var shortType = Entitas.Utils.TypeSerializationExtension.ShortTypeName(typeName);
+            //initialize(toSpacedCamelCase(shortType));
         }
 
         static string toSpacedCamelCase(string text) {
