@@ -61,6 +61,8 @@ public class GameController : MonoBehaviour
             //Sub State
             .Add(new EnterPausedSubStateSystem(context))
             .Add(new ExitPausedSubStateSystem(context))
+            .Add(new EnterWaitingSubStateSystem(context))
+            .Add(new ExitWaitingSubStateSystem(context))
             //UI
             .Add(new DisplayUISystem(context))
             .Add(new HideUiSystem(context))

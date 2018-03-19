@@ -69,10 +69,7 @@ public class EnterBattleStateSystem : ReactiveSystem<GameEntity>
             .Add(new ReleaseDefenseActionSystem(context))
             .Add(new CleanupChoseActionSystem(context))
             .Add(new CleanupChoseCharacterSystem(context))
-            .Add(new ActionFinishedSystem(context))
-            //Substates
-            .Add(new EnterWaitingSubStateSystem(context))
-            .Add(new ExitWaitingSubStateSystem(context));
+            .Add(new ActionFinishedSystem(context));
 
         GameSystemService.AddSystemMapping(GameState.Battle, battleSystems);
     }

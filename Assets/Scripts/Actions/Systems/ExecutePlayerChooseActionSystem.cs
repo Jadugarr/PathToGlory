@@ -75,8 +75,8 @@ public class ExecutePlayerChooseActionSystem : ReactiveSystem<GameEntity>
     private void OnGameStateUpdated(IGroup<GameEntity> @group, GameEntity entity, int index,
         IComponent previousComponent, IComponent newComponent)
     {
-        if (entity.gameState.CurrentGameState != GameState.Battle &&
-            entity.subState.CurrentSubState != SubState.Paused)
+        if (context.gameState.CurrentGameState != GameState.Battle &&
+            context.subState.CurrentSubState != SubState.Paused)
         {
             Reset();
         }
