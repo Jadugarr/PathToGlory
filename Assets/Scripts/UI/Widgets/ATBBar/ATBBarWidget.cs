@@ -127,7 +127,7 @@ public class ATBBarWidget : AWidget
         }
         else
         {
-            newProps = new ATBItemProperties(new Sprite(), gameEntity.id.Id);
+            newProps = new ATBItemProperties(null, gameEntity.id.Id);
         }
 
         ATBItemWidget newItem = GameObject.Instantiate(itemPrefab, gameObject.transform)

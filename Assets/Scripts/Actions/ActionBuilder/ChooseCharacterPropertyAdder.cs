@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Entitas;
+using Promises;
 
 public class ChooseCharacterPropertyAdder : IActionPropertyAdder
 {
@@ -10,10 +11,13 @@ public class ChooseCharacterPropertyAdder : IActionPropertyAdder
     private IGroup<GameEntity> choseCharacterGroup;
     private Action successCallback;
     private Action<string> errorCallback;
+    private Deferred<GameEntity> chooseCharacterPromise;
 
-    public void Execute(GameContext context, GameEntity actionEntity, Action successCallback,
+    public Deferred<GameEntity> Execute(GameContext context, GameEntity actionEntity, Action successCallback,
         Action<string> errorCallback)
     {
+        chooseCharacterPromise = new Deferred<GameEntity>();
+
         this.actionEntity = actionEntity;
         this.context = context;
         this.successCallback = successCallback;
@@ -23,6 +27,7 @@ public class ChooseCharacterPropertyAdder : IActionPropertyAdder
         choseCharacterGroup = context.GetGroup(GameMatcher.ChoseCharacter);
 
         DisplayCharacterChooser();
+        return chooseCharacterPromise;
     }
 
     public void Cancel()
