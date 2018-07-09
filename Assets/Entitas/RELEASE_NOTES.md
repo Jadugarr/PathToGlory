@@ -1,3 +1,61 @@
+# 1.7.0
+
+As always, the Unity Asset Store version might take a few days to be processed
+and accepted by Unity. Please check for updates in 2 - 4 days here:
+https://www.assetstore.unity3d.com/#!/content/87638
+
+#### Visual Debugging
+⚙️ StringTypeDrawer now uses EditorGUILayout.DelayedTextField
+
+#### Code Generator
+🆕 Added CleanupAttribute
+⚠️ Renamed `UniquePrefixAttribute` to `FlagPrefixAttribute`
+
+#### Asset Store Version
+🆕 Cleanup Data Providers and Code Generators
+
+Instead of manually writing custom systems to remove components or destroy
+entities, you can now use the new `[Cleanup]` attribute to automatically
+generate `<Context>CleanupSystems` for you.
+
+E.g. adding the `[Cleanup]` attribute to a `DestroyedComponent` can replace
+your custom `DestroyEntitySystem`.
+
+```csharp
+[Cleanup(CleanupMode.DestroyEntity)]
+public sealed class DestroyedComponent : IComponent {
+}
+```
+
+There are currently two options:
+- CleanupMode.DestroyEntity
+- CleanupMode.RemoveComponent
+
+`CleanupMode.DestroyEntity` will generate a system that destroys all
+entities which have this component.
+
+`CleanupMode.RemoveComponent` will generate a system that will remove
+this component from all entities which have this component.
+
+
+# 1.6.1
+
+As always, the Unity Asset Store version might take a few days to be processed
+and accepted by Unity. Please check for updates in 2 - 4 days here:
+https://www.assetstore.unity3d.com/#!/content/87638
+
+#### Entitas
+🛠 Fixed context.Reset() which doesn't remove event handlers anymore #725
+🛠 Updated EntitasStats to exclude JobSystem and Feature
+
+#### Jenny
+🛠 Fixed Jenny dropdown UI to not show 'mixed...' anymore
+⚙️ Added Jenny Server toggle to UI
+⚙️ Added dry run option
+⚠️ Removed EnsureStandalonePreProcessor
+🆕 Added WarnIfCompilationErrorsPreProcessor
+
+
 # 1.6.0
 
 As always, the Unity Asset Store version might take a few days to be processed
@@ -380,7 +438,7 @@ As always, the Unity Asset Store version might take a few days to be processed a
 Please check for updates in 2 - 4 days.
 
 #### Code Generation
-- Added `IDoctor` for custom diagnosis and custom symptoms treatment :) Will help improving the 
+- Added `IDoctor` for custom diagnosis and custom symptoms treatment :) Will help improving the
   code generator setup experience that is aimimg for a one-click setup
 - Implemented IDoctor for ComponentDataProvider, EntityIndexDataProvider and DebugLogPostProcessor
 - Removed `isEnabledByDefault`from all plugins
