@@ -1,3 +1,95 @@
+# 1.6.0
+
+As always, the Unity Asset Store version might take a few days to be processed
+and accepted by Unity. Please check for updates in 2 - 4 days here:
+https://www.assetstore.unity3d.com/#!/content/87638
+
+#### General
+⚠️ Changed Entitas Asset Store package structure by separating Desperate Devs dlls into their own folder
+Please run `jenny auto-import -s` or modify `Preferences.properties` to update the paths to the plugins if necessary
+
+
+#### Entitas
+🛠 Added support to remove event listeners within event callback #698
+
+⚠️ Improved Entitas Event API `[Event(bool)]` #717
+Use "find and replace" to update all your EventAttribute usages
+`[Event(true)]` is now `[Event(EventTarget.Self)]`
+`[Event(false)]` is now `[Event(EventTarget.Any)]`
+
+⚙️ Added support for `[DontDrawComponent]` for all components #678
+💄 Updated comments for `group.RemoveAllEventHandlers()` #684
+🛠 Fixed check for updates
+
+
+#### DesperateDevs
+⚙️ Updated `TargetFrameworkProfilePreProcessor` #721
+🛠 Added `str.ToUnixPath()`
+
+
+# 1.5.2
+
+As always, the Unity Asset Store version might take a few days to be processed
+and accepted by Unity. Please check for updates in 2 - 4 days here:
+https://www.assetstore.unity3d.com/#!/content/87638
+
+#### Entitas
+🛠 Fixed EventSystemsGenerator generated EventSystems per context but those systems contained EventSystems from all context
+
+#### DesperateDevs
+🛠 Added TcpMessageParser to reliably receive separate messages from a tcp stream
+
+
+
+# 1.5.1
+
+As always, the Unity Asset Store version might take a few days to be processed
+and accepted by Unity. Please check for updates in 2 - 4 days here:
+https://www.assetstore.unity3d.com/#!/content/87638
+
+#### DesperateDevs
+⚙️ Added better error message to EnsureStandalonePreProcessor
+
+When EnsureStandalonePreProcessor is activated it will prevent you from accidentally generating in Unity.
+To generate in Unity make sure EnsureStandalonePreProcessor is not activated.
+
+
+# 1.5.0
+
+As always, the Unity Asset Store version might take a few days to be processed
+and accepted by Unity. Please check for updates in 2 - 4 days here:
+https://www.assetstore.unity3d.com/#!/content/87638
+
+#### Entitas
+🆕 Added JobSystem for multi threading as a proof of concept.
+
+```csharp
+public sealed class RotateSystem : JobSystem<GameEntity> {
+
+    public RotateSystem(GameContext context, int threads) :
+        base(context.GetGroup(GameMatcher.AllOf(GameMatcher.Rotation, GameMatcher.RotationVector)), threads) {
+    }
+
+    protected override void Execute(GameEntity entity) {
+        entity.rotation.value = entity.rotation.value * Quaternion.Euler(entity.rotationVector.value);
+    }
+}
+```
+
+Limitations:
+- Don't use generated methods like Add() and Replace()
+- Modify component values directly
+See https://github.com/sschmid/Entitas-CSharp/issues/325#issuecomment-373961878
+
+This is not a general purpose solution for all problems. It can be used to solve certain performance intense areas in your game. It can be very useful if there's a very large number of entities that have to be processed, or if the data transformation involves heavy calulations.
+
+⚠️ EventSystemsGenerator generates EventSystems per context now.
+🛠 Removed dependency on Entitas.CodeGeneration.Plugins from Entitas.VisualDebugging.Unity.Editor #312
+
+#### DesperateDevs
+🆕 Added EnsureStandalonePreProcessor to prevent accidentally generating in Unity
+
+
 # 1.4.2
 
 As always, the Unity Asset Store version might take a few days to be processed
