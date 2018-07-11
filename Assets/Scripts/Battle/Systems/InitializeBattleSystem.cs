@@ -1,4 +1,5 @@
-﻿using Entitas;
+﻿using System.Collections.Generic;
+using Entitas;
 using UnityEngine;
 
 public class InitializeBattleSystem : IInitializeSystem
@@ -38,7 +39,19 @@ public class InitializeBattleSystem : IInitializeSystem
             entity.AddDefenseStat(5);
             entity.AddSpeed(10);
             entity.AddCharacterBattleState(CharacterBattleState.WaitingToChoose);
-            //entity.AddTimeUntilAction(10f, 10f);
+            entity.AddBattleActionChoices(new List<BattleActionChoice>
+            {
+                new BattleActionChoice
+                {
+                    ActionType = ActionType.AttackCharacter,
+                    IsAvailable = true
+                },
+                new BattleActionChoice
+                {
+                    ActionType = ActionType.Defend,
+                    IsAvailable = true
+                }
+            });
             SpriteRenderer spriteRenderer = playerCharacter.GetComponent<SpriteRenderer>();
             if (spriteRenderer)
             {
@@ -68,6 +81,19 @@ public class InitializeBattleSystem : IInitializeSystem
             entity.AddDefenseStat(5);
             entity.AddSpeed(5);
             entity.AddCharacterBattleState(CharacterBattleState.WaitingToChoose);
+            entity.AddBattleActionChoices(new List<BattleActionChoice>
+            {
+                new BattleActionChoice
+                {
+                    ActionType = ActionType.AttackCharacter,
+                    IsAvailable = true
+                },
+                new BattleActionChoice
+                {
+                    ActionType = ActionType.Defend,
+                    IsAvailable = true
+                }
+            });
             SpriteRenderer spriteRenderer = enemyCharacter.GetComponent<SpriteRenderer>();
             if (spriteRenderer)
             {

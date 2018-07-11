@@ -3,13 +3,13 @@
 public class ActionChooserProperties : IWidgetProperties
 {
     public int EntityId;
-    public ActionType[] ActionTypes;
+    public BattleActionChoice[] ActionChoices;
     public GameContext Context;
 
-    public ActionChooserProperties(int entityId, ActionType[] actionTypes, GameContext context)
+    public ActionChooserProperties(int entityId, BattleActionChoice[] actionChoices, GameContext context)
     {
         EntityId = entityId;
-        ActionTypes = actionTypes;
+        ActionChoices = actionChoices;
         Context = context;
     }
 }

@@ -44,6 +44,8 @@ public class ActionBuilder
         this.errorCallback = errorCallback;
         this.cancelCallback = cancelCallback;
 
+        DisplayChoices();
+
         if (actionSequenceMap.ContainsKey(actionEntity.battleAction.ActionType))
         {
             currentSequence = actionSequenceMap[actionEntity.battleAction.ActionType];
@@ -81,6 +83,7 @@ public class ActionBuilder
         {
             currentSequence[currentIndex].Cancel();
         }
+
         currentSequence = null;
         currentIndex = 0;
         context = null;
@@ -100,6 +103,16 @@ public class ActionBuilder
     {
         errorCallback(error);
         Reset();
+    }
+
+    private void DisplayChoices()
+    {
+        GameEntity choosingEntity = context.GetEntityWithId(actionEntity.battleAction.EntityId);
+        GameEntity displayUi = context.CreateEntity();
+        displayUi.AddDisplayUI(AssetTypes.ActionChooser,
+            new ActionChooserProperties(choosingEntity.id.Id,
+                actionEntity.battleActionChoices.BattleActionChoices.ToArray(),
+                context));
     }
 
     public void Cancel()

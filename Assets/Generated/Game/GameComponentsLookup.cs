@@ -12,42 +12,44 @@ public static class GameComponentsLookup {
     public const int AttackCharacter = 1;
     public const int Attack = 2;
     public const int AttackInput = 3;
-    public const int BattleAction = 4;
-    public const int Battle = 5;
-    public const int BattleImage = 6;
-    public const int ChangeScene = 7;
-    public const int CharacterBattleState = 8;
-    public const int ChoseAction = 9;
-    public const int ChoseCharacter = 10;
-    public const int Death = 11;
-    public const int Defend = 12;
-    public const int DefenseStat = 13;
-    public const int DisplayUI = 14;
-    public const int Enemy = 15;
-    public const int EnemySpawnCooldown = 16;
-    public const int EnemySpawnInput = 17;
-    public const int ExecuteAction = 18;
-    public const int ExecutionTime = 19;
-    public const int GameState = 20;
-    public const int Health = 21;
-    public const int HideUi = 22;
-    public const int Id = 23;
-    public const int Input = 24;
-    public const int Player = 25;
-    public const int Position = 26;
-    public const int SceneChanged = 27;
-    public const int Speed = 28;
-    public const int SubState = 29;
-    public const int Target = 30;
-    public const int View = 31;
+    public const int BattleActionChoices = 4;
+    public const int BattleAction = 5;
+    public const int Battle = 6;
+    public const int BattleImage = 7;
+    public const int ChangeScene = 8;
+    public const int CharacterBattleState = 9;
+    public const int ChoseAction = 10;
+    public const int ChoseCharacter = 11;
+    public const int Death = 12;
+    public const int Defend = 13;
+    public const int DefenseStat = 14;
+    public const int DisplayUI = 15;
+    public const int Enemy = 16;
+    public const int EnemySpawnCooldown = 17;
+    public const int EnemySpawnInput = 18;
+    public const int ExecuteAction = 19;
+    public const int ExecutionTime = 20;
+    public const int GameState = 21;
+    public const int Health = 22;
+    public const int HideUi = 23;
+    public const int Id = 24;
+    public const int Input = 25;
+    public const int Player = 26;
+    public const int Position = 27;
+    public const int SceneChanged = 28;
+    public const int Speed = 29;
+    public const int SubState = 30;
+    public const int Target = 31;
+    public const int View = 32;
 
-    public const int TotalComponents = 32;
+    public const int TotalComponents = 33;
 
     public static readonly string[] componentNames = {
         "ActionFinished",
         "AttackCharacter",
         "Attack",
         "AttackInput",
+        "BattleActionChoices",
         "BattleAction",
         "Battle",
         "BattleImage",
@@ -83,6 +85,7 @@ public static class GameComponentsLookup {
         typeof(AttackCharacterComponent),
         typeof(AttackComponent),
         typeof(AttackInputComponent),
+        typeof(BattleActionChoicesComponent),
         typeof(BattleActionComponent),
         typeof(BattleComponent),
         typeof(BattleImageComponent),

@@ -45,13 +45,13 @@ public class ActionChooserWidget : AWidget
             chooseItemPrefab = UIService.GetAsset(AssetTypes.ActionChooserItem);
         }
 
-        foreach (ActionType propsActionType in props.ActionTypes)
+        foreach (BattleActionChoice propsActionType in props.ActionChoices)
         {
             ActionChooserItemWidget newItem = Instantiate(chooseItemPrefab, gameObject.transform)
                 .GetComponent<ActionChooserItemWidget>();
             newItem.Open();
             newItem.ApplyProperties(
-                new ActionChooserItemProperties(propsActionType, propsActionType.ToString(), OnItemClicked));
+                new ActionChooserItemProperties(propsActionType.ActionType, propsActionType.ActionType.ToString(), OnItemClicked));
             chooseItems.Add(newItem);
         }
     }
