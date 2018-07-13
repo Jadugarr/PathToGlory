@@ -2,6 +2,7 @@ using Entitas;
 using System;
 using System.Collections.Generic;
 using Configurations;
+using Entitas.Scripts.Common.Systems;
 using UnityEngine;
 
 [Serializable]
@@ -49,6 +50,8 @@ public class GameController : MonoBehaviour
     private void CreateUniversalSystems(GameContext context)
     {
         Systems universalSystems = new Feature("UniversalSystems")
+            //Promises
+            .Add(new InitPromisesSystem())
             //Scene
             .Add(new EnterBattleStateSystem(context))
             .Add(new ExitBattleStateSystem(context))

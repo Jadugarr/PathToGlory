@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using Promises;
 using UnityEngine;
 
@@ -9,24 +10,53 @@ namespace Entitas._tests
         private Deferred<int> promise;
         private Deferred<int> thenPromise;
 
+        private int controlValue = 0;
+
+        void Start()
+        {
+            MainThreadDispatcher.Init();
+        }
+
         void Update()
         {
             if (Input.GetKeyDown(KeyCode.Alpha1))
             {
-                var testPromise = StartPromise().Then(NextPromise());
+                var testPromise = Promise.WithCoroutine<int>(Coroutine);
                 testPromise.OnFulfilled += OnFulfilled;
                 testPromise.OnFailed += OnFailed;
             }
 
             if (Input.GetKeyDown(KeyCode.Alpha2))
             {
-                FulfillPromise();
+                IncreaseValue();
+                //FulfillPromise();
             }
 
             if (Input.GetKeyDown(KeyCode.Alpha3))
             {
                 FailPromise();
             }
+
+            if (Input.GetKeyDown(KeyCode.Alpha4))
+            {
+                FailPromise();
+            }
+        }
+
+        private void IncreaseValue()
+        {
+            controlValue++;
+            Debug.Log("Current value: " + controlValue);
+        }
+
+        private IEnumerator Coroutine()
+        {
+            while (controlValue < 5)
+            {
+                yield return 0;
+            }
+
+            yield return 10;
         }
 
         private void OnFailed(Exception error)
@@ -34,23 +64,38 @@ namespace Entitas._tests
             Debug.Log(error.Message);
         }
 
-        private Deferred<int> StartPromise()
+        private Deferred<int> StartPromiseSetup()
         {
             promise = new Deferred<int>();
-            Debug.Log("Start promise");
+            promise.action = () =>
+            {
+                Debug.Log("Start promise logic gets executed now!");
+                return 0;
+            };
+            Debug.Log("Start promise setup complete");
             return promise;
         }
 
-        private Deferred<int> NextPromise()
+        private Deferred<int> NextPromiseSetup()
         {
             thenPromise = new Deferred<int>();
-            Debug.Log("Next promise");
+            thenPromise.action = () =>
+            {
+                Debug.Log("Next promise logic gets executed now!");
+                return 0;
+            };
+            Debug.Log("Next promise setup complete");
             return thenPromise;
         }
 
         private void FulfillPromise()
         {
             promise.Fulfill(5);
+        }
+
+        private void FulfillThenPromise()
+        {
+            thenPromise.Fulfill(5);
         }
 
         private void FailPromise()
@@ -60,7 +105,7 @@ namespace Entitas._tests
 
         private void OnFulfilled(int result)
         {
-            Debug.Log("Start Fulfilled: " + result);
+            Debug.Log("Everything Fulfilled: " + result);
         }
     }
 }
