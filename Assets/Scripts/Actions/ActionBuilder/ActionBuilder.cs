@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Entitas;
 
 public class ActionBuilder
 {
@@ -27,42 +28,50 @@ public class ActionBuilder
             }
         };
 
+    private Systems actionBuilderSystems;
     private IActionPropertyAdder[] currentSequence;
-    private int currentIndex;
+    private IGroup<GameEntity> choseActionGroup;
+    private int currentSequenceStep;
     private GameContext context;
     private GameEntity actionEntity;
+    private GameEntity choosingEntity;
     private Action<GameEntity> successCallback;
     private Action<string> errorCallback;
-    private Action cancelCallback;
 
     public void ChooseActionSequence(GameEntity actionEntity, GameContext context,
-        Action<GameEntity> successCallback, Action<string> errorCallback, Action cancelCallback)
+        Action<GameEntity> successCallback, Action<string> errorCallback)
     {
         this.actionEntity = actionEntity;
         this.context = context;
         this.successCallback = successCallback;
         this.errorCallback = errorCallback;
-        this.cancelCallback = cancelCallback;
 
+        if (actionBuilderSystems == null)
+        {
+            actionBuilderSystems = new Systems()
+            .Add(new ProcessBattleCancelInputSystem(context));
+        }
+
+        choseActionGroup = context.GetGroup(GameMatcher.ChoseAction);
         DisplayChoices();
 
-        if (actionSequenceMap.ContainsKey(actionEntity.battleAction.ActionType))
-        {
-            currentSequence = actionSequenceMap[actionEntity.battleAction.ActionType];
-            currentIndex = 0;
-            ExecuteNextStep();
-        }
-        else
-        {
-            errorCallback("Sequence map didn't contain action type: " + actionEntity.battleAction.ActionType);
-        }
+        //if (actionSequenceMap.ContainsKey(actionEntity.battleAction.ActionType))
+        //{
+        //    currentSequence = actionSequenceMap[actionEntity.battleAction.ActionType];
+        //    currentSequenceStep = 0;
+        //    ExecuteNextStep();
+        //}
+        //else
+        //{
+        //    errorCallback("Sequence map didn't contain action type: " + actionEntity.battleAction.ActionType);
+        //}
     }
 
     private void ExecuteNextStep()
     {
-        if (currentIndex < currentSequence.Length)
+        if (currentSequenceStep < currentSequence.Length)
         {
-            currentSequence[currentIndex].Execute(context, actionEntity, OnSuccess, OnError);
+            currentSequence[currentSequenceStep].Execute(context, actionEntity, OnSuccess, OnError);
         }
         else
         {
@@ -79,23 +88,28 @@ public class ActionBuilder
 
     public void Reset()
     {
-        if (currentSequence != null && currentIndex < currentSequence.Length)
+        if (currentSequence != null && currentSequenceStep < currentSequence.Length)
         {
-            currentSequence[currentIndex].Cancel();
+            currentSequence[currentSequenceStep].Cancel();
         }
 
         currentSequence = null;
-        currentIndex = 0;
+        currentSequenceStep = 0;
         context = null;
         actionEntity = null;
+        choosingEntity = null;
         successCallback = null;
         errorCallback = null;
-        cancelCallback = null;
+        choseActionGroup.OnEntityAdded -= OnChoseAction;
+        choseActionGroup = null;
+
+        actionBuilderSystems.DeactivateReactiveSystems();
+        GameSystemService.RemoveActiveSystems(actionBuilderSystems);
     }
 
     private void OnSuccess()
     {
-        currentIndex++;
+        currentSequenceStep++;
         ExecuteNextStep();
     }
 
@@ -107,28 +121,57 @@ public class ActionBuilder
 
     private void DisplayChoices()
     {
-        GameEntity choosingEntity = context.GetEntityWithId(actionEntity.battleAction.EntityId);
+        choosingEntity = context.GetEntityWithId(actionEntity.battleAction.EntityId);
         GameEntity displayUi = context.CreateEntity();
         displayUi.AddDisplayUI(AssetTypes.ActionChooser,
             new ActionChooserProperties(choosingEntity.id.Id,
-                actionEntity.battleActionChoices.BattleActionChoices.ToArray(),
+                choosingEntity.battleActionChoices.BattleActionChoices.ToArray(),
                 context));
+
+        choseActionGroup.OnEntityAdded += OnChoseAction;
+        actionBuilderSystems.DeactivateReactiveSystems();
+        GameSystemService.RemoveActiveSystems(actionBuilderSystems);
+    }
+
+    private void OnChoseAction(IGroup<GameEntity> @group, GameEntity entity, int index, IComponent component)
+    {
+        if (entity.choseAction.EntityId == choosingEntity.id.Id)
+        {
+            actionEntity.battleAction.ActionType = entity.choseAction.ActionType;
+            if (actionSequenceMap.TryGetValue(actionEntity.battleAction.ActionType, out currentSequence))
+            {
+                actionBuilderSystems.ActivateReactiveSystems();
+                GameSystemService.AddActiveSystems(actionBuilderSystems);
+                choseActionGroup.OnEntityAdded -= OnChoseAction;
+                currentSequenceStep = 0;
+                ExecuteNextStep();
+            }
+            else
+            {
+                errorCallback("Sequence map didn't contain action type: " + actionEntity.battleAction.ActionType);
+            }
+        }
     }
 
     public void Cancel()
     {
         if (currentSequence != null)
         {
-            if (currentIndex > 0)
+            if (currentSequenceStep < currentSequence.Length)
             {
-                currentSequence[currentIndex].Cancel();
-                currentIndex--;
-                currentSequence[currentIndex].Execute(context, actionEntity, OnSuccess, OnError);
+                currentSequence[currentSequenceStep].Cancel();
+            }
+
+            if (currentSequenceStep > 0)
+            {
+                currentSequenceStep--;
+                currentSequence[currentSequenceStep].Execute(context, actionEntity, OnSuccess, OnError);
             }
             else
             {
-                cancelCallback();
-                Reset();
+                DisplayChoices();
+                //cancelCallback();
+                //Reset();
             }
         }
     }

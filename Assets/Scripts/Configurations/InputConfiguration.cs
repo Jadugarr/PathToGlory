@@ -20,7 +20,6 @@ public static class InputConfiguration
             {
                 GameState.Battle, new Dictionary<string, InputCommand>()
                 {
-                    {InputAxis.Cancel, InputCommand.CancelAction},
                     {InputAxis.Pause, InputCommand.Pause}
                 }
             },
@@ -39,24 +38,43 @@ public static class InputConfiguration
                 {
                     {InputAxis.Pause, InputCommand.Unpause}
                 }
+            },
+            {
+                SubState.Choosing, new Dictionary<string, InputCommand>()
+                {
+                    {InputAxis.Cancel, InputCommand.CancelAction},
+                    {InputAxis.Pause, InputCommand.Pause}
+                }
             }
         };
     }
 
     public static InputCommand GetCommandByAxisName(string axisName)
     {
-        if (activeSubStateInputMap != null && activeSubStateInputMap.ContainsKey(axisName))
+        var returnValue = InputCommand.Undefined;
+
+        if (activeSubStateInputMap != null)
         {
-            return activeSubStateInputMap[axisName];
+            if (activeSubStateInputMap.TryGetValue(axisName, out returnValue))
+            {
+                return returnValue;
+            }
+
+            return InputCommand.Undefined;
         }
 
-        if (activeGameStateInputMap != null && activeGameStateInputMap.ContainsKey(axisName))
+        if (activeGameStateInputMap != null)
         {
-            return activeGameStateInputMap[axisName];
+            if (activeGameStateInputMap.TryGetValue(axisName, out returnValue))
+            {
+                return returnValue;
+            }
+
+            return InputCommand.Undefined;
         }
 
         Debug.LogWarning("No active input found for axis: " + axisName);
-        return InputCommand.Undefined;
+        return returnValue;
     }
 
     public static void ChangeActiveGameStateInputMap(GameState state)

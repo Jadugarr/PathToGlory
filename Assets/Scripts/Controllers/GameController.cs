@@ -66,6 +66,7 @@ public class GameController : MonoBehaviour
             .Add(new ExitPausedSubStateSystem(context))
             .Add(new EnterWaitingSubStateSystem(context))
             .Add(new ExitWaitingSubStateSystem(context))
+            .Add(new EnterChoosingSubStateSystem(context))
             //UI
             .Add(new DisplayUISystem(context))
             .Add(new HideUiSystem(context))
@@ -74,8 +75,7 @@ public class GameController : MonoBehaviour
             //Input
             .Add(new InputSystem(context))
             .Add(new ProcessPauseInputSystem(context))
-            .Add(new ProcessUnpauseInputSystem(context))
-            .Add(new ProcessBattleCancelInputSystem(context));
+            .Add(new ProcessUnpauseInputSystem(context));
         universalSystems.Initialize();
 
         GameSystemService.AddActiveSystems(universalSystems);
@@ -95,6 +95,10 @@ public class GameController : MonoBehaviour
         foreach (Systems activeSystem in activeSystems)
         {
             activeSystem.Execute();
+        }
+
+        foreach (Systems activeSystem in activeSystems)
+        {
             activeSystem.Cleanup();
         }
 
