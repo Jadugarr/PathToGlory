@@ -22,7 +22,7 @@ public class EnterPausedSubStateSystem : ReactiveSystem<GameEntity>
 
     protected override void Execute(List<GameEntity> entities)
     {
-        InputConfiguration.ChangeActiveSubStateInputMap(SubState.Paused);
+        //InputConfiguration.ChangeActiveSubStateInputMap(SubState.Paused);
 
         GameEntity displayPauseOverlayEntity = context.CreateEntity();
         displayPauseOverlayEntity.AddDisplayUI(AssetTypes.PauseOverlay, null);

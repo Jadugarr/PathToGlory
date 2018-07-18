@@ -11,17 +11,17 @@ public partial class GameEntity {
     public DeathComponent death { get { return (DeathComponent)GetComponent(GameComponentsLookup.Death); } }
     public bool hasDeath { get { return HasComponent(GameComponentsLookup.Death); } }
 
-    public void AddDeath(GameEntity newDeadCharacter) {
+    public void AddDeath(int newDeadCharacterId) {
         var index = GameComponentsLookup.Death;
         var component = CreateComponent<DeathComponent>(index);
-        component.DeadCharacter = newDeadCharacter;
+        component.DeadCharacterId = newDeadCharacterId;
         AddComponent(index, component);
     }
 
-    public void ReplaceDeath(GameEntity newDeadCharacter) {
+    public void ReplaceDeath(int newDeadCharacterId) {
         var index = GameComponentsLookup.Death;
         var component = CreateComponent<DeathComponent>(index);
-        component.DeadCharacter = newDeadCharacter;
+        component.DeadCharacterId = newDeadCharacterId;
         ReplaceComponent(index, component);
     }
 

@@ -4,5 +4,6 @@
     Waiting,
     Paused,
     Choosing,
-    Acting
+    Acting,
+    BattleEnd
 }

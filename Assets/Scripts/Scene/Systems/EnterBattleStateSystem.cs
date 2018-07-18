@@ -27,7 +27,7 @@ public class EnterBattleStateSystem : ReactiveSystem<GameEntity>
     {
         sceneChangedGroup.OnEntityAdded += OnBattleSceneLoaded;
 
-        InputConfiguration.ChangeActiveGameStateInputMap(GameState.Battle);
+        //InputConfiguration.ChangeActiveGameStateInputMap(GameState.Battle);
         GameEntity changeSceneEntity = context.CreateEntity();
         changeSceneEntity.AddChangeScene(GameSceneConstants.BattleScene);
     }
@@ -61,6 +61,7 @@ public class EnterBattleStateSystem : ReactiveSystem<GameEntity>
             .Add(new CleanupAttackCharacterSystem(context))
             .Add(new TeardownCharacterSystem(context))
             .Add(new TeardownBattleSystem(context))
+            .Add(new CleanupDeadCharacterSystem(context))
             //Actions
             .Add(new ExecutePlayerChooseActionSystem(context))
             .Add(new ExecuteEnemyChooseActionSystem(context))
@@ -69,7 +70,9 @@ public class EnterBattleStateSystem : ReactiveSystem<GameEntity>
             .Add(new ReleaseDefenseActionSystem(context))
             .Add(new CleanupChoseActionSystem(context))
             .Add(new CleanupChoseCharacterSystem(context))
-            .Add(new ActionFinishedSystem(context));
+            .Add(new ActionFinishedSystem(context))
+            //WinConditions
+            .Add(new CheckKillEnemiesConditionSystem(context));
 
         GameSystemService.AddSystemMapping(GameState.Battle, battleSystems);
     }

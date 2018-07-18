@@ -16,7 +16,6 @@ public class ExecutePlayerChooseActionSystem : ReactiveSystem<GameEntity>
     {
         this.context = (GameContext) context;
         gameStateGroup = context.GetGroup(GameMatcher.GameState);
-        gameStateGroup.OnEntityUpdated += OnGameStateUpdated;
     }
 
     protected override ICollector<GameEntity> GetTrigger(IContext<GameEntity> context)
@@ -42,6 +41,7 @@ public class ExecutePlayerChooseActionSystem : ReactiveSystem<GameEntity>
         if (isExecuting == false)
         {
             isExecuting = true;
+            gameStateGroup.OnEntityUpdated += OnGameStateUpdated;
             ProcessQueue();
         }
     }
@@ -85,6 +85,7 @@ public class ExecutePlayerChooseActionSystem : ReactiveSystem<GameEntity>
         else
         {
             isExecuting = false;
+            gameStateGroup.OnEntityUpdated -= OnGameStateUpdated;
             context.ReplaceSubState(context.subState.CurrentSubState, SubState.Waiting);
         }
     }

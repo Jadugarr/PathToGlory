@@ -3,11 +3,9 @@ using Entitas;
 
 public class ChangeGameStateSystem : ReactiveSystem<GameEntity>
 {
-    private GameContext context;
 
     public ChangeGameStateSystem(IContext<GameEntity> context) : base(context)
     {
-        this.context = (GameContext) context;
     }
 
     protected override ICollector<GameEntity> GetTrigger(IContext<GameEntity> context)
@@ -22,5 +20,9 @@ public class ChangeGameStateSystem : ReactiveSystem<GameEntity>
 
     protected override void Execute(List<GameEntity> entities)
     {
+        foreach (GameEntity gameEntity in entities)
+        {
+            InputConfiguration.ChangeActiveGameStateInputMap(gameEntity.gameState.CurrentGameState);
+        }
     }
 }

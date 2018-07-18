@@ -22,6 +22,6 @@ public class EnterChoosingSubStateSystem : ReactiveSystem<GameEntity>
 
     protected override void Execute(List<GameEntity> entities)
     {
-        InputConfiguration.ChangeActiveSubStateInputMap(SubState.Choosing);
+        //InputConfiguration.ChangeActiveSubStateInputMap(SubState.Choosing);
     }
 }

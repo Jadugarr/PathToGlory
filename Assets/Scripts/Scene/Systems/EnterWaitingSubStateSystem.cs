@@ -31,7 +31,7 @@ public class EnterWaitingSubStateSystem : ReactiveSystem<GameEntity>
         waitSystems.ActivateReactiveSystems();
         waitSystems.Initialize();
         GameSystemService.AddActiveSystems(waitSystems);
-        InputConfiguration.ChangeActiveSubStateInputMap(SubState.Waiting);
+        //InputConfiguration.ChangeActiveSubStateInputMap(SubState.Waiting);
     }
 
     private void CreateWaitingSystems()

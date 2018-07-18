@@ -5,9 +5,11 @@ using UnityEngine;
 public class CharacterDeathSystem : ReactiveSystem<GameEntity>
 {
     private IGroup<GameEntity> actionEntityGroup;
+    private GameContext context;
 
-    public CharacterDeathSystem(IContext<GameEntity> context) : base(context)
+    public CharacterDeathSystem(GameContext context) : base(context)
     {
+        this.context = context;
         actionEntityGroup = context.GetGroup(GameMatcher.BattleAction);
     }
 
@@ -25,7 +27,7 @@ public class CharacterDeathSystem : ReactiveSystem<GameEntity>
     {
         foreach (GameEntity gameEntity in entities)
         {
-            GameObject.Destroy(gameEntity.view.View);
+            //GameObject.Destroy(gameEntity.view.View);
 
             foreach (GameEntity actionEntity in actionEntityGroup.GetEntities())
             {
@@ -36,8 +38,10 @@ public class CharacterDeathSystem : ReactiveSystem<GameEntity>
             }
 
             Debug.Log("Enemy died!");
+            GameEntity deathEntity = context.CreateEntity();
+            deathEntity.AddDeath(gameEntity.id.Id);
 
-            gameEntity.Destroy();
+            //gameEntity.Destroy();
         }
     }
 }
