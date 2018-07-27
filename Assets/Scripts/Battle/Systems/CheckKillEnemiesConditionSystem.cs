@@ -28,5 +28,7 @@ public class CheckKillEnemiesConditionSystem : ReactiveSystem<GameEntity>
     {
         Debug.Log("All enemies are dead!");
         context.ReplaceSubState(context.subState.CurrentSubState, SubState.BattleEnd);
+        var battleEndEntity = context.CreateEntity();
+        battleEndEntity.AddBattleEnd(true);
     }
 }
