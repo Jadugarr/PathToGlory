@@ -11,17 +11,19 @@ public partial class GameEntity {
     public ChangeSceneComponent changeScene { get { return (ChangeSceneComponent)GetComponent(GameComponentsLookup.ChangeScene); } }
     public bool hasChangeScene { get { return HasComponent(GameComponentsLookup.ChangeScene); } }
 
-    public void AddChangeScene(string newSceneName) {
+    public void AddChangeScene(string newSceneName, UnityEngine.SceneManagement.LoadSceneMode newLoadSceneMode) {
         var index = GameComponentsLookup.ChangeScene;
         var component = CreateComponent<ChangeSceneComponent>(index);
         component.SceneName = newSceneName;
+        component.LoadSceneMode = newLoadSceneMode;
         AddComponent(index, component);
     }
 
-    public void ReplaceChangeScene(string newSceneName) {
+    public void ReplaceChangeScene(string newSceneName, UnityEngine.SceneManagement.LoadSceneMode newLoadSceneMode) {
         var index = GameComponentsLookup.ChangeScene;
         var component = CreateComponent<ChangeSceneComponent>(index);
         component.SceneName = newSceneName;
+        component.LoadSceneMode = newLoadSceneMode;
         ReplaceComponent(index, component);
     }
 

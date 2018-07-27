@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Entitas;
+using UnityEngine.SceneManagement;
 
 public class EnterMainMenuStateSystem : ReactiveSystem<GameEntity>
 {
@@ -27,7 +28,7 @@ public class EnterMainMenuStateSystem : ReactiveSystem<GameEntity>
     {
         //InputConfiguration.ChangeActiveGameStateInputMap(GameState.MainMenu);
         GameEntity changeSceneEntity = context.CreateEntity();
-        changeSceneEntity.AddChangeScene(GameSceneConstants.MainMenuScene);
+        changeSceneEntity.AddChangeScene(GameSceneConstants.MainMenuScene, LoadSceneMode.Additive);
         sceneChangedGroup.OnEntityAdded += OnMainMenuSceneLoaded;
     }
 
@@ -49,7 +50,7 @@ public class EnterMainMenuStateSystem : ReactiveSystem<GameEntity>
 
     private void CreateMainMenuSystems()
     {
-        Systems mainMenuSystems = new Systems();
+        Systems mainMenuSystems = new Feature("MainMenuSystems");
         mainMenuSystems.Add(new InitializeMainMenuSystem());
 
         GameSystemService.AddSystemMapping(GameState.MainMenu, mainMenuSystems);

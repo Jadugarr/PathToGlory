@@ -48,7 +48,7 @@ public class ActionBuilder
 
         if (actionBuilderSystems == null)
         {
-            actionBuilderSystems = new Systems()
+            actionBuilderSystems = new Feature("ActionBuilderSystems")
             .Add(new ProcessBattleCancelInputSystem(context));
         }
 

@@ -30,7 +30,7 @@ public class ChangeSceneSystem : ReactiveSystem<GameEntity>, ICleanupSystem
         }
         else
         {
-            SceneManager.LoadScene(entities[0].changeScene.SceneName);
+            SceneManager.LoadScene(entities[0].changeScene.SceneName, entities[0].changeScene.LoadSceneMode);
         }
     }
 

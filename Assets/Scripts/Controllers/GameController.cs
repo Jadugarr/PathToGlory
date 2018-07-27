@@ -17,7 +17,7 @@ public class GameController : MonoBehaviour
     {
         if (controller == null)
         {
-            DontDestroyOnLoad(gameObject);
+            //DontDestroyOnLoad(gameObject);
             controller = this;
 
             Contexts contexts = Contexts.sharedInstance;
@@ -58,7 +58,9 @@ public class GameController : MonoBehaviour
             .Add(new EnterMainMenuStateSystem(context))
             .Add(new ExitMainMenuStateSystem(context))
             .Add(new ChangeSceneSystem(context))
+            .Add(new UnloadSceneSystem(context))
             .Add(new CleanupSceneChangedSystem(context))
+            .Add(new CleanupUnloadSceneSystem(context))
             //Game State
             .Add(new ChangeGameStateSystem(context))
             .Add(new InitializeGameStateSystem())

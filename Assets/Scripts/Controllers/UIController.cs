@@ -8,7 +8,7 @@ public class UIController : MonoBehaviour
     {
         if (controller == null)
         {
-            DontDestroyOnLoad(gameObject);
+            //DontDestroyOnLoad(gameObject);
             controller = this;
         }
         else

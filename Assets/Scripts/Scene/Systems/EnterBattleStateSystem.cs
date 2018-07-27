@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Entitas;
+using UnityEngine.SceneManagement;
 
 public class EnterBattleStateSystem : ReactiveSystem<GameEntity>
 {
@@ -29,7 +30,7 @@ public class EnterBattleStateSystem : ReactiveSystem<GameEntity>
 
         //InputConfiguration.ChangeActiveGameStateInputMap(GameState.Battle);
         GameEntity changeSceneEntity = context.CreateEntity();
-        changeSceneEntity.AddChangeScene(GameSceneConstants.BattleScene);
+        changeSceneEntity.AddChangeScene(GameSceneConstants.BattleScene, LoadSceneMode.Additive);
     }
 
     private void OnBattleSceneLoaded(IGroup<GameEntity> @group, GameEntity entity, int index, IComponent component)
@@ -50,7 +51,7 @@ public class EnterBattleStateSystem : ReactiveSystem<GameEntity>
 
     private void CreateBattleSystems()
     {
-        Systems battleSystems = new Systems()
+        Systems battleSystems = new Feature("BattleStateSystems")
             .Add(new InitializeBattleSystem(context))
             .Add(new InitializeATBSystem(context))
             //Enemy

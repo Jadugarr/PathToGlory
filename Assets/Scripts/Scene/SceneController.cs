@@ -12,10 +12,10 @@ public class SceneController : MonoBehaviour
     {
         if (controller == null)
         {
-            DontDestroyOnLoad(gameObject);
+            //DontDestroyOnLoad(gameObject);
             controller = this;
             context = Contexts.sharedInstance.game;
-            SceneManager.activeSceneChanged += OnActiveSceneChanged;
+            SceneManager.sceneLoaded += OnSceneLoaded;
         }
         else
         {
@@ -25,10 +25,10 @@ public class SceneController : MonoBehaviour
 
     public void OnDestroy()
     {
-        SceneManager.activeSceneChanged -= OnActiveSceneChanged;
+        SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 
-    private void OnActiveSceneChanged(Scene previousScene, Scene newScene)
+    private void OnSceneLoaded(Scene newScene, LoadSceneMode loadMode)
     {
         GameEntity newEntity = context.CreateEntity();
         newEntity.AddSceneChanged(activeSceneName, newScene.name);

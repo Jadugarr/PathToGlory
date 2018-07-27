@@ -34,5 +34,7 @@ public class ExitMainMenuStateSystem : ReactiveSystem<GameEntity>
 
         GameEntity hideUiEntity = context.CreateEntity();
         hideUiEntity.AddHideUi(new[] {AssetTypes.MainMenu});
+        GameEntity unloadScenEntity = context.CreateEntity();
+        unloadScenEntity.AddUnloadScene(GameSceneConstants.MainMenuScene);
     }
 }
