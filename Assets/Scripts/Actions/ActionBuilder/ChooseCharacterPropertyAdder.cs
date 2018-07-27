@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using Entitas;
-using Promises;
 
 public class ChooseCharacterPropertyAdder : IActionPropertyAdder
 {
@@ -10,7 +9,6 @@ public class ChooseCharacterPropertyAdder : IActionPropertyAdder
     private IGroup<GameEntity> enemyGroup;
     private IGroup<GameEntity> choseCharacterGroup;
     private Action successCallback;
-    private Action<string> errorCallback;
 
     public void Execute(GameContext context, GameEntity actionEntity, Action successCallback,
         Action<string> errorCallback)
@@ -18,7 +16,6 @@ public class ChooseCharacterPropertyAdder : IActionPropertyAdder
         this.actionEntity = actionEntity;
         this.context = context;
         this.successCallback = successCallback;
-        this.errorCallback = errorCallback;
 
         enemyGroup = context.GetGroup(GameMatcher.Enemy);
         choseCharacterGroup = context.GetGroup(GameMatcher.ChoseCharacter);

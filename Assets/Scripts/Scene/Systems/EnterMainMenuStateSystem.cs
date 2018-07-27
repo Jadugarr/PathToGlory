@@ -6,12 +6,12 @@ using UnityEngine.SceneManagement;
 public class EnterMainMenuStateSystem : ReactiveSystem<GameEntity>
 {
     private GameContext context;
-    private IGroup<GameEntity> sceneChangedGroup;
+    private IGroup<GameEntity> sceneLoadedGroup;
 
     public EnterMainMenuStateSystem(GameContext context) : base(context)
     {
         this.context = context;
-        sceneChangedGroup = context.GetGroup(GameMatcher.SceneChanged);
+        sceneLoadedGroup = context.GetGroup(GameMatcher.SceneLoaded);
     }
 
     protected override ICollector<GameEntity> GetTrigger(IContext<GameEntity> context)
@@ -26,15 +26,14 @@ public class EnterMainMenuStateSystem : ReactiveSystem<GameEntity>
 
     protected override void Execute(List<GameEntity> entities)
     {
-        //InputConfiguration.ChangeActiveGameStateInputMap(GameState.MainMenu);
         GameEntity changeSceneEntity = context.CreateEntity();
         changeSceneEntity.AddChangeScene(GameSceneConstants.MainMenuScene, LoadSceneMode.Additive);
-        sceneChangedGroup.OnEntityAdded += OnMainMenuSceneLoaded;
+        sceneLoadedGroup.OnEntityAdded += OnMainMenuSceneLoaded;
     }
 
     private void OnMainMenuSceneLoaded(IGroup<GameEntity> @group, GameEntity entity, int index, IComponent component)
     {
-        sceneChangedGroup.OnEntityAdded -= OnMainMenuSceneLoaded;
+        sceneLoadedGroup.OnEntityAdded -= OnMainMenuSceneLoaded;
 
         if (!GameSystemService.HasSystemMapping(GameState.MainMenu))
         {

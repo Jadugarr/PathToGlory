@@ -11,24 +11,12 @@ public class GameController : MonoBehaviour
     [SerializeField] private SpawnConfiguration spawnConfiguration;
     [SerializeField] private CharacterConfiguration characterConfiguration;
 
-    private static GameController controller;
-
     private void Awake()
     {
-        if (controller == null)
+        Contexts contexts = Contexts.sharedInstance;
+        foreach (var context in contexts.allContexts)
         {
-            //DontDestroyOnLoad(gameObject);
-            controller = this;
-
-            Contexts contexts = Contexts.sharedInstance;
-            foreach (var context in contexts.allContexts)
-            {
-                context.OnEntityCreated += OnEntityCreated;
-            }
-        }
-        else
-        {
-            Destroy(gameObject);
+            context.OnEntityCreated += OnEntityCreated;
         }
     }
 
@@ -59,7 +47,7 @@ public class GameController : MonoBehaviour
             .Add(new ExitMainMenuStateSystem(context))
             .Add(new ChangeSceneSystem(context))
             .Add(new UnloadSceneSystem(context))
-            .Add(new CleanupSceneChangedSystem(context))
+            .Add(new CleanupSceneLoadedSystem(context))
             .Add(new CleanupUnloadSceneSystem(context))
             //Game State
             .Add(new ChangeGameStateSystem(context))
@@ -70,7 +58,6 @@ public class GameController : MonoBehaviour
             .Add(new ExitPausedSubStateSystem(context))
             .Add(new EnterWaitingSubStateSystem(context))
             .Add(new ExitWaitingSubStateSystem(context))
-            .Add(new EnterChoosingSubStateSystem(context))
             //UI
             .Add(new DisplayUISystem(context))
             .Add(new HideUiSystem(context))

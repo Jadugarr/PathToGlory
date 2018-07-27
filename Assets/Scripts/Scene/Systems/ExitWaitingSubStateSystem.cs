@@ -3,11 +3,8 @@ using Entitas;
 
 public class ExitWaitingSubStateSystem : ReactiveSystem<GameEntity>
 {
-    private GameContext context;
-
     public ExitWaitingSubStateSystem(IContext<GameEntity> context) : base(context)
     {
-        this.context = (GameContext) context;
     }
 
     protected override ICollector<GameEntity> GetTrigger(IContext<GameEntity> context)

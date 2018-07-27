@@ -37,7 +37,7 @@ public static class GameComponentsLookup {
     public const int Input = 26;
     public const int Player = 27;
     public const int Position = 28;
-    public const int SceneChanged = 29;
+    public const int SceneLoaded = 29;
     public const int Speed = 30;
     public const int SubState = 31;
     public const int Target = 32;
@@ -76,7 +76,7 @@ public static class GameComponentsLookup {
         "Input",
         "Player",
         "Position",
-        "SceneChanged",
+        "SceneLoaded",
         "Speed",
         "SubState",
         "Target",
@@ -86,7 +86,6 @@ public static class GameComponentsLookup {
 
     public static readonly System.Type[] componentTypes = {
         typeof(ActionFinishedComponent),
-        typeof(AttackCharacterComponent),
         typeof(AttackComponent),
         typeof(AttackInputComponent),
         typeof(BattleActionChoicesComponent),
@@ -114,7 +113,7 @@ public static class GameComponentsLookup {
         typeof(InputComponent),
         typeof(PlayerComponent),
         typeof(PositionComponent),
-        typeof(SceneChangedComponent),
+        typeof(SceneLoadedComponent),
         typeof(SpeedComponent),
         typeof(SubStateComponent),
         typeof(TargetComponent),

@@ -4,11 +4,8 @@ using UnityEngine.SceneManagement;
 
 public class UnloadSceneSystem : ReactiveSystem<GameEntity>
 {
-    private GameContext context;
-
     public UnloadSceneSystem(IContext<GameEntity> context) : base(context)
     {
-        this.context = (GameContext) context;
     }
 
     protected override ICollector<GameEntity> GetTrigger(IContext<GameEntity> context)

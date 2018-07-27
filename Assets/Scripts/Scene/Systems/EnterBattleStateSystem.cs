@@ -6,12 +6,12 @@ using UnityEngine.SceneManagement;
 public class EnterBattleStateSystem : ReactiveSystem<GameEntity>
 {
     private GameContext context;
-    private IGroup<GameEntity> sceneChangedGroup;
+    private IGroup<GameEntity> sceneLoadedGroup;
 
     public EnterBattleStateSystem(GameContext context) : base(context)
     {
         this.context = context;
-        sceneChangedGroup = context.GetGroup(GameMatcher.SceneChanged);
+        sceneLoadedGroup = context.GetGroup(GameMatcher.SceneLoaded);
     }
 
     protected override ICollector<GameEntity> GetTrigger(IContext<GameEntity> context)
@@ -26,16 +26,15 @@ public class EnterBattleStateSystem : ReactiveSystem<GameEntity>
 
     protected override void Execute(List<GameEntity> entities)
     {
-        sceneChangedGroup.OnEntityAdded += OnBattleSceneLoaded;
+        sceneLoadedGroup.OnEntityAdded += OnBattleSceneLoaded;
 
-        //InputConfiguration.ChangeActiveGameStateInputMap(GameState.Battle);
         GameEntity changeSceneEntity = context.CreateEntity();
         changeSceneEntity.AddChangeScene(GameSceneConstants.BattleScene, LoadSceneMode.Additive);
     }
 
     private void OnBattleSceneLoaded(IGroup<GameEntity> @group, GameEntity entity, int index, IComponent component)
     {
-        sceneChangedGroup.OnEntityAdded -= OnBattleSceneLoaded;
+        sceneLoadedGroup.OnEntityAdded -= OnBattleSceneLoaded;
 
         if (!GameSystemService.HasSystemMapping(GameState.Battle))
         {
@@ -57,9 +56,7 @@ public class EnterBattleStateSystem : ReactiveSystem<GameEntity>
             //Enemy
             .Add(new EnemySpawnCooldownSystem(context))
             //Battle
-            .Add(new AttackCharacterSystem(context))
             .Add(new CharacterDeathSystem(context))
-            .Add(new CleanupAttackCharacterSystem(context))
             .Add(new TeardownCharacterSystem(context))
             .Add(new TeardownBattleSystem(context))
             .Add(new CleanupDeadCharacterSystem(context))
