@@ -2,11 +2,14 @@
 
 public class TeardownBattleSystem : ITearDownSystem
 {
+    private GameContext context;
     private IGroup<GameEntity> battleEntities;
 
     public TeardownBattleSystem(GameContext context)
     {
-        battleEntities = context.GetGroup(Matcher<GameEntity>.AnyOf(GameMatcher.BattleAction, GameMatcher.ExecuteAction));
+        battleEntities =
+            context.GetGroup(Matcher<GameEntity>.AnyOf(GameMatcher.BattleAction, GameMatcher.ExecuteAction));
+        this.context = context;
     }
 
     public void TearDown()
@@ -15,5 +18,7 @@ public class TeardownBattleSystem : ITearDownSystem
         {
             gameEntity.Destroy();
         }
+
+        context.RemoveWinCondition();
     }
 }

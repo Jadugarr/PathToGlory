@@ -22,7 +22,7 @@ public class DisplayBattleResultSystem : ReactiveSystem<GameEntity>
 
     protected override void Execute(List<GameEntity> entities)
     {
-        string textToDisplay = entities[0].battleEnd.HasPlayerWon ? "I fucking won!" : "JESUS I LOST!";
+        string textToDisplay = entities[0].battleEnd.HasPlayerWon ? "I won!" : "JESUS I LOST!";
 
         var displayResultEntity = context.CreateEntity();
         displayResultEntity.AddDisplayUI(AssetTypes.BattleResultText, new BattleResultWidgetProperties(textToDisplay));

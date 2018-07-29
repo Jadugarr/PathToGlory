@@ -15,12 +15,15 @@ public class InitializeAndTeardownWinConditionsSystem : IInitializeSystem, ITear
     {
         if (context.hasWinCondition)
         {
-            winConditionSystems = new Feature("WinConditionSystems");
-
-            foreach (WinConditionState currentWinCondition in context.winCondition.WinConditions)
+            if (winConditionSystems == null)
             {
-                winConditionSystems.Add(
-                    WinConditionConfiguration.GetSystemForWinCondition(currentWinCondition.WinCondition, context));
+                winConditionSystems = new Feature("WinConditionSystems");
+
+                foreach (WinConditionState currentWinCondition in context.winCondition.WinConditions)
+                {
+                    winConditionSystems.Add(
+                        WinConditionConfiguration.GetSystemForWinCondition(currentWinCondition.WinCondition, context));
+                }
             }
 
             GameSystemService.AddActiveSystems(winConditionSystems);

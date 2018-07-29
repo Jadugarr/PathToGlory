@@ -49,22 +49,11 @@ public class ActionBuilder
         if (actionBuilderSystems == null)
         {
             actionBuilderSystems = new Feature("ActionBuilderSystems")
-            .Add(new ProcessBattleCancelInputSystem(context));
+                .Add(new ProcessBattleCancelInputSystem(context));
         }
 
         choseActionGroup = context.GetGroup(GameMatcher.ChoseAction);
         DisplayChoices();
-
-        //if (actionSequenceMap.ContainsKey(actionEntity.battleAction.ActionType))
-        //{
-        //    currentSequence = actionSequenceMap[actionEntity.battleAction.ActionType];
-        //    currentSequenceStep = 0;
-        //    ExecuteNextStep();
-        //}
-        //else
-        //{
-        //    errorCallback("Sequence map didn't contain action type: " + actionEntity.battleAction.ActionType);
-        //}
     }
 
     private void ExecuteNextStep()
@@ -100,8 +89,11 @@ public class ActionBuilder
         choosingEntity = null;
         successCallback = null;
         errorCallback = null;
-        choseActionGroup.OnEntityAdded -= OnChoseAction;
-        choseActionGroup = null;
+        if (choseActionGroup != null)
+        {
+            choseActionGroup.OnEntityAdded -= OnChoseAction;
+            choseActionGroup = null;
+        }
 
         actionBuilderSystems.DeactivateReactiveSystems();
         GameSystemService.RemoveActiveSystems(actionBuilderSystems);
