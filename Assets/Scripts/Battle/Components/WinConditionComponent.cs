@@ -1,7 +1,8 @@
 ﻿using Entitas;
+using Entitas.CodeGeneration.Attributes;
 using Entitas.Scripts.Battle.Enums;
 
-[Game]
+[Game, Unique]
 public class WinConditionComponent : IComponent
 {
     public WinConditionModifier WinConditionModifier;

@@ -43,8 +43,9 @@ public static class GameComponentsLookup {
     public const int UnloadScene = 32;
     public const int View = 33;
     public const int WinCondition = 34;
+    public const int WinConditionsFulfilled = 35;
 
-    public const int TotalComponents = 35;
+    public const int TotalComponents = 36;
 
     public static readonly string[] componentNames = {
         "ActionFinished",
@@ -81,7 +82,8 @@ public static class GameComponentsLookup {
         "Target",
         "UnloadScene",
         "View",
-        "WinCondition"
+        "WinCondition",
+        "WinConditionsFulfilled"
     };
 
     public static readonly System.Type[] componentTypes = {
@@ -119,6 +121,7 @@ public static class GameComponentsLookup {
         typeof(TargetComponent),
         typeof(UnloadSceneComponent),
         typeof(ViewComponent),
-        typeof(WinConditionComponent)
+        typeof(WinConditionComponent),
+        typeof(WinConditionsFulfilledComponent)
     };
 }

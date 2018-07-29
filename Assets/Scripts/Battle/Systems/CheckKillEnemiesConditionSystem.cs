@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Entitas;
+using Entitas.Scripts.Battle.Enums;
 using UnityEngine;
 
 public class CheckKillEnemiesConditionSystem : ReactiveSystem<GameEntity>
@@ -20,15 +21,24 @@ public class CheckKillEnemiesConditionSystem : ReactiveSystem<GameEntity>
 
     protected override bool Filter(GameEntity entity)
     {
-        GameEntity dyingCharacter = context.GetEntityWithId(entity.death.DeadCharacterId);
-        return dyingCharacter.isEnemy && enemyEntities.count == 1;
+        return enemyEntities.count == 0;
     }
 
     protected override void Execute(List<GameEntity> entities)
     {
         Debug.Log("All enemies are dead!");
-        context.ReplaceSubState(context.subState.CurrentSubState, SubState.BattleEnd);
-        var battleEndEntity = context.CreateEntity();
-        battleEndEntity.AddBattleEnd(true);
+        WinConditionComponent winConditions = context.winCondition;
+
+        for (var i = 0; i < winConditions.WinConditions.Length; i++)
+        {
+            WinConditionState currentWinCondition = winConditions.WinConditions[i];
+            if (currentWinCondition.WinCondition == WinCondition.KillEnemies)
+            {
+                winConditions.WinConditions[i].IsFulfilled = true;
+                break;
+            }
+        }
+
+        context.ReplaceWinCondition(context.winCondition.WinConditionModifier, winConditions.WinConditions);
     }
 }

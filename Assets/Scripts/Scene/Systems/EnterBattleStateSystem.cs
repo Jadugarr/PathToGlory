@@ -71,7 +71,10 @@ public class EnterBattleStateSystem : ReactiveSystem<GameEntity>
             .Add(new CleanupChoseCharacterSystem(context))
             .Add(new ActionFinishedSystem(context))
             //WinConditions
-            .Add(new CheckKillEnemiesConditionSystem(context));
+            .Add(new InitializeAndTeardownWinConditionsSystem(context))
+            .Add(new WinConditionControllerSystem(context))
+            .Add(new BattleEndSystem(context));
+
 
         GameSystemService.AddSystemMapping(GameState.Battle, battleSystems);
     }
