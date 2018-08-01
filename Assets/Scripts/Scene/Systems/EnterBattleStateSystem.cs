@@ -72,7 +72,9 @@ public class EnterBattleStateSystem : ReactiveSystem<GameEntity>
             .Add(new ActionFinishedSystem(context))
             //WinConditions
             .Add(new InitializeAndTeardownWinConditionsSystem(context))
+            .Add(new InitializeAndTeardownLoseConditionsSystem(context))
             .Add(new WinConditionControllerSystem(context))
+            .Add(new LoseConditionControllerSystem(context))
             .Add(new BattleEndSystem(context));
 
 

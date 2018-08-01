@@ -20,5 +20,6 @@ public class TeardownBattleSystem : ITearDownSystem
         }
 
         context.RemoveWinCondition();
+        context.RemoveLoseCondition();
     }
 }

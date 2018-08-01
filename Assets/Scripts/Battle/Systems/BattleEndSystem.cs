@@ -12,18 +12,18 @@ public class BattleEndSystem : ReactiveSystem<GameEntity>
 
     protected override ICollector<GameEntity> GetTrigger(IContext<GameEntity> context)
     {
-        return context.CreateCollector(GameMatcher.WinConditionsFulfilled);
+        return context.CreateCollector(GameMatcher.AnyOf(GameMatcher.WinConditionsFulfilled,
+            GameMatcher.LoseConditionsFulfilled));
     }
 
     protected override bool Filter(GameEntity entity)
     {
-        return entity.isWinConditionsFulfilled;
+        return entity.isWinConditionsFulfilled || entity.isLoseConditionsFulfilled;
     }
 
     protected override void Execute(List<GameEntity> entities)
     {
         context.ReplaceSubState(context.subState.CurrentSubState, SubState.BattleEnd);
-        // TODO I also need to implement a system for lose conditions
-        context.CreateEntity().AddBattleEnd(true);
+        context.CreateEntity().AddBattleEnd(entities[0].isWinConditionsFulfilled);
     }
 }

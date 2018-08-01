@@ -1,8 +1,5 @@
-﻿namespace Entitas.Scripts.Battle.Enums
+﻿public enum WinCondition
 {
-    public enum WinCondition
-    {
-        None,
-        KillEnemies,
-    }
+    None,
+    KillEnemies,
 }

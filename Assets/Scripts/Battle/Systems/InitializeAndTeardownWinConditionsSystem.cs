@@ -22,7 +22,7 @@ public class InitializeAndTeardownWinConditionsSystem : IInitializeSystem, ITear
                 foreach (WinConditionState currentWinCondition in context.winCondition.WinConditions)
                 {
                     winConditionSystems.Add(
-                        WinConditionConfiguration.GetSystemForWinCondition(currentWinCondition.WinCondition, context));
+                        WinLoseConditionConfiguration.GetSystemForWinCondition(currentWinCondition.WinCondition, context));
                 }
             }
 

@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using Entitas;
-using Entitas.Scripts.Battle.Enums;
 using UnityEngine;
 
 public class InitializeBattleSystem : IInitializeSystem
@@ -23,8 +22,11 @@ public class InitializeBattleSystem : IInitializeSystem
     private void CreateWinConditions()
     {
         context.CreateEntity()
-            .AddWinCondition(WinConditionModifier.All,
+            .AddWinCondition(ConditionModifier.All,
                 new[] {new WinConditionState {IsFulfilled = false, WinCondition = WinCondition.KillEnemies}});
+        context.CreateEntity()
+            .AddLoseCondition(ConditionModifier.All,
+                new[] {new LoseConditionState {IsFulfilled = false, LoseCondition = LoseCondition.PlayerDead}});
     }
 
     private void CreateReturnButton()

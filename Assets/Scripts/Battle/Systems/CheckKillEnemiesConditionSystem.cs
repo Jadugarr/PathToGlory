@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using Entitas;
-using Entitas.Scripts.Battle.Enums;
 using UnityEngine;
 
 public class CheckKillEnemiesConditionSystem : ReactiveSystem<GameEntity>
@@ -39,6 +38,6 @@ public class CheckKillEnemiesConditionSystem : ReactiveSystem<GameEntity>
             }
         }
 
-        context.ReplaceWinCondition(context.winCondition.WinConditionModifier, winConditions.WinConditions);
+        context.ReplaceWinCondition(context.winCondition.ConditionModifier, winConditions.WinConditions);
     }
 }

@@ -34,18 +34,20 @@ public static class GameComponentsLookup {
     public const int HideUi = 23;
     public const int Id = 24;
     public const int Input = 25;
-    public const int Player = 26;
-    public const int Position = 27;
-    public const int SceneLoaded = 28;
-    public const int Speed = 29;
-    public const int SubState = 30;
-    public const int Target = 31;
-    public const int UnloadScene = 32;
-    public const int View = 33;
-    public const int WinCondition = 34;
-    public const int WinConditionsFulfilled = 35;
+    public const int LoseCondition = 26;
+    public const int LoseConditionsFulfilled = 27;
+    public const int Player = 28;
+    public const int Position = 29;
+    public const int SceneLoaded = 30;
+    public const int Speed = 31;
+    public const int SubState = 32;
+    public const int Target = 33;
+    public const int UnloadScene = 34;
+    public const int View = 35;
+    public const int WinCondition = 36;
+    public const int WinConditionsFulfilled = 37;
 
-    public const int TotalComponents = 36;
+    public const int TotalComponents = 38;
 
     public static readonly string[] componentNames = {
         "ActionFinished",
@@ -74,6 +76,8 @@ public static class GameComponentsLookup {
         "HideUi",
         "Id",
         "Input",
+        "LoseCondition",
+        "LoseConditionsFulfilled",
         "Player",
         "Position",
         "SceneLoaded",
@@ -113,6 +117,8 @@ public static class GameComponentsLookup {
         typeof(HideUiComponent),
         typeof(IdComponent),
         typeof(InputComponent),
+        typeof(LoseConditionComponent),
+        typeof(LoseConditionsFulfilledComponent),
         typeof(PlayerComponent),
         typeof(PositionComponent),
         typeof(SceneLoadedComponent),

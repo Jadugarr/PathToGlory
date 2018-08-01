@@ -12,22 +12,22 @@ public partial class GameContext {
     public WinConditionComponent winCondition { get { return winConditionEntity.winCondition; } }
     public bool hasWinCondition { get { return winConditionEntity != null; } }
 
-    public GameEntity SetWinCondition(WinConditionModifier newWinConditionModifier, WinConditionState[] newWinConditions) {
+    public GameEntity SetWinCondition(ConditionModifier newConditionModifier, WinConditionState[] newWinConditions) {
         if (hasWinCondition) {
             throw new Entitas.EntitasException("Could not set WinCondition!\n" + this + " already has an entity with WinConditionComponent!",
                 "You should check if the context already has a winConditionEntity before setting it or use context.ReplaceWinCondition().");
         }
         var entity = CreateEntity();
-        entity.AddWinCondition(newWinConditionModifier, newWinConditions);
+        entity.AddWinCondition(newConditionModifier, newWinConditions);
         return entity;
     }
 
-    public void ReplaceWinCondition(WinConditionModifier newWinConditionModifier, WinConditionState[] newWinConditions) {
+    public void ReplaceWinCondition(ConditionModifier newConditionModifier, WinConditionState[] newWinConditions) {
         var entity = winConditionEntity;
         if (entity == null) {
-            entity = SetWinCondition(newWinConditionModifier, newWinConditions);
+            entity = SetWinCondition(newConditionModifier, newWinConditions);
         } else {
-            entity.ReplaceWinCondition(newWinConditionModifier, newWinConditions);
+            entity.ReplaceWinCondition(newConditionModifier, newWinConditions);
         }
     }
 
@@ -49,18 +49,18 @@ public partial class GameEntity {
     public WinConditionComponent winCondition { get { return (WinConditionComponent)GetComponent(GameComponentsLookup.WinCondition); } }
     public bool hasWinCondition { get { return HasComponent(GameComponentsLookup.WinCondition); } }
 
-    public void AddWinCondition(WinConditionModifier newWinConditionModifier, WinConditionState[] newWinConditions) {
+    public void AddWinCondition(ConditionModifier newConditionModifier, WinConditionState[] newWinConditions) {
         var index = GameComponentsLookup.WinCondition;
         var component = CreateComponent<WinConditionComponent>(index);
-        component.WinConditionModifier = newWinConditionModifier;
+        component.ConditionModifier = newConditionModifier;
         component.WinConditions = newWinConditions;
         AddComponent(index, component);
     }
 
-    public void ReplaceWinCondition(WinConditionModifier newWinConditionModifier, WinConditionState[] newWinConditions) {
+    public void ReplaceWinCondition(ConditionModifier newConditionModifier, WinConditionState[] newWinConditions) {
         var index = GameComponentsLookup.WinCondition;
         var component = CreateComponent<WinConditionComponent>(index);
-        component.WinConditionModifier = newWinConditionModifier;
+        component.ConditionModifier = newConditionModifier;
         component.WinConditions = newWinConditions;
         ReplaceComponent(index, component);
     }
