@@ -38,13 +38,16 @@ public class ActionBuilder
     private Action<GameEntity> successCallback;
     private Action<string> errorCallback;
 
+    private bool isPlayerAction;
+
     public void ChooseActionSequence(GameEntity actionEntity, GameContext context,
-        Action<GameEntity> successCallback, Action<string> errorCallback)
+        Action<GameEntity> successCallback, Action<string> errorCallback, bool isPlayerAction = true)
     {
         this.actionEntity = actionEntity;
         this.context = context;
         this.successCallback = successCallback;
         this.errorCallback = errorCallback;
+        this.isPlayerAction = isPlayerAction;
 
         if (actionBuilderSystems == null)
         {
@@ -53,14 +56,36 @@ public class ActionBuilder
         }
 
         choseActionGroup = context.GetGroup(GameMatcher.ChoseAction);
-        DisplayChoices();
+        StartActionBuilding();
+    }
+
+    private void StartActionBuilding()
+    {
+        if (isPlayerAction)
+        {
+            DisplayChoices();
+        }
+        else
+        {
+            choosingEntity = context.GetEntityWithId(actionEntity.battleAction.EntityId);
+            GameEntity choseActionEntity = context.CreateEntity();
+            choseActionEntity.AddChoseAction(choosingEntity.id.Id, ActionType.Defend);
+            ExecuteChosenAction(choseActionEntity.choseAction);
+        }
     }
 
     private void ExecuteNextStep()
     {
         if (currentSequenceStep < currentSequence.Length)
         {
-            currentSequence[currentSequenceStep].Execute(context, actionEntity, OnSuccess, OnError);
+            if (isPlayerAction)
+            {
+                currentSequence[currentSequenceStep].Execute(context, actionEntity, OnSuccess, OnError);
+            }
+            else
+            {
+                currentSequence[currentSequenceStep].ExecuteEnemyLogic(context, actionEntity, OnSuccess, OnError);
+            }
         }
         else
         {
@@ -127,9 +152,17 @@ public class ActionBuilder
 
     private void OnChoseAction(IGroup<GameEntity> @group, GameEntity entity, int index, IComponent component)
     {
-        if (entity.choseAction.EntityId == choosingEntity.id.Id)
+        if (entity.hasChoseAction)
         {
-            actionEntity.battleAction.ActionType = entity.choseAction.ActionType;
+            ExecuteChosenAction(entity.choseAction);
+        }
+    }
+
+    private void ExecuteChosenAction(ChoseActionComponent choseActionComponent)
+    {
+        if (choseActionComponent.EntityId == choosingEntity.id.Id)
+        {
+            actionEntity.battleAction.ActionType = choseActionComponent.ActionType;
             if (actionSequenceMap.TryGetValue(actionEntity.battleAction.ActionType, out currentSequence))
             {
                 actionBuilderSystems.ActivateReactiveSystems();
@@ -161,9 +194,7 @@ public class ActionBuilder
             }
             else
             {
-                DisplayChoices();
-                //cancelCallback();
-                //Reset();
+                StartActionBuilding();
             }
         }
     }

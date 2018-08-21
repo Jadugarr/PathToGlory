@@ -17,7 +17,12 @@ public class ExecuteDefenseActionSystem : ReactiveSystem<GameEntity>
 
     protected override bool Filter(GameEntity entity)
     {
-        return entity.battleAction.ActionType == ActionType.Defend;
+        if (entity.hasBattleAction)
+        {
+            return entity.battleAction.ActionType == ActionType.Defend;
+        }
+
+        return false;
     }
 
     protected override void Execute(List<GameEntity> entities)

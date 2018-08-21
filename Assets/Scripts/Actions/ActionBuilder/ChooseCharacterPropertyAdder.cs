@@ -23,6 +23,11 @@ public class ChooseCharacterPropertyAdder : IActionPropertyAdder
         DisplayCharacterChooser();
     }
 
+    public void ExecuteEnemyLogic(GameContext context, GameEntity actionEntity, Action successCallback, Action<string> errorCallback)
+    {
+        throw new NotImplementedException();
+    }
+
     public void Cancel()
     {
         HideCharacterChooser();

@@ -17,6 +17,11 @@ public class AttackCharacterTimePropertyAdder : IActionPropertyAdder
         successCallback();
     }
 
+    public void ExecuteEnemyLogic(GameContext context, GameEntity actionEntity, Action successCallback, Action<string> errorCallback)
+    {
+        throw new NotImplementedException();
+    }
+
     public void Cancel()
     {
     }

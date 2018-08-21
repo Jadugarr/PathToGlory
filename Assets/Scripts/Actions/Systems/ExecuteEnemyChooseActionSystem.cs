@@ -4,6 +4,9 @@ using Entitas;
 public class ExecuteEnemyChooseActionSystem : ReactiveSystem<GameEntity>
 {
     private GameContext context;
+    private Queue<GameEntity> executeActionQueue = new Queue<GameEntity>();
+    private bool isExecuting;
+    private GameEntity currentActionEntity;
 
     public ExecuteEnemyChooseActionSystem(IContext<GameEntity> context) : base(context)
     {
@@ -23,10 +26,52 @@ public class ExecuteEnemyChooseActionSystem : ReactiveSystem<GameEntity>
 
     protected override void Execute(List<GameEntity> entities)
     {
-        foreach (GameEntity actionEntity in entities)
+        foreach (GameEntity gameEntity in entities)
         {
-            // Just skipping actions for now
-            actionEntity.isActionFinished = true;
+            executeActionQueue.Enqueue(gameEntity);
         }
+
+        if (isExecuting == false)
+        {
+            isExecuting = true;
+            ProcessQueue();
+        }
+        //foreach (GameEntity actionEntity in entities)
+        //{
+        //    BattleActionComponent currentBattleAction = actionEntity.battleAction;
+        //    GameEntity newActionEntity = context.CreateEntity();
+        //    newActionEntity.AddBattleAction(currentBattleAction.EntityId, ActionType.None,
+        //        ActionATBType.Acting);
+        //    ActionBuilder.Instance.ChooseActionSequence(newActionEntity, context, OnSuccess, OnError, false);
+        //}
+    }
+
+    private void ProcessQueue()
+    {
+        currentActionEntity = executeActionQueue.Dequeue();
+        BattleActionComponent currentBattleAction = currentActionEntity.battleAction;
+        GameEntity newActionEntity = context.CreateEntity();
+        newActionEntity.AddBattleAction(currentBattleAction.EntityId, ActionType.None,
+            ActionATBType.Acting);
+        ActionBuilder.Instance.ChooseActionSequence(newActionEntity, context, OnSuccess, OnError, false);
+    }
+
+    private void OnSuccess(GameEntity entity)
+    {
+        currentActionEntity.Destroy();
+
+        if (executeActionQueue.Count > 0)
+        {
+            ProcessQueue();
+        }
+        else
+        {
+            isExecuting = false;
+        }
+    }
+
+    private void OnError(string error)
+    {
+        // nothing for now
     }
 }

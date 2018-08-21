@@ -16,6 +16,19 @@ public class DefenseActionTimePropertyAdder : IActionPropertyAdder
         successCallback();
     }
 
+    public void ExecuteEnemyLogic(GameContext context, GameEntity actionEntity, Action successCallback, Action<string> errorCallback)
+    {
+        if (actionEntity.hasExecutionTime)
+        {
+            actionEntity.ReplaceExecutionTime(2f, 2f);
+        }
+        else
+        {
+            actionEntity.AddExecutionTime(2f, 2f);
+        }
+        successCallback();
+    }
+
     public void Cancel()
     {
         // Don't think I have to do anything here, since I just add components to an entity and that's it

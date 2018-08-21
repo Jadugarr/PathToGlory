@@ -19,8 +19,13 @@ public class ExecutePlayerAttackActionSystem : ReactiveSystem<GameEntity>
 
     protected override bool Filter(GameEntity entity)
     {
-        GameEntity executionerEntity = context.GetEntityWithId(entity.battleAction.EntityId);
-        return entity.battleAction.ActionType == ActionType.AttackCharacter && executionerEntity.isPlayer;
+        if (entity.hasBattleAction)
+        {
+            GameEntity executionerEntity = context.GetEntityWithId(entity.battleAction.EntityId);
+            return entity.battleAction.ActionType == ActionType.AttackCharacter && executionerEntity.isPlayer;
+        }
+
+        return false;
     }
 
     protected override void Execute(List<GameEntity> entities)
