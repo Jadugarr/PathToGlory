@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Configurations;
 using Entitas;
+using Entitas.Unity;
 using UnityEngine;
 
 public class ProcessEnemySpawnInputSystem : ReactiveSystem<GameEntity>
@@ -29,6 +30,7 @@ public class ProcessEnemySpawnInputSystem : ReactiveSystem<GameEntity>
             GameObject newEnemy = GameObject.Instantiate(GameConfigurations.CharacterConfiguration.EnemyTemplate);
 
             GameEntity entity = context.CreateEntity();
+            newEnemy.Link(entity, context);
             entity.isEnemy = true;
             entity.AddView(newEnemy);
             entity.AddPosition(newEnemy.transform.position);

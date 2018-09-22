@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Entitas;
+using Entitas.Unity;
 using UnityEngine;
 
 public class CleanupDeadCharacterSystem : ICleanupSystem
@@ -22,6 +23,7 @@ public class CleanupDeadCharacterSystem : ICleanupSystem
 
             if (characterEntity.hasView)
             {
+                characterEntity.view.View.Unlink();
                 GameObject.Destroy(characterEntity.view.View);
             }
 
