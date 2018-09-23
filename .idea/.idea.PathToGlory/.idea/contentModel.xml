@@ -43,7 +43,6 @@
               <e p="GameCharacterBattleStateComponent.cs" t="Include" />
               <e p="GameChoseActionComponent.cs" t="Include" />
               <e p="GameChoseCharacterComponent.cs" t="Include" />
-              <e p="GameDeathComponent.cs" t="Include" />
               <e p="GameDefendComponent.cs" t="Include" />
               <e p="GameDefenseStatComponent.cs" t="Include" />
               <e p="GameDisplayUIComponent.cs" t="Include" />
@@ -123,7 +122,6 @@
               <e p="BattleEndComponent.cs" t="Include" />
               <e p="BattleImageComponent.cs" t="Include" />
               <e p="CharacterBattleStateComponent.cs" t="Include" />
-              <e p="DeathComponent.cs" t="Include" />
               <e p="DefendComponent.cs" t="Include" />
               <e p="DefenseStatComponent.cs" t="Include" />
               <e p="ExecutionTimeComponent.cs" t="Include" />
@@ -146,7 +144,6 @@
               <e p="CheckKillEnemiesConditionSystem.cs" t="Include" />
               <e p="CheckPlayerDeadConditionSystem.cs" t="Include" />
               <e p="CleanupChoseCharacterSystem.cs" t="Include" />
-              <e p="CleanupDeadCharacterSystem.cs" t="Include" />
               <e p="DisplayBattleResultSystem.cs" t="Include" />
               <e p="InitializeAndTeardownLoseConditionsSystem.cs" t="Include" />
               <e p="InitializeAndTeardownWinConditionsSystem.cs" t="Include" />

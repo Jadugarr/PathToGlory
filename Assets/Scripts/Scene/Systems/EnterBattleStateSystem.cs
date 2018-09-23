@@ -59,7 +59,6 @@ public class EnterBattleStateSystem : ReactiveSystem<GameEntity>
             .Add(new CharacterDeathSystem(context))
             .Add(new TeardownCharacterSystem(context))
             .Add(new TeardownBattleSystem(context))
-            .Add(new CleanupDeadCharacterSystem(context))
             .Add(new DisplayBattleResultSystem(context))
             //Actions
             .Add(new ExecutePlayerChooseActionSystem(context))

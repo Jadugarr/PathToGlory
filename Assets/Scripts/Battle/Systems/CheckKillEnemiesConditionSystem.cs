@@ -15,7 +15,7 @@ public class CheckKillEnemiesConditionSystem : ReactiveSystem<GameEntity>
 
     protected override ICollector<GameEntity> GetTrigger(IContext<GameEntity> context)
     {
-        return context.CreateCollector(GameMatcher.Death);
+        return context.CreateCollector(new TriggerOnEvent<GameEntity>(GameMatcher.Enemy, GroupEvent.Removed));
     }
 
     protected override bool Filter(GameEntity entity)

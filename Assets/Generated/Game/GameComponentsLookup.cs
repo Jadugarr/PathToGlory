@@ -103,7 +103,6 @@ public static class GameComponentsLookup {
         typeof(CharacterBattleStateComponent),
         typeof(ChoseActionComponent),
         typeof(ChoseCharacterComponent),
-        typeof(DeathComponent),
         typeof(DefendComponent),
         typeof(DefenseStatComponent),
         typeof(DisplayUIComponent),

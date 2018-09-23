@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Entitas;
+using Entitas.Unity;
 using UnityEngine;
 
 public class CharacterDeathSystem : ReactiveSystem<GameEntity>
@@ -27,8 +28,6 @@ public class CharacterDeathSystem : ReactiveSystem<GameEntity>
     {
         foreach (GameEntity gameEntity in entities)
         {
-            //GameObject.Destroy(gameEntity.view.View);
-
             foreach (GameEntity actionEntity in actionEntityGroup.GetEntities())
             {
                 if (actionEntity.battleAction.EntityId == gameEntity.id.Id)
@@ -36,12 +35,13 @@ public class CharacterDeathSystem : ReactiveSystem<GameEntity>
                     actionEntity.Destroy();
                 }
             }
+            
+            gameEntity.view.View.Unlink();
+            GameObject.Destroy(gameEntity.view.View);
+
+            gameEntity.Destroy();
 
             Debug.Log("Enemy died!");
-            GameEntity deathEntity = context.CreateEntity();
-            deathEntity.AddDeath(gameEntity.id.Id);
-
-            //gameEntity.Destroy();
         }
     }
 }
