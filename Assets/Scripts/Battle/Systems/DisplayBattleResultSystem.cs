@@ -3,11 +3,9 @@ using Entitas;
 
 public class DisplayBattleResultSystem : ReactiveSystem<GameEntity>
 {
-    private GameContext context;
 
     public DisplayBattleResultSystem(IContext<GameEntity> context) : base(context)
     {
-        this.context = (GameContext) context;
     }
 
     protected override ICollector<GameEntity> GetTrigger(IContext<GameEntity> context)
@@ -24,7 +22,6 @@ public class DisplayBattleResultSystem : ReactiveSystem<GameEntity>
     {
         string textToDisplay = entities[0].battleEnd.HasPlayerWon ? "I won!" : "JESUS I LOST!";
 
-        var displayResultEntity = context.CreateEntity();
-        displayResultEntity.AddDisplayUI(AssetTypes.BattleResultText, new BattleResultWidgetProperties(textToDisplay));
+        UIService.ShowWidget(AssetTypes.BattleResultText, new BattleResultWidgetProperties(textToDisplay));
     }
 }

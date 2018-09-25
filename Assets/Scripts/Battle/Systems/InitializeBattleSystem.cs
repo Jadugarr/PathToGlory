@@ -32,8 +32,7 @@ public class InitializeBattleSystem : IInitializeSystem
 
     private void CreateReturnButton()
     {
-        context.CreateEntity()
-            .AddDisplayUI(AssetTypes.ReturnButton, new ReturnButtonProperties());
+        UIService.ShowWidget(AssetTypes.ReturnButton, new ReturnButtonProperties());
     }
 
     private void CreatePlayerEntities()

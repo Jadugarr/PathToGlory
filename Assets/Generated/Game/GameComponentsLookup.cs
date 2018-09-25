@@ -20,34 +20,32 @@ public static class GameComponentsLookup {
     public const int CharacterBattleState = 9;
     public const int ChoseAction = 10;
     public const int ChoseCharacter = 11;
-    public const int Death = 12;
-    public const int Defend = 13;
-    public const int DefenseStat = 14;
-    public const int DisplayUI = 15;
-    public const int Enemy = 16;
-    public const int EnemySpawnCooldown = 17;
-    public const int EnemySpawnInput = 18;
-    public const int ExecuteAction = 19;
-    public const int ExecutionTime = 20;
-    public const int GameState = 21;
-    public const int Health = 22;
-    public const int HideUi = 23;
-    public const int Id = 24;
-    public const int Input = 25;
-    public const int LoseCondition = 26;
-    public const int LoseConditionsFulfilled = 27;
-    public const int Player = 28;
-    public const int Position = 29;
-    public const int SceneLoaded = 30;
-    public const int Speed = 31;
-    public const int SubState = 32;
-    public const int Target = 33;
-    public const int UnloadScene = 34;
-    public const int View = 35;
-    public const int WinCondition = 36;
-    public const int WinConditionsFulfilled = 37;
+    public const int Defend = 12;
+    public const int DefenseStat = 13;
+    public const int Enemy = 14;
+    public const int EnemySpawnCooldown = 15;
+    public const int EnemySpawnInput = 16;
+    public const int ExecuteAction = 17;
+    public const int ExecutionTime = 18;
+    public const int GameState = 19;
+    public const int Health = 20;
+    public const int HideUi = 21;
+    public const int Id = 22;
+    public const int Input = 23;
+    public const int LoseCondition = 24;
+    public const int LoseConditionsFulfilled = 25;
+    public const int Player = 26;
+    public const int Position = 27;
+    public const int SceneLoaded = 28;
+    public const int Speed = 29;
+    public const int SubState = 30;
+    public const int Target = 31;
+    public const int UnloadScene = 32;
+    public const int View = 33;
+    public const int WinCondition = 34;
+    public const int WinConditionsFulfilled = 35;
 
-    public const int TotalComponents = 38;
+    public const int TotalComponents = 36;
 
     public static readonly string[] componentNames = {
         "ActionFinished",
@@ -62,10 +60,8 @@ public static class GameComponentsLookup {
         "CharacterBattleState",
         "ChoseAction",
         "ChoseCharacter",
-        "Death",
         "Defend",
         "DefenseStat",
-        "DisplayUI",
         "Enemy",
         "EnemySpawnCooldown",
         "EnemySpawnInput",
@@ -105,7 +101,6 @@ public static class GameComponentsLookup {
         typeof(ChoseCharacterComponent),
         typeof(DefendComponent),
         typeof(DefenseStatComponent),
-        typeof(DisplayUIComponent),
         typeof(EnemyComponent),
         typeof(EnemySpawnCooldownComponent),
         typeof(EnemySpawnInputComponent),
@@ -113,7 +108,6 @@ public static class GameComponentsLookup {
         typeof(ExecutionTimeComponent),
         typeof(GameStateComponent),
         typeof(HealthComponent),
-        typeof(HideUiComponent),
         typeof(IdComponent),
         typeof(InputComponent),
         typeof(LoseConditionComponent),

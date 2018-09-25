@@ -22,8 +22,6 @@ public class ExitWaitingSubStateSystem : ReactiveSystem<GameEntity>
         Systems waitSystems = GameSystemService.GetSubSystemMapping(SubState.Waiting);
         if (waitSystems != null)
         {
-            waitSystems.ClearReactiveSystems();
-            waitSystems.DeactivateReactiveSystems();
             waitSystems.TearDown();
 
             GameSystemService.RemoveActiveSystems(waitSystems);

@@ -6,11 +6,9 @@ using UnityEngine;
 public class CharacterDeathSystem : ReactiveSystem<GameEntity>
 {
     private IGroup<GameEntity> actionEntityGroup;
-    private GameContext context;
 
     public CharacterDeathSystem(GameContext context) : base(context)
     {
-        this.context = context;
         actionEntityGroup = context.GetGroup(GameMatcher.BattleAction);
     }
 

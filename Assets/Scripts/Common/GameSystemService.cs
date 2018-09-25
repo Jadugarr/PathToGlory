@@ -22,6 +22,7 @@ public static class GameSystemService
 
         if (!systemsToAdd.Contains(systems))
         {
+            systems.ActivateReactiveSystems();
             systemsToAdd.Add(systems);
         }
         else
@@ -39,6 +40,8 @@ public static class GameSystemService
 
         if (!systemsToRemove.Contains(systems))
         {
+            systems.ClearReactiveSystems();
+            systems.DeactivateReactiveSystems();
             systemsToRemove.Add(systems);
         }
         else

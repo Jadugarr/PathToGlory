@@ -33,15 +33,11 @@ public class ExitBattleStateSystem : ReactiveSystem<GameEntity>
         Systems battleSystems = GameSystemService.GetSystemMapping(GameState.Battle);
         if (battleSystems != null)
         {
-            battleSystems.ClearReactiveSystems();
-            battleSystems.DeactivateReactiveSystems();
             battleSystems.TearDown();
-
             GameSystemService.RemoveActiveSystems(battleSystems);
         }
 
-        GameEntity hideUiEntity = context.CreateEntity();
-        hideUiEntity.AddHideUi(new[]
+        UIService.HideWidget(new[]
             {AssetTypes.ReturnButton, AssetTypes.Atb, AssetTypes.ActionChooser, AssetTypes.BattleResultText});
         context.ReplaceSubState(context.subState.CurrentSubState, SubState.Undefined);
         GameEntity unloadSceneEntity = context.CreateEntity();

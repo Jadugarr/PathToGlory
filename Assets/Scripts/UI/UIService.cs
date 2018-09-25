@@ -89,6 +89,15 @@ public static class UIService
         }
     }
 
+    public static void HideWidget(string[] widgetNames)
+    {
+        for (var i = 0; i < widgetNames.Length; i++)
+        {
+            string widgetName = widgetNames[i];
+            HideWidget(widgetName);
+        }
+    }
+
     public static GameObject GetAsset(string assetPath)
     {
         if (loadedAssets.ContainsKey(assetPath))

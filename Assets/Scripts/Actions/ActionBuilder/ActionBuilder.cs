@@ -120,7 +120,6 @@ public class ActionBuilder
             choseActionGroup = null;
         }
 
-        actionBuilderSystems.DeactivateReactiveSystems();
         GameSystemService.RemoveActiveSystems(actionBuilderSystems);
     }
 
@@ -139,14 +138,12 @@ public class ActionBuilder
     private void DisplayChoices()
     {
         choosingEntity = context.GetEntityWithId(actionEntity.battleAction.EntityId);
-        GameEntity displayUi = context.CreateEntity();
-        displayUi.AddDisplayUI(AssetTypes.ActionChooser,
+        UIService.ShowWidget(AssetTypes.ActionChooser,
             new ActionChooserProperties(choosingEntity.id.Id,
                 choosingEntity.battleActionChoices.BattleActionChoices.ToArray(),
                 context));
 
         choseActionGroup.OnEntityAdded += OnChoseAction;
-        actionBuilderSystems.DeactivateReactiveSystems();
         GameSystemService.RemoveActiveSystems(actionBuilderSystems);
     }
 

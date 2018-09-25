@@ -25,15 +25,12 @@ public class ExitMainMenuStateSystem : ReactiveSystem<GameEntity>
         Systems mainMenuSystems = GameSystemService.GetSystemMapping(GameState.MainMenu);
         if (mainMenuSystems != null)
         {
-            mainMenuSystems.ClearReactiveSystems();
-            mainMenuSystems.DeactivateReactiveSystems();
             mainMenuSystems.TearDown();
 
             GameSystemService.RemoveActiveSystems(mainMenuSystems);
         }
 
-        GameEntity hideUiEntity = context.CreateEntity();
-        hideUiEntity.AddHideUi(new[] {AssetTypes.MainMenu});
+        UIService.HideWidget(AssetTypes.MainMenu);
         GameEntity unloadScenEntity = context.CreateEntity();
         unloadScenEntity.AddUnloadScene(GameSceneConstants.MainMenuScene);
     }

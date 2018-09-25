@@ -42,8 +42,7 @@ public class ChooseCharacterPropertyAdder : IActionPropertyAdder
             enemyIds.Add(gameEntity.id.Id);
         }
 
-        GameEntity displayUi = context.CreateEntity();
-        displayUi.AddDisplayUI(AssetTypes.CharacterChooser,
+        UIService.ShowWidget(AssetTypes.CharacterChooser,
             new CharacterChooserProperties(enemyIds.ToArray(), context));
 
         choseCharacterGroup.OnEntityAdded += OnChoseCharacter;
@@ -51,12 +50,7 @@ public class ChooseCharacterPropertyAdder : IActionPropertyAdder
 
     private void HideCharacterChooser()
     {
-        GameEntity hideUiEntity = context.CreateEntity();
-        hideUiEntity.AddHideUi(new[]
-        {
-            AssetTypes.CharacterChooser
-        });
-
+        UIService.HideWidget(AssetTypes.CharacterChooser);
         choseCharacterGroup.OnEntityAdded -= OnChoseCharacter;
     }
 
