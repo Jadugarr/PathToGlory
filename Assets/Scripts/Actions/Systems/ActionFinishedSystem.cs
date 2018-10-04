@@ -24,11 +24,9 @@ public class ActionFinishedSystem : ReactiveSystem<GameEntity>
     {
         foreach (GameEntity actionEntity in entities)
         {
-            GameEntity newAction = context.CreateEntity();
-            newAction.AddBattleAction(actionEntity.battleAction.EntityId, ActionType.ChooseAction,
+            actionEntity.ReplaceBattleAction(actionEntity.battleAction.EntityId, ActionType.ChooseAction,
                 ActionATBType.Waiting);
-            newAction.AddExecutionTime(10f, 10f);
-            actionEntity.Destroy();
+            actionEntity.ReplaceExecutionTime(10f, 10f);
         }
     }
 }

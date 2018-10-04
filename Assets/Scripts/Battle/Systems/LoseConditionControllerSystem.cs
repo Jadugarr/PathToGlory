@@ -32,8 +32,6 @@ public class LoseConditionControllerSystem : ReactiveSystem<GameEntity>
     }
 
     protected override void Execute(List<GameEntity> entities)
-    {
-        GameEntity conditionsFulfilledEntity = context.CreateEntity();
-        conditionsFulfilledEntity.isLoseConditionsFulfilled = true;
+    {context.ReplaceSubState(context.subState.CurrentSubState, SubState.PlayerLost);
     }
 }

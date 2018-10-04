@@ -137,12 +137,12 @@
               <e p="WinCondition.cs" t="Include" />
             </e>
             <e p="Systems" t="Include">
-              <e p="BattleEndSystem.cs" t="Include" />
               <e p="CharacterDeathSystem.cs" t="Include" />
               <e p="CheckKillEnemiesConditionSystem.cs" t="Include" />
               <e p="CheckPlayerDeadConditionSystem.cs" t="Include" />
               <e p="CleanupChoseCharacterSystem.cs" t="Include" />
-              <e p="DisplayBattleResultSystem.cs" t="Include" />
+              <e p="DisplayBattleLostSystem.cs" t="Include" />
+              <e p="DisplayBattleWonSystem.cs" t="Include" />
               <e p="InitializeAndTeardownLoseConditionsSystem.cs" t="Include" />
               <e p="InitializeAndTeardownWinConditionsSystem.cs" t="Include" />
               <e p="InitializeATBSystem.cs" t="Include" />
@@ -151,7 +151,7 @@
               <e p="ProcessBattleCancelInputSystem.cs" t="Include" />
               <e p="TeardownBattleSystem.cs" t="Include" />
               <e p="TeardownCharacterSystem.cs" t="Include" />
-              <e p="WinLoseConditionControllerSystem.cs" t="Include" />
+              <e p="WinConditionControllerSystem.cs" t="Include" />
             </e>
           </e>
           <e p="Common" t="Include">
@@ -227,10 +227,14 @@
               <e p="ChangeSubStateSystem.cs" t="Include" />
               <e p="CleanupSceneLoadedSystem.cs" t="Include" />
               <e p="CleanupUnloadSceneSystem.cs" t="Include" />
+              <e p="EnterBattleLostStateSystem.cs" t="Include" />
               <e p="EnterBattleStateSystem.cs" t="Include" />
+              <e p="EnterBattleWonStateSystem.cs" t="Include" />
               <e p="EnterMainMenuStateSystem.cs" t="Include" />
               <e p="EnterWaitingSubStateSystem.cs" t="Include" />
+              <e p="ExitBattleLostStateSystem.cs" t="Include" />
               <e p="ExitBattleStateSystem.cs" t="Include" />
+              <e p="ExitBattleWonStateSystem.cs" t="Include" />
               <e p="ExitMainMenuStateSystem.cs" t="Include" />
               <e p="ExitWaitingSubStateSystem.cs" t="Include" />
               <e p="UnloadSceneSystem.cs" t="Include" />

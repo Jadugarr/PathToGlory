@@ -22,7 +22,6 @@ public static class GameSystemService
 
         if (!systemsToAdd.Contains(systems))
         {
-            systems.ActivateReactiveSystems();
             systemsToAdd.Add(systems);
         }
         else
@@ -42,6 +41,7 @@ public static class GameSystemService
         {
             systems.ClearReactiveSystems();
             systems.DeactivateReactiveSystems();
+            systems.TearDown();
             systemsToRemove.Add(systems);
         }
         else
@@ -54,8 +54,12 @@ public static class GameSystemService
     {
         if (systemsToAdd != null)
         {
-            foreach (Systems systems in systemsToAdd)
+            Systems[] currentList = new Systems[systemsToAdd.Count];
+            systemsToAdd.CopyTo(currentList);
+            foreach (Systems systems in currentList)
             {
+                systems.ActivateReactiveSystems();
+                systems.Initialize();
                 activeSystems.Add(systems);
             }
 

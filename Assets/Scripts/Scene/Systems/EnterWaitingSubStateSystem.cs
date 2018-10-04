@@ -28,8 +28,6 @@ public class EnterWaitingSubStateSystem : ReactiveSystem<GameEntity>
         }
 
         Systems waitSystems = GameSystemService.GetSubSystemMapping(SubState.Waiting);
-        waitSystems.ActivateReactiveSystems();
-        waitSystems.Initialize();
         GameSystemService.AddActiveSystems(waitSystems);
         //InputConfiguration.ChangeActiveSubStateInputMap(SubState.Waiting);
     }

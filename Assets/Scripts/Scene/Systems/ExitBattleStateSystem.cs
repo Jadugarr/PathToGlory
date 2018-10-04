@@ -33,7 +33,6 @@ public class ExitBattleStateSystem : ReactiveSystem<GameEntity>
         Systems battleSystems = GameSystemService.GetSystemMapping(GameState.Battle);
         if (battleSystems != null)
         {
-            battleSystems.TearDown();
             GameSystemService.RemoveActiveSystems(battleSystems);
         }
 

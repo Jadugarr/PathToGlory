@@ -41,8 +41,6 @@ public class EnterMainMenuStateSystem : ReactiveSystem<GameEntity>
         }
 
         Systems mainMenuSystems = GameSystemService.GetSystemMapping(GameState.MainMenu);
-        mainMenuSystems.ActivateReactiveSystems();
-        mainMenuSystems.Initialize();
 
         GameSystemService.AddActiveSystems(mainMenuSystems);
     }

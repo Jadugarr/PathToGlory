@@ -32,7 +32,6 @@ public class WinConditionControllerSystem : ReactiveSystem<GameEntity>
 
     protected override void Execute(List<GameEntity> entities)
     {
-        GameEntity conditionsFulfilledEntity = context.CreateEntity();
-        conditionsFulfilledEntity.isWinConditionsFulfilled = true;
+        context.ReplaceSubState(context.subState.CurrentSubState, SubState.PlayerWon);
     }
 }

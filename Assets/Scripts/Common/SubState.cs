@@ -5,5 +5,6 @@
     Paused,
     Choosing,
     Acting,
-    BattleEnd
+    PlayerWon,
+    PlayerLost
 }

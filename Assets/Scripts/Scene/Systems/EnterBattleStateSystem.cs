@@ -42,8 +42,6 @@ public class EnterBattleStateSystem : ReactiveSystem<GameEntity>
         }
 
         Systems battleSystems = GameSystemService.GetSystemMapping(GameState.Battle);
-        battleSystems.ActivateReactiveSystems();
-        battleSystems.Initialize();
         GameSystemService.AddActiveSystems(battleSystems);
         context.ReplaceSubState(context.subState.CurrentSubState, SubState.Waiting);
     }
@@ -59,7 +57,6 @@ public class EnterBattleStateSystem : ReactiveSystem<GameEntity>
             .Add(new CharacterDeathSystem(context))
             .Add(new TeardownCharacterSystem(context))
             .Add(new TeardownBattleSystem(context))
-            .Add(new DisplayBattleResultSystem(context))
             //Actions
             .Add(new ExecutePlayerChooseActionSystem(context))
             .Add(new ExecuteEnemyChooseActionSystem(context))
@@ -73,8 +70,7 @@ public class EnterBattleStateSystem : ReactiveSystem<GameEntity>
             .Add(new InitializeAndTeardownWinConditionsSystem(context))
             .Add(new InitializeAndTeardownLoseConditionsSystem(context))
             .Add(new WinConditionControllerSystem(context))
-            .Add(new LoseConditionControllerSystem(context))
-            .Add(new BattleEndSystem(context));
+            .Add(new LoseConditionControllerSystem(context));
 
 
         GameSystemService.AddSystemMapping(GameState.Battle, battleSystems);

@@ -58,13 +58,16 @@ public class GameController : MonoBehaviour
             .Add(new ExitPausedSubStateSystem(context))
             .Add(new EnterWaitingSubStateSystem(context))
             .Add(new ExitWaitingSubStateSystem(context))
+            .Add(new EnterBattleWonStateSystem(context))
+            .Add(new ExitBattleWonStateSystem(context))
+            .Add(new EnterBattleLostStateSystem(context))
+            .Add(new ExitBattleLostStateSystem(context))
             //Position
             .Add(new RenderPositionSystem(context))
             //Input
             .Add(new InputSystem(context))
             .Add(new ProcessPauseInputSystem(context))
             .Add(new ProcessUnpauseInputSystem(context));
-        universalSystems.Initialize();
 
         GameSystemService.AddActiveSystems(universalSystems);
     }

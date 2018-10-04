@@ -25,8 +25,6 @@ public class ExitMainMenuStateSystem : ReactiveSystem<GameEntity>
         Systems mainMenuSystems = GameSystemService.GetSystemMapping(GameState.MainMenu);
         if (mainMenuSystems != null)
         {
-            mainMenuSystems.TearDown();
-
             GameSystemService.RemoveActiveSystems(mainMenuSystems);
         }
 
