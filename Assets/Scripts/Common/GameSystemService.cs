@@ -52,6 +52,12 @@ public static class GameSystemService
 
     public static void RefreshActiveSystems()
     {
+        HandleSystemsToAdd();
+        HandleSystemsToRemove();
+    }
+
+    private static void HandleSystemsToAdd()
+    {
         if (systemsToAdd != null)
         {
             Systems[] currentList = new Systems[systemsToAdd.Count];
@@ -61,12 +67,21 @@ public static class GameSystemService
                 systems.ActivateReactiveSystems();
                 systems.Initialize();
                 activeSystems.Add(systems);
+                systemsToAdd.Remove(systems);
+            }
+
+            if (systemsToAdd.Count > 0)
+            {
+                HandleSystemsToAdd();
             }
 
             systemsToAdd.Clear();
             systemsToAdd = null;
         }
+    }
 
+    private static void HandleSystemsToRemove()
+    {
         if (systemsToRemove != null)
         {
             foreach (Systems systems in systemsToRemove)
