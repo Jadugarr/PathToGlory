@@ -58,7 +58,7 @@ public static class GameSystemService
 
     private static void HandleSystemsToAdd()
     {
-        if (systemsToAdd != null)
+        if (systemsToAdd != null && systemsToAdd.Count > 0)
         {
             Systems[] currentList = new Systems[systemsToAdd.Count];
             systemsToAdd.CopyTo(currentList);
@@ -74,9 +74,6 @@ public static class GameSystemService
             {
                 HandleSystemsToAdd();
             }
-
-            systemsToAdd.Clear();
-            systemsToAdd = null;
         }
     }
 

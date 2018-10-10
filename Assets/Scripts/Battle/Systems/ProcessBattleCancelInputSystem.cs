@@ -14,7 +14,7 @@ public class ProcessBattleCancelInputSystem : ReactiveSystem<GameEntity>
 
     protected override bool Filter(GameEntity entity)
     {
-        return entity.input.InputCommand == InputCommand.CancelAction;
+        return entity != null && entity.input != null && entity.input.InputCommand == InputCommand.CancelAction;
     }
 
     protected override void Execute(List<GameEntity> entities)
