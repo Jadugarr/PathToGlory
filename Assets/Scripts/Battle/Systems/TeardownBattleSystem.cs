@@ -8,7 +8,7 @@ public class TeardownBattleSystem : ITearDownSystem
     public TeardownBattleSystem(GameContext context)
     {
         battleEntities =
-            context.GetGroup(Matcher<GameEntity>.AnyOf(GameMatcher.BattleAction, GameMatcher.ExecuteAction));
+            context.GetGroup(Matcher<GameEntity>.AnyOf(GameMatcher.BattleAction));
         this.context = context;
     }
 

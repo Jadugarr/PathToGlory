@@ -6,5 +6,6 @@
     Choosing,
     Acting,
     PlayerWon,
-    PlayerLost
+    PlayerLost,
+    ChooseAction
 }

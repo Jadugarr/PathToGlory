@@ -23,11 +23,6 @@ public class ActionTimeSystem : IExecuteSystem
                                          performingCharacter.speed.SpeedValue);
             actionEntity.ReplaceExecutionTime(actionEntity.executionTime.TotalTime,
                 newRemainingTime);
-
-            if (newRemainingTime <= 0)
-            {
-                actionEntity.isExecuteAction = true;
-            }
         }
     }
 }

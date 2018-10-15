@@ -9,12 +9,12 @@ public class ReleaseDefenseActionSystem : ReactiveSystem<GameEntity>
 
     protected override ICollector<GameEntity> GetTrigger(IContext<GameEntity> context)
     {
-        return context.CreateCollector(GameMatcher.AllOf(GameMatcher.BattleAction, GameMatcher.ExecuteAction));
+        return context.CreateCollector(GameMatcher.AllOf(GameMatcher.BattleAction, GameMatcher.ExecutionTime));
     }
 
     protected override bool Filter(GameEntity entity)
     {
-        return entity.isDefend;
+        return entity.isDefend && entity.executionTime.RemainingTime < 0f;
     }
 
     protected override void Execute(List<GameEntity> entities)

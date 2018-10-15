@@ -48,7 +48,6 @@
               <e p="GameEnemyComponent.cs" t="Include" />
               <e p="GameEnemySpawnCooldownComponent.cs" t="Include" />
               <e p="GameEnemySpawnInputComponent.cs" t="Include" />
-              <e p="GameExecuteActionComponent.cs" t="Include" />
               <e p="GameExecutionTimeComponent.cs" t="Include" />
               <e p="GameGameStateComponent.cs" t="Include" />
               <e p="GameHealthComponent.cs" t="Include" />
@@ -104,10 +103,9 @@
               <e p="ActionFinishedSystem.cs" t="Include" />
               <e p="ActionTimeSystem.cs" t="Include" />
               <e p="CleanupChoseActionSystem.cs" t="Include" />
+              <e p="ExecuteChooseActionSystem.cs" t="Include" />
               <e p="ExecuteDefenseActionSystem.cs" t="Include" />
-              <e p="ExecuteEnemyChooseActionSystem.cs" t="Include" />
               <e p="ExecutePlayerAttackActionSystem.cs" t="Include" />
-              <e p="ExecutePlayerChooseActionSystem.cs" t="Include" />
               <e p="ReleaseDefenseActionSystem.cs" t="Include" />
             </e>
           </e>

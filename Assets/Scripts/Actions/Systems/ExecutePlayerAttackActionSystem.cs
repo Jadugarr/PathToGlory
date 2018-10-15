@@ -14,15 +14,15 @@ public class ExecutePlayerAttackActionSystem : ReactiveSystem<GameEntity>
 
     protected override ICollector<GameEntity> GetTrigger(IContext<GameEntity> context)
     {
-        return context.CreateCollector(GameMatcher.AllOf(GameMatcher.BattleAction, GameMatcher.ExecuteAction));
+        return context.CreateCollector(GameMatcher.AllOf(GameMatcher.BattleAction, GameMatcher.ExecutionTime));
     }
 
     protected override bool Filter(GameEntity entity)
     {
         if (entity.hasBattleAction)
         {
-            GameEntity executionerEntity = context.GetEntityWithId(entity.battleAction.EntityId);
-            return entity.battleAction.ActionType == ActionType.AttackCharacter && executionerEntity.isPlayer;
+            return entity.battleAction.ActionType == ActionType.AttackCharacter &&
+                   entity.executionTime.RemainingTime < 0f;
         }
 
         return false;
@@ -33,7 +33,8 @@ public class ExecutePlayerAttackActionSystem : ReactiveSystem<GameEntity>
         foreach (GameEntity gameEntity in entities)
         {
             GameEntity attacker = context.GetEntityWithId(gameEntity.battleAction.EntityId);
-            GameEntity defender = context.GetEntityWithId(gameEntity.target.TargetId); ;
+            GameEntity defender = context.GetEntityWithId(gameEntity.target.TargetId);
+            ;
             defender.ReplaceHealth(
                 defender.health.Health -
                 Math.Max(0,
@@ -42,7 +43,6 @@ public class ExecutePlayerAttackActionSystem : ReactiveSystem<GameEntity>
 
             Debug.Log("Enemy attacked! Remaining health: " + defender.health.Health);
 
-            gameEntity.isExecuteAction = false;
             gameEntity.isActionFinished = true;
         }
     }

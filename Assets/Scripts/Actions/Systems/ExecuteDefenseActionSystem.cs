@@ -12,14 +12,14 @@ public class ExecuteDefenseActionSystem : ReactiveSystem<GameEntity>
 
     protected override ICollector<GameEntity> GetTrigger(IContext<GameEntity> context)
     {
-        return context.CreateCollector(GameMatcher.AllOf(GameMatcher.ExecuteAction, GameMatcher.BattleAction));
+        return context.CreateCollector(GameMatcher.AllOf(GameMatcher.ExecutionTime, GameMatcher.BattleAction));
     }
 
     protected override bool Filter(GameEntity entity)
     {
         if (entity.hasBattleAction)
         {
-            return entity.battleAction.ActionType == ActionType.Defend;
+            return entity.battleAction.ActionType == ActionType.Defend && entity.executionTime.RemainingTime < 0f;
         }
 
         return false;
@@ -32,7 +32,6 @@ public class ExecuteDefenseActionSystem : ReactiveSystem<GameEntity>
             GameEntity defendingCharacter = context.GetEntityWithId(gameEntity.battleAction.EntityId);
             defendingCharacter.isDefend = true;
 
-            gameEntity.isExecuteAction = false;
             gameEntity.isActionFinished = true;
         }
     }

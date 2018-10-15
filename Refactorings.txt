@@ -1,0 +1,13 @@
+ExecutePlayerChooseAction:
+	- Actions should be chosen in substates
+	- enemies and players are currently handled in different systems
+		- one system/substate to handle both
+		- iterate through entities that are ready to choose an action
+	- still use ActionBuilder for this; gonna replace it in the next step
+	
+Remove ExecuteActionComponent
+	- just listen to the action time being < 0 holy fuck
+		
+ActionBuilder
+	- Completely obliterate this bullshit
+	- choose action stuff in substates
