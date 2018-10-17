@@ -40,7 +40,7 @@ public static class InputConfiguration
                 }
             },
             {
-                SubState.Choosing, new Dictionary<string, InputCommand>()
+                SubState.ChooseAction, new Dictionary<string, InputCommand>()
                 {
                     {InputAxis.Cancel, InputCommand.CancelAction},
                     {InputAxis.Pause, InputCommand.Pause}

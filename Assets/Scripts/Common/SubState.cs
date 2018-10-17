@@ -3,7 +3,6 @@
     Undefined,
     Waiting,
     Paused,
-    Choosing,
     Acting,
     PlayerWon,
     PlayerLost,

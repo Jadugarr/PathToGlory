@@ -51,7 +51,8 @@ public class ActionChooserWidget : AWidget
                 .GetComponent<ActionChooserItemWidget>();
             newItem.Open();
             newItem.ApplyProperties(
-                new ActionChooserItemProperties(propsActionType.ActionType, propsActionType.ActionType.ToString(), OnItemClicked));
+                new ActionChooserItemProperties(propsActionType.ActionType, propsActionType.ActionType.ToString(),
+                    OnItemClicked));
             chooseItems.Add(newItem);
         }
     }
@@ -75,6 +76,7 @@ public class ActionChooserWidget : AWidget
                 chooseItems[i].Close();
                 Destroy(chooseItems[i].gameObject);
             }
+
             chooseItems.Clear();
         }
     }
@@ -82,8 +84,8 @@ public class ActionChooserWidget : AWidget
     private void OnItemClicked(ActionType actionType)
     {
         ActionChooserProperties props = (ActionChooserProperties) properties;
-        GameEntity actionChosenEntity = props.Context.CreateEntity();
-        actionChosenEntity.AddChoseAction(props.EntityId, actionType);
+        props.BattleActionEntity.ReplaceBattleAction(props.BattleActionEntity.battleAction.EntityId, actionType,
+            ActionATBType.Acting);
         UIService.HideWidget(AssetTypes.ActionChooser);
     }
 }

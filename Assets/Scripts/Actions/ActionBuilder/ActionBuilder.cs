@@ -138,10 +138,10 @@ public class ActionBuilder
     private void DisplayChoices()
     {
         choosingEntity = context.GetEntityWithId(actionEntity.battleAction.EntityId);
-        UIService.ShowWidget(AssetTypes.ActionChooser,
-            new ActionChooserProperties(choosingEntity.id.Id,
-                choosingEntity.battleActionChoices.BattleActionChoices.ToArray(),
-                context));
+//        UIService.ShowWidget(AssetTypes.ActionChooser,
+//            new ActionChooserProperties(choosingEntity.id.Id,
+//                choosingEntity.battleActionChoices.BattleActionChoices.ToArray(),
+//                context));
 
         choseActionGroup.OnEntityAdded += OnChoseAction;
         GameSystemService.RemoveActiveSystems(actionBuilderSystems);

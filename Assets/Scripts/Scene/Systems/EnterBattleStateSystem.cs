@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Entitas;
+using Entitas.Battle.Systems;
 using UnityEngine.SceneManagement;
 
 public class EnterBattleStateSystem : ReactiveSystem<GameEntity>

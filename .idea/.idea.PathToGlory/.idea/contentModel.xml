@@ -141,10 +141,13 @@
               <e p="CleanupChoseCharacterSystem.cs" t="Include" />
               <e p="DisplayBattleLostSystem.cs" t="Include" />
               <e p="DisplayBattleWonSystem.cs" t="Include" />
+              <e p="EnterChooseActionStateSystem.cs" t="Include" />
+              <e p="ExitChooseActionSystem.cs" t="Include" />
               <e p="InitializeAndTeardownLoseConditionsSystem.cs" t="Include" />
               <e p="InitializeAndTeardownWinConditionsSystem.cs" t="Include" />
               <e p="InitializeATBSystem.cs" t="Include" />
               <e p="InitializeBattleSystem.cs" t="Include" />
+              <e p="InitializeChooseActionSystem.cs" t="Include" />
               <e p="LoseConditionControllerSystem.cs" t="Include" />
               <e p="ProcessBattleCancelInputSystem.cs" t="Include" />
               <e p="TeardownBattleSystem.cs" t="Include" />
