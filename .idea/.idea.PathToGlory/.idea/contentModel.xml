@@ -41,13 +41,12 @@
               <e p="GameBattleImageComponent.cs" t="Include" />
               <e p="GameChangeSceneComponent.cs" t="Include" />
               <e p="GameCharacterBattleStateComponent.cs" t="Include" />
-              <e p="GameChoseActionComponent.cs" t="Include" />
-              <e p="GameChoseCharacterComponent.cs" t="Include" />
               <e p="GameDefendComponent.cs" t="Include" />
               <e p="GameDefenseStatComponent.cs" t="Include" />
               <e p="GameEnemyComponent.cs" t="Include" />
               <e p="GameEnemySpawnCooldownComponent.cs" t="Include" />
               <e p="GameEnemySpawnInputComponent.cs" t="Include" />
+              <e p="GameExecuteActionComponent.cs" t="Include" />
               <e p="GameExecutionTimeComponent.cs" t="Include" />
               <e p="GameGameStateComponent.cs" t="Include" />
               <e p="GameHealthComponent.cs" t="Include" />
@@ -92,8 +91,6 @@
               <e p="ActionFinishedComponent.cs" t="Include" />
               <e p="BattleActionChoicesComponent.cs" t="Include" />
               <e p="BattleActionComponent.cs" t="Include" />
-              <e p="ChoseActionComponent.cs" t="Include" />
-              <e p="ChoseCharacterComponent.cs" t="Include" />
               <e p="ExecuteActionComponent.cs" t="Include" />
             </e>
             <e p="Data" t="Include">
@@ -102,7 +99,6 @@
             <e p="Systems" t="Include">
               <e p="ActionFinishedSystem.cs" t="Include" />
               <e p="ActionTimeSystem.cs" t="Include" />
-              <e p="CleanupChoseActionSystem.cs" t="Include" />
               <e p="ExecuteChooseActionSystem.cs" t="Include" />
               <e p="ExecuteDefenseActionSystem.cs" t="Include" />
               <e p="ExecutePlayerAttackActionSystem.cs" t="Include" />
@@ -138,11 +134,12 @@
               <e p="CharacterDeathSystem.cs" t="Include" />
               <e p="CheckKillEnemiesConditionSystem.cs" t="Include" />
               <e p="CheckPlayerDeadConditionSystem.cs" t="Include" />
-              <e p="CleanupChoseCharacterSystem.cs" t="Include" />
               <e p="DisplayBattleLostSystem.cs" t="Include" />
               <e p="DisplayBattleWonSystem.cs" t="Include" />
               <e p="EnterChooseActionStateSystem.cs" t="Include" />
+              <e p="EnterExecuteActionStateSystem.cs" t="Include" />
               <e p="ExitChooseActionSystem.cs" t="Include" />
+              <e p="ExitExecuteActionStateSystem.cs" t="Include" />
               <e p="InitializeAndTeardownLoseConditionsSystem.cs" t="Include" />
               <e p="InitializeAndTeardownWinConditionsSystem.cs" t="Include" />
               <e p="InitializeATBSystem.cs" t="Include" />

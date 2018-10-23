@@ -6,5 +6,7 @@
     Acting,
     PlayerWon,
     PlayerLost,
-    ChooseAction
+    ChooseAction,
+    ChooseTarget,
+    ExecuteAction
 }

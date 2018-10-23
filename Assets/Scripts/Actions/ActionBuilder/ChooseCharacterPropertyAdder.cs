@@ -18,7 +18,7 @@ public class ChooseCharacterPropertyAdder : IActionPropertyAdder
         this.successCallback = successCallback;
 
         enemyGroup = context.GetGroup(GameMatcher.Enemy);
-        choseCharacterGroup = context.GetGroup(GameMatcher.ChoseCharacter);
+//        choseCharacterGroup = context.GetGroup(GameMatcher.ChoseCharacter);
 
         DisplayCharacterChooser();
     }
@@ -42,10 +42,10 @@ public class ChooseCharacterPropertyAdder : IActionPropertyAdder
             enemyIds.Add(gameEntity.id.Id);
         }
 
-        UIService.ShowWidget(AssetTypes.CharacterChooser,
-            new CharacterChooserProperties(enemyIds.ToArray(), context));
-
-        choseCharacterGroup.OnEntityAdded += OnChoseCharacter;
+//        UIService.ShowWidget(AssetTypes.CharacterChooser,
+////            new CharacterChooserProperties(enemyIds.ToArray(), context));
+//
+////        choseCharacterGroup.OnEntityAdded += OnChoseCharacter;
     }
 
     private void HideCharacterChooser()
@@ -58,7 +58,7 @@ public class ChooseCharacterPropertyAdder : IActionPropertyAdder
     {
         choseCharacterGroup.OnEntityAdded -= OnChoseCharacter;
         HideCharacterChooser();
-        actionEntity.AddTarget(entity.choseCharacter.ChosenEntityId);
+//        actionEntity.AddTarget(entity.choseCharacter.ChosenEntityId);
 
         successCallback();
     }

@@ -64,6 +64,8 @@ public class GameController : MonoBehaviour
             .Add(new ExitBattleLostStateSystem(context))
             .Add(new EnterChooseActionStateSystem(context))
             .Add(new ExitChooseActionSystem(context))
+            .Add(new EnterExecuteActionStateSystem(context))
+            .Add(new ExitExecuteActionStateSystem(context))
             //Position
             .Add(new RenderPositionSystem(context))
             //Input

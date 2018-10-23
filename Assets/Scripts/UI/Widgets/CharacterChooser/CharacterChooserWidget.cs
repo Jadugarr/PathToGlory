@@ -75,6 +75,7 @@ public class CharacterChooserWidget : AWidget
                 chooseItems[i].Close();
                 Destroy(chooseItems[i].gameObject);
             }
+
             chooseItems.Clear();
         }
     }
@@ -82,8 +83,7 @@ public class CharacterChooserWidget : AWidget
     private void OnItemClicked(int chosenEntityId)
     {
         CharacterChooserProperties props = (CharacterChooserProperties) properties;
-        GameEntity characterChosenEntity = props.Context.CreateEntity();
-        characterChosenEntity.AddChoseCharacter(chosenEntityId);
+        props.ActionEntity.AddTarget(chosenEntityId);
         UIService.HideWidget(AssetTypes.CharacterChooser);
     }
 }

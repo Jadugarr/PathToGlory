@@ -55,7 +55,7 @@ public class ActionBuilder
                 .Add(new ProcessBattleCancelInputSystem(context));
         }
 
-        choseActionGroup = context.GetGroup(GameMatcher.ChoseAction);
+//        choseActionGroup = context.GetGroup(GameMatcher.ChoseAction);
         StartActionBuilding();
     }
 
@@ -67,10 +67,10 @@ public class ActionBuilder
         }
         else
         {
-            choosingEntity = context.GetEntityWithId(actionEntity.battleAction.EntityId);
-            GameEntity choseActionEntity = context.CreateEntity();
-            choseActionEntity.AddChoseAction(choosingEntity.id.Id, ActionType.Defend);
-            ExecuteChosenAction(choseActionEntity.choseAction);
+//            choosingEntity = context.GetEntityWithId(actionEntity.battleAction.EntityId);
+//            GameEntity choseActionEntity = context.CreateEntity();
+//            choseActionEntity.AddChoseAction(choosingEntity.id.Id, ActionType.Defend);
+//            ExecuteChosenAction(choseActionEntity.choseAction);
         }
     }
 
@@ -149,31 +149,31 @@ public class ActionBuilder
 
     private void OnChoseAction(IGroup<GameEntity> @group, GameEntity entity, int index, IComponent component)
     {
-        if (entity.hasChoseAction)
-        {
-            ExecuteChosenAction(entity.choseAction);
-        }
+//        if (entity.hasChoseAction)
+//        {
+//            ExecuteChosenAction(entity.choseAction);
+//        }
     }
 
-    private void ExecuteChosenAction(ChoseActionComponent choseActionComponent)
-    {
-        if (choseActionComponent.EntityId == choosingEntity.id.Id)
-        {
-            actionEntity.battleAction.ActionType = choseActionComponent.ActionType;
-            if (actionSequenceMap.TryGetValue(actionEntity.battleAction.ActionType, out currentSequence))
-            {
-                actionBuilderSystems.ActivateReactiveSystems();
-                GameSystemService.AddActiveSystems(actionBuilderSystems);
-                choseActionGroup.OnEntityAdded -= OnChoseAction;
-                currentSequenceStep = 0;
-                ExecuteNextStep();
-            }
-            else
-            {
-                errorCallback("Sequence map didn't contain action type: " + actionEntity.battleAction.ActionType);
-            }
-        }
-    }
+//    private void ExecuteChosenAction(ChoseActionComponent choseActionComponent)
+//    {
+//        if (choseActionComponent.EntityId == choosingEntity.id.Id)
+//        {
+//            actionEntity.battleAction.ActionType = choseActionComponent.ActionType;
+//            if (actionSequenceMap.TryGetValue(actionEntity.battleAction.ActionType, out currentSequence))
+//            {
+//                actionBuilderSystems.ActivateReactiveSystems();
+//                GameSystemService.AddActiveSystems(actionBuilderSystems);
+//                choseActionGroup.OnEntityAdded -= OnChoseAction;
+//                currentSequenceStep = 0;
+//                ExecuteNextStep();
+//            }
+//            else
+//            {
+//                errorCallback("Sequence map didn't contain action type: " + actionEntity.battleAction.ActionType);
+//            }
+//        }
+//    }
 
     public void Cancel()
     {

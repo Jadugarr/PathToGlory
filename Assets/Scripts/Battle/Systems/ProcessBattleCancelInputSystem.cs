@@ -3,8 +3,11 @@ using Entitas;
 
 public class ProcessBattleCancelInputSystem : ReactiveSystem<GameEntity>
 {
+    private GameContext context;
+
     public ProcessBattleCancelInputSystem(IContext<GameEntity> context) : base(context)
     {
+        this.context = (GameContext) context;
     }
 
     protected override ICollector<GameEntity> GetTrigger(IContext<GameEntity> context)
@@ -19,6 +22,6 @@ public class ProcessBattleCancelInputSystem : ReactiveSystem<GameEntity>
 
     protected override void Execute(List<GameEntity> entities)
     {
-        ActionBuilder.Instance.Cancel();
+        context.ReplaceSubState(context.subState.CurrentSubState, context.subState.PreviousSubState);
     }
 }

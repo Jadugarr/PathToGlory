@@ -60,12 +60,6 @@ public class EnterBattleStateSystem : ReactiveSystem<GameEntity>
             .Add(new TeardownBattleSystem(context))
             //Actions
             .Add(new ExecuteChooseActionSystem(context))
-            .Add(new ExecutePlayerAttackActionSystem(context))
-            .Add(new ExecuteDefenseActionSystem(context))
-            .Add(new ReleaseDefenseActionSystem(context))
-            .Add(new CleanupChoseActionSystem(context))
-            .Add(new CleanupChoseCharacterSystem(context))
-            .Add(new ActionFinishedSystem(context))
             //WinConditions
             .Add(new InitializeAndTeardownWinConditionsSystem(context))
             .Add(new InitializeAndTeardownLoseConditionsSystem(context))
