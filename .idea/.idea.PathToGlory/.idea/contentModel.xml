@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ContentModelStore">
-    <e p="C:\Users\Semo\.Rider2018.2\system\extResources" t="IncludeRecursive" />
-    <e p="C:\Users\Semo\.Rider2018.2\system\resharper-host\Local\Transient\ReSharperHost\v182\SolutionCaches\_PathToGlory.-1642098387.00" t="ExcludeRecursive" />
-    <e p="D:\UnityProjects\PathToGlory" t="IncludeRecursive">
+    <e p="C:\Users\Rene\.Rider2018.2\system\extResources" t="IncludeRecursive" />
+    <e p="C:\Users\Rene\.Rider2018.2\system\resharper-host\Local\Transient\ReSharperHost\v182\SolutionCaches\_PathToGlory.-1850403776.00" t="ExcludeRecursive" />
+    <e p="E:\Development\Projects\PathToGlory" t="IncludeRecursive">
       <e p="Assembly-CSharp.csproj" t="IncludeRecursive" />
       <e p="Assets" t="Include">
         <e p="DesperateDevs" t="Include">
@@ -131,14 +131,17 @@
               <e p="WinCondition.cs" t="Include" />
             </e>
             <e p="Systems" t="Include">
+              <e p="ActionChosenSystem.cs" t="Include" />
               <e p="CharacterDeathSystem.cs" t="Include" />
               <e p="CheckKillEnemiesConditionSystem.cs" t="Include" />
               <e p="CheckPlayerDeadConditionSystem.cs" t="Include" />
               <e p="DisplayBattleLostSystem.cs" t="Include" />
               <e p="DisplayBattleWonSystem.cs" t="Include" />
               <e p="EnterChooseActionStateSystem.cs" t="Include" />
+              <e p="EnterChooseTargetStateSystem.cs" t="Include" />
               <e p="EnterExecuteActionStateSystem.cs" t="Include" />
-              <e p="ExitChooseActionSystem.cs" t="Include" />
+              <e p="ExitChooseActionStateSystem.cs" t="Include" />
+              <e p="ExitChooseTargetStateSystem.cs" t="Include" />
               <e p="ExitExecuteActionStateSystem.cs" t="Include" />
               <e p="InitializeAndTeardownLoseConditionsSystem.cs" t="Include" />
               <e p="InitializeAndTeardownWinConditionsSystem.cs" t="Include" />

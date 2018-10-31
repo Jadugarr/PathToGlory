@@ -2,9 +2,9 @@ using System.Collections.Generic;
 using Entitas;
 using UnityEngine;
 
-public class ExitChooseActionSystem : ReactiveSystem<GameEntity>
+public class ExitChooseActionStateSystem : ReactiveSystem<GameEntity>
 {
-    public ExitChooseActionSystem(IContext<GameEntity> context) : base(context)
+    public ExitChooseActionStateSystem(IContext<GameEntity> context) : base(context)
     {
     }
 
