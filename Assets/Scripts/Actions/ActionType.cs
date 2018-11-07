@@ -1,7 +1,7 @@
 ﻿public enum ActionType
 {
-    None,
-    ChooseAction,
-    AttackCharacter,
-    Defend,
+    None = 0,
+    ChooseAction = 1,
+    AttackCharacter = 2,
+    Defend = 3,
 }

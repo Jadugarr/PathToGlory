@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ContentModelStore">
-    <e p="C:\Users\Rene\.Rider2018.2\system\extResources" t="IncludeRecursive" />
-    <e p="C:\Users\Rene\.Rider2018.2\system\resharper-host\Local\Transient\ReSharperHost\v182\SolutionCaches\_PathToGlory.-1850403776.00" t="ExcludeRecursive" />
-    <e p="E:\Development\Projects\PathToGlory" t="IncludeRecursive">
+    <e p="C:\Users\Semo\.Rider2018.2\system\extResources" t="IncludeRecursive" />
+    <e p="C:\Users\Semo\.Rider2018.2\system\resharper-host\Local\Transient\ReSharperHost\v182\SolutionCaches\_PathToGlory.-1642098387.00" t="ExcludeRecursive" />
+    <e p="D:\UnityProjects\PathToGlory" t="IncludeRecursive">
       <e p="Assembly-CSharp.csproj" t="IncludeRecursive" />
       <e p="Assets" t="Include">
         <e p="DesperateDevs" t="Include">
@@ -104,6 +104,7 @@
               <e p="ExecutePlayerAttackActionSystem.cs" t="Include" />
               <e p="ReleaseDefenseActionSystem.cs" t="Include" />
             </e>
+            <e p="TargetType.cs" t="Include" />
           </e>
           <e p="Battle" t="Include">
             <e p="CharacterBattleState.cs" t="Include" />
@@ -132,6 +133,7 @@
             </e>
             <e p="Systems" t="Include">
               <e p="ActionChosenSystem.cs" t="Include" />
+              <e p="ActionTargetChosenSystem.cs" t="Include" />
               <e p="CharacterDeathSystem.cs" t="Include" />
               <e p="CheckKillEnemiesConditionSystem.cs" t="Include" />
               <e p="CheckPlayerDeadConditionSystem.cs" t="Include" />
@@ -148,6 +150,7 @@
               <e p="InitializeATBSystem.cs" t="Include" />
               <e p="InitializeBattleSystem.cs" t="Include" />
               <e p="InitializeChooseActionSystem.cs" t="Include" />
+              <e p="InitializeChooseTargetSystem.cs" t="Include" />
               <e p="LoseConditionControllerSystem.cs" t="Include" />
               <e p="ProcessBattleCancelInputSystem.cs" t="Include" />
               <e p="TeardownBattleSystem.cs" t="Include" />
@@ -292,6 +295,9 @@
                 <e p="ReturnToMainMenuBehaviour.cs" t="Include" />
               </e>
             </e>
+          </e>
+          <e p="Utils" t="Include">
+            <e p="BattleActionUtils.cs" t="Include" />
           </e>
           <e p="View" t="Include">
             <e p="ViewComponent.cs" t="Include" />
