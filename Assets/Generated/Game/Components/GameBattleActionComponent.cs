@@ -13,7 +13,7 @@ public partial class GameEntity {
 
     public void AddBattleAction(int newEntityId, ActionType newActionType, ActionATBType newActionAtbType) {
         var index = GameComponentsLookup.BattleAction;
-        var component = CreateComponent<BattleActionComponent>(index);
+        var component = (BattleActionComponent)CreateComponent(index, typeof(BattleActionComponent));
         component.EntityId = newEntityId;
         component.ActionType = newActionType;
         component.ActionAtbType = newActionAtbType;
@@ -22,7 +22,7 @@ public partial class GameEntity {
 
     public void ReplaceBattleAction(int newEntityId, ActionType newActionType, ActionATBType newActionAtbType) {
         var index = GameComponentsLookup.BattleAction;
-        var component = CreateComponent<BattleActionComponent>(index);
+        var component = (BattleActionComponent)CreateComponent(index, typeof(BattleActionComponent));
         component.EntityId = newEntityId;
         component.ActionType = newActionType;
         component.ActionAtbType = newActionAtbType;

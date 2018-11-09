@@ -13,14 +13,14 @@ public partial class GameEntity {
 
     public void AddSceneLoaded(string newLoadedSceneName) {
         var index = GameComponentsLookup.SceneLoaded;
-        var component = CreateComponent<SceneLoadedComponent>(index);
+        var component = (SceneLoadedComponent)CreateComponent(index, typeof(SceneLoadedComponent));
         component.LoadedSceneName = newLoadedSceneName;
         AddComponent(index, component);
     }
 
     public void ReplaceSceneLoaded(string newLoadedSceneName) {
         var index = GameComponentsLookup.SceneLoaded;
-        var component = CreateComponent<SceneLoadedComponent>(index);
+        var component = (SceneLoadedComponent)CreateComponent(index, typeof(SceneLoadedComponent));
         component.LoadedSceneName = newLoadedSceneName;
         ReplaceComponent(index, component);
     }

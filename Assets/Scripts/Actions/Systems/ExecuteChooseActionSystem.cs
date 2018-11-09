@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Entitas;
+using Entitas.Extensions;
 using UnityEngine;
 
 public class ExecuteChooseActionSystem : ReactiveSystem<GameEntity>
@@ -26,6 +27,6 @@ public class ExecuteChooseActionSystem : ReactiveSystem<GameEntity>
 
     protected override void Execute(List<GameEntity> entities)
     {
-        context.ReplaceSubState(context.subState.CurrentSubState, SubState.ChooseAction);
+        context.SetNewSubstate(SubState.ChooseAction);
     }
 }

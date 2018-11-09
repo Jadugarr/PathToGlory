@@ -5,6 +5,7 @@ namespace Entitas.Utils
 {
     public static class BattleActionUtils
     {
+        // TODO: Create a system where I can define things like this. Scriptable Objects?
         private static Dictionary<ActionType, TargetType> actionTargetsDefinition =
             new Dictionary<ActionType, TargetType>
             {
@@ -12,6 +13,14 @@ namespace Entitas.Utils
                 {ActionType.Defend, TargetType.Self},
                 {ActionType.AttackCharacter, TargetType.Enemies | TargetType.Allies}
             };
+
+        private static Dictionary<ActionType, float> actionTimesDefinition = new Dictionary<ActionType, float>
+        {
+            {ActionType.Defend, 0},
+            {ActionType.AttackCharacter, 5f},
+            {ActionType.None, 0f},
+            {ActionType.ChooseAction, 10f}
+        };
 
         public static int[] GetTargetEntitiesByActionType(ActionType actionType, GameEntity choosingEntity,
             GameContext context)
@@ -53,6 +62,26 @@ namespace Entitas.Utils
             }
 
             return targetEntityIds.ToArray();
+        }
+
+        /// <summary>
+        /// Returns how much you can deduct from the remaining action time per second
+        /// </summary>
+        /// <param name="actionType">Type of action the character is performing</param>
+        /// <param name="characterSpeed">Speed of the performing character</param>
+        public static float GetActionTimeStep(ActionType actionType, GameEntity executingCharacter)
+        {
+            // TODO: Think of a formula that returns reasonable values
+            return executingCharacter.speed.SpeedValue;
+        }
+
+        public static float GetTimeForAction(ActionType actionType)
+        {
+            float actionTime = 0f;
+
+            actionTimesDefinition.TryGetValue(actionType, out actionTime);
+
+            return actionTime;
         }
     }
 }

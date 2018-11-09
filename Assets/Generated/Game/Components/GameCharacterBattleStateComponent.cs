@@ -13,14 +13,14 @@ public partial class GameEntity {
 
     public void AddCharacterBattleState(CharacterBattleState newBattleState) {
         var index = GameComponentsLookup.CharacterBattleState;
-        var component = CreateComponent<CharacterBattleStateComponent>(index);
+        var component = (CharacterBattleStateComponent)CreateComponent(index, typeof(CharacterBattleStateComponent));
         component.BattleState = newBattleState;
         AddComponent(index, component);
     }
 
     public void ReplaceCharacterBattleState(CharacterBattleState newBattleState) {
         var index = GameComponentsLookup.CharacterBattleState;
-        var component = CreateComponent<CharacterBattleStateComponent>(index);
+        var component = (CharacterBattleStateComponent)CreateComponent(index, typeof(CharacterBattleStateComponent));
         component.BattleState = newBattleState;
         ReplaceComponent(index, component);
     }

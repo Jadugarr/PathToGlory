@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Entitas;
+using Entitas.Extensions;
 using Entitas.Unity;
 
 public class ExitBattleStateSystem : ReactiveSystem<GameEntity>
@@ -38,7 +39,7 @@ public class ExitBattleStateSystem : ReactiveSystem<GameEntity>
 
         UIService.HideWidget(new[]
             {AssetTypes.ReturnButton, AssetTypes.Atb, AssetTypes.ActionChooser, AssetTypes.BattleResultText});
-        context.ReplaceSubState(context.subState.CurrentSubState, SubState.Undefined);
+        context.SetNewSubstate(SubState.Undefined);
         GameEntity unloadSceneEntity = context.CreateEntity();
         unloadSceneEntity.AddUnloadScene(GameSceneConstants.BattleScene);
     }

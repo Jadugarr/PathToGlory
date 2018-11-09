@@ -51,7 +51,7 @@ public partial class GameEntity {
 
     public void AddWinCondition(ConditionModifier newConditionModifier, WinConditionState[] newWinConditions) {
         var index = GameComponentsLookup.WinCondition;
-        var component = CreateComponent<WinConditionComponent>(index);
+        var component = (WinConditionComponent)CreateComponent(index, typeof(WinConditionComponent));
         component.ConditionModifier = newConditionModifier;
         component.WinConditions = newWinConditions;
         AddComponent(index, component);
@@ -59,7 +59,7 @@ public partial class GameEntity {
 
     public void ReplaceWinCondition(ConditionModifier newConditionModifier, WinConditionState[] newWinConditions) {
         var index = GameComponentsLookup.WinCondition;
-        var component = CreateComponent<WinConditionComponent>(index);
+        var component = (WinConditionComponent)CreateComponent(index, typeof(WinConditionComponent));
         component.ConditionModifier = newConditionModifier;
         component.WinConditions = newWinConditions;
         ReplaceComponent(index, component);

@@ -13,14 +13,14 @@ public partial class GameEntity {
 
     public void AddBattleActionChoices(System.Collections.Generic.List<BattleActionChoice> newBattleActionChoices) {
         var index = GameComponentsLookup.BattleActionChoices;
-        var component = CreateComponent<BattleActionChoicesComponent>(index);
+        var component = (BattleActionChoicesComponent)CreateComponent(index, typeof(BattleActionChoicesComponent));
         component.BattleActionChoices = newBattleActionChoices;
         AddComponent(index, component);
     }
 
     public void ReplaceBattleActionChoices(System.Collections.Generic.List<BattleActionChoice> newBattleActionChoices) {
         var index = GameComponentsLookup.BattleActionChoices;
-        var component = CreateComponent<BattleActionChoicesComponent>(index);
+        var component = (BattleActionChoicesComponent)CreateComponent(index, typeof(BattleActionChoicesComponent));
         component.BattleActionChoices = newBattleActionChoices;
         ReplaceComponent(index, component);
     }

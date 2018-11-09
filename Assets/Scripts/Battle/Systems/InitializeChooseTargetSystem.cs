@@ -1,3 +1,4 @@
+using Entitas.Extensions;
 using Entitas.Utils;
 
 namespace Entitas.Battle.Systems
@@ -18,7 +19,7 @@ namespace Entitas.Battle.Systems
             GameEntity currentEntity = null;
             foreach (GameEntity choosingEntity in choosingEntities)
             {
-                if (choosingEntity.executionTime.RemainingTime <= 0f)
+                if (choosingEntity.executionTime.RemainingTime <= 0f && choosingEntity.battleAction.ActionAtbType == ActionATBType.Waiting)
                 {
                     currentEntity = choosingEntity;
                     break;
@@ -28,13 +29,24 @@ namespace Entitas.Battle.Systems
             if (currentEntity != null)
             {
                 GameEntity characterEntity = context.GetEntityWithId(currentEntity.battleAction.EntityId);
-                UIService.ShowWidget(AssetTypes.CharacterChooser,
-                    new CharacterChooserProperties(BattleActionUtils.GetTargetEntitiesByActionType(currentEntity.battleAction.ActionType, characterEntity, context),
-                        context, currentEntity));
+                int[] possibleTargetIds =
+                    BattleActionUtils.GetTargetEntitiesByActionType(currentEntity.battleAction.ActionType,
+                        characterEntity, context);
+
+                if (possibleTargetIds.Length == 1 && possibleTargetIds[0] == characterEntity.id.Id)
+                {
+                    currentEntity.AddTarget(characterEntity.id.Id);
+                }
+                else
+                {
+                    UIService.ShowWidget(AssetTypes.CharacterChooser,
+                        new CharacterChooserProperties(possibleTargetIds,
+                            context, currentEntity));
+                }
             }
             else
             {
-                context.ReplaceSubState(context.subState.CurrentSubState, SubState.Waiting);
+                context.SetNewSubstate(SubState.Waiting);
             }
         }
     }

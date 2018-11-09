@@ -13,7 +13,7 @@ public partial class GameEntity {
 
     public void AddChangeScene(string newSceneName, UnityEngine.SceneManagement.LoadSceneMode newLoadSceneMode) {
         var index = GameComponentsLookup.ChangeScene;
-        var component = CreateComponent<ChangeSceneComponent>(index);
+        var component = (ChangeSceneComponent)CreateComponent(index, typeof(ChangeSceneComponent));
         component.SceneName = newSceneName;
         component.LoadSceneMode = newLoadSceneMode;
         AddComponent(index, component);
@@ -21,7 +21,7 @@ public partial class GameEntity {
 
     public void ReplaceChangeScene(string newSceneName, UnityEngine.SceneManagement.LoadSceneMode newLoadSceneMode) {
         var index = GameComponentsLookup.ChangeScene;
-        var component = CreateComponent<ChangeSceneComponent>(index);
+        var component = (ChangeSceneComponent)CreateComponent(index, typeof(ChangeSceneComponent));
         component.SceneName = newSceneName;
         component.LoadSceneMode = newLoadSceneMode;
         ReplaceComponent(index, component);

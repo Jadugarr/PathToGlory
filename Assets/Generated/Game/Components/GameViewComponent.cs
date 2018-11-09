@@ -13,14 +13,14 @@ public partial class GameEntity {
 
     public void AddView(UnityEngine.GameObject newView) {
         var index = GameComponentsLookup.View;
-        var component = CreateComponent<ViewComponent>(index);
+        var component = (ViewComponent)CreateComponent(index, typeof(ViewComponent));
         component.View = newView;
         AddComponent(index, component);
     }
 
     public void ReplaceView(UnityEngine.GameObject newView) {
         var index = GameComponentsLookup.View;
-        var component = CreateComponent<ViewComponent>(index);
+        var component = (ViewComponent)CreateComponent(index, typeof(ViewComponent));
         component.View = newView;
         ReplaceComponent(index, component);
     }

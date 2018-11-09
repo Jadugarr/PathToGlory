@@ -13,7 +13,7 @@ public partial class GameEntity {
 
     public void AddInput(InputCommand newInputCommand, float newInputValue) {
         var index = GameComponentsLookup.Input;
-        var component = CreateComponent<InputComponent>(index);
+        var component = (InputComponent)CreateComponent(index, typeof(InputComponent));
         component.InputCommand = newInputCommand;
         component.InputValue = newInputValue;
         AddComponent(index, component);
@@ -21,7 +21,7 @@ public partial class GameEntity {
 
     public void ReplaceInput(InputCommand newInputCommand, float newInputValue) {
         var index = GameComponentsLookup.Input;
-        var component = CreateComponent<InputComponent>(index);
+        var component = (InputComponent)CreateComponent(index, typeof(InputComponent));
         component.InputCommand = newInputCommand;
         component.InputValue = newInputValue;
         ReplaceComponent(index, component);

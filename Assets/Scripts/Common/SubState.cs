@@ -8,5 +8,6 @@
     PlayerLost,
     ChooseAction,
     ChooseTarget,
+    FinalizeAction,
     ExecuteAction
 }

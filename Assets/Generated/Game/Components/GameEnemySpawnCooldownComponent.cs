@@ -51,14 +51,14 @@ public partial class GameEntity {
 
     public void AddEnemySpawnCooldown(float newCooldown) {
         var index = GameComponentsLookup.EnemySpawnCooldown;
-        var component = CreateComponent<EnemySpawnCooldownComponent>(index);
+        var component = (EnemySpawnCooldownComponent)CreateComponent(index, typeof(EnemySpawnCooldownComponent));
         component.cooldown = newCooldown;
         AddComponent(index, component);
     }
 
     public void ReplaceEnemySpawnCooldown(float newCooldown) {
         var index = GameComponentsLookup.EnemySpawnCooldown;
-        var component = CreateComponent<EnemySpawnCooldownComponent>(index);
+        var component = (EnemySpawnCooldownComponent)CreateComponent(index, typeof(EnemySpawnCooldownComponent));
         component.cooldown = newCooldown;
         ReplaceComponent(index, component);
     }

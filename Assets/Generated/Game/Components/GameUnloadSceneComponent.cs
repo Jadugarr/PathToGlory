@@ -13,14 +13,14 @@ public partial class GameEntity {
 
     public void AddUnloadScene(string newSceneNameToUnload) {
         var index = GameComponentsLookup.UnloadScene;
-        var component = CreateComponent<UnloadSceneComponent>(index);
+        var component = (UnloadSceneComponent)CreateComponent(index, typeof(UnloadSceneComponent));
         component.SceneNameToUnload = newSceneNameToUnload;
         AddComponent(index, component);
     }
 
     public void ReplaceUnloadScene(string newSceneNameToUnload) {
         var index = GameComponentsLookup.UnloadScene;
-        var component = CreateComponent<UnloadSceneComponent>(index);
+        var component = (UnloadSceneComponent)CreateComponent(index, typeof(UnloadSceneComponent));
         component.SceneNameToUnload = newSceneNameToUnload;
         ReplaceComponent(index, component);
     }

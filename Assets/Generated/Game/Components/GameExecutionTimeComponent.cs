@@ -13,7 +13,7 @@ public partial class GameEntity {
 
     public void AddExecutionTime(float newTotalTime, float newRemainingTime) {
         var index = GameComponentsLookup.ExecutionTime;
-        var component = CreateComponent<ExecutionTimeComponent>(index);
+        var component = (ExecutionTimeComponent)CreateComponent(index, typeof(ExecutionTimeComponent));
         component.TotalTime = newTotalTime;
         component.RemainingTime = newRemainingTime;
         AddComponent(index, component);
@@ -21,7 +21,7 @@ public partial class GameEntity {
 
     public void ReplaceExecutionTime(float newTotalTime, float newRemainingTime) {
         var index = GameComponentsLookup.ExecutionTime;
-        var component = CreateComponent<ExecutionTimeComponent>(index);
+        var component = (ExecutionTimeComponent)CreateComponent(index, typeof(ExecutionTimeComponent));
         component.TotalTime = newTotalTime;
         component.RemainingTime = newRemainingTime;
         ReplaceComponent(index, component);

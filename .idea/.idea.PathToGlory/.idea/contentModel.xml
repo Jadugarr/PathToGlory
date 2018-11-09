@@ -10,6 +10,7 @@
           <e p="Compile.cs" t="Include" />
         </e>
         <e p="Entitas" t="Include">
+          <e p="Entitas.xml" t="Include" />
           <e p="LICENSE.txt" t="Include" />
         </e>
         <e p="Externals" t="Include">
@@ -86,7 +87,6 @@
               <e p="IActionPropertyAdder.cs" t="Include" />
             </e>
             <e p="ActionType.cs" t="Include" />
-            <e p="BattleUtils.cs" t="Include" />
             <e p="Components" t="Include">
               <e p="ActionFinishedComponent.cs" t="Include" />
               <e p="BattleActionChoicesComponent.cs" t="Include" />
@@ -134,6 +134,8 @@
             <e p="Systems" t="Include">
               <e p="ActionChosenSystem.cs" t="Include" />
               <e p="ActionTargetChosenSystem.cs" t="Include" />
+              <e p="ActionTimeAddedSystem.cs" t="Include" />
+              <e p="AddActionTimeSystem.cs" t="Include" />
               <e p="CharacterDeathSystem.cs" t="Include" />
               <e p="CheckKillEnemiesConditionSystem.cs" t="Include" />
               <e p="CheckPlayerDeadConditionSystem.cs" t="Include" />
@@ -142,6 +144,8 @@
               <e p="EnterChooseActionStateSystem.cs" t="Include" />
               <e p="EnterChooseTargetStateSystem.cs" t="Include" />
               <e p="EnterExecuteActionStateSystem.cs" t="Include" />
+              <e p="EnterExitFinalizeActionStateSystem.cs" t="Include" />
+              <e p="ExecuteActionsSystem.cs" t="Include" />
               <e p="ExitChooseActionStateSystem.cs" t="Include" />
               <e p="ExitChooseTargetStateSystem.cs" t="Include" />
               <e p="ExitExecuteActionStateSystem.cs" t="Include" />
@@ -193,6 +197,9 @@
           <e p="Enums" t="Include">
             <e p="Layers.cs" t="Include" />
             <e p="Tags.cs" t="Include" />
+          </e>
+          <e p="Extensions" t="Include">
+            <e p="GameContextExtensions.cs" t="Include" />
           </e>
           <e p="GameState" t="Include">
             <e p="GameStateComponent.cs" t="Include" />

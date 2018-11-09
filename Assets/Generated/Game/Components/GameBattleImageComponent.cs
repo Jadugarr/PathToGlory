@@ -13,14 +13,14 @@ public partial class GameEntity {
 
     public void AddBattleImage(UnityEngine.Sprite newBattleImage) {
         var index = GameComponentsLookup.BattleImage;
-        var component = CreateComponent<BattleImageComponent>(index);
+        var component = (BattleImageComponent)CreateComponent(index, typeof(BattleImageComponent));
         component.BattleImage = newBattleImage;
         AddComponent(index, component);
     }
 
     public void ReplaceBattleImage(UnityEngine.Sprite newBattleImage) {
         var index = GameComponentsLookup.BattleImage;
-        var component = CreateComponent<BattleImageComponent>(index);
+        var component = (BattleImageComponent)CreateComponent(index, typeof(BattleImageComponent));
         component.BattleImage = newBattleImage;
         ReplaceComponent(index, component);
     }

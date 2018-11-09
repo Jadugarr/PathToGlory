@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Entitas;
+using Entitas.Extensions;
 using UnityEngine;
 
 public class LoseConditionControllerSystem : ReactiveSystem<GameEntity>
@@ -32,6 +33,6 @@ public class LoseConditionControllerSystem : ReactiveSystem<GameEntity>
     }
 
     protected override void Execute(List<GameEntity> entities)
-    {context.ReplaceSubState(context.subState.CurrentSubState, SubState.PlayerLost);
+    {context.SetNewSubstate(SubState.PlayerLost);
     }
 }

@@ -1,3 +1,5 @@
+using Entitas.Extensions;
+
 namespace Entitas.Battle.Systems
 {
     public class InitializeChooseActionSystem : IInitializeSystem
@@ -16,7 +18,7 @@ namespace Entitas.Battle.Systems
             GameEntity currentEntity = null;
             foreach (GameEntity choosingEntity in choosingEntities)
             {
-                if (choosingEntity.executionTime.RemainingTime <= 0f)
+                if (choosingEntity.executionTime.RemainingTime <= 0f && choosingEntity.battleAction.ActionAtbType == ActionATBType.Waiting)
                 {
                     currentEntity = choosingEntity;
                     break;
@@ -26,13 +28,22 @@ namespace Entitas.Battle.Systems
             if (currentEntity != null)
             {
                 GameEntity characterEntity = context.GetEntityWithId(currentEntity.battleAction.EntityId);
-                UIService.ShowWidget(AssetTypes.ActionChooser,
-                    new ActionChooserProperties(currentEntity,
-                        characterEntity.battleActionChoices.BattleActionChoices.ToArray(), context));
+                
+                if (characterEntity.isPlayer)
+                {
+                    UIService.ShowWidget(AssetTypes.ActionChooser,
+                        new ActionChooserProperties(currentEntity,
+                            characterEntity.battleActionChoices.BattleActionChoices.ToArray(), context));
+                }
+                else
+                {
+                    currentEntity.ReplaceBattleAction(currentEntity.battleAction.EntityId, ActionType.Defend,
+                        currentEntity.battleAction.ActionAtbType);
+                }
             }
             else
             {
-                context.ReplaceSubState(context.subState.CurrentSubState, SubState.Waiting);
+                context.SetNewSubstate(SubState.Waiting);
             }
         }
     }

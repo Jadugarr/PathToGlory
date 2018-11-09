@@ -51,7 +51,7 @@ public partial class GameEntity {
 
     public void AddLoseCondition(ConditionModifier newConditionModifier, LoseConditionState[] newLoseConditions) {
         var index = GameComponentsLookup.LoseCondition;
-        var component = CreateComponent<LoseConditionComponent>(index);
+        var component = (LoseConditionComponent)CreateComponent(index, typeof(LoseConditionComponent));
         component.ConditionModifier = newConditionModifier;
         component.LoseConditions = newLoseConditions;
         AddComponent(index, component);
@@ -59,7 +59,7 @@ public partial class GameEntity {
 
     public void ReplaceLoseCondition(ConditionModifier newConditionModifier, LoseConditionState[] newLoseConditions) {
         var index = GameComponentsLookup.LoseCondition;
-        var component = CreateComponent<LoseConditionComponent>(index);
+        var component = (LoseConditionComponent)CreateComponent(index, typeof(LoseConditionComponent));
         component.ConditionModifier = newConditionModifier;
         component.LoseConditions = newLoseConditions;
         ReplaceComponent(index, component);

@@ -13,14 +13,14 @@ public partial class GameEntity {
 
     public void AddDefenseStat(int newDefenseValue) {
         var index = GameComponentsLookup.DefenseStat;
-        var component = CreateComponent<DefenseStatComponent>(index);
+        var component = (DefenseStatComponent)CreateComponent(index, typeof(DefenseStatComponent));
         component.DefenseValue = newDefenseValue;
         AddComponent(index, component);
     }
 
     public void ReplaceDefenseStat(int newDefenseValue) {
         var index = GameComponentsLookup.DefenseStat;
-        var component = CreateComponent<DefenseStatComponent>(index);
+        var component = (DefenseStatComponent)CreateComponent(index, typeof(DefenseStatComponent));
         component.DefenseValue = newDefenseValue;
         ReplaceComponent(index, component);
     }

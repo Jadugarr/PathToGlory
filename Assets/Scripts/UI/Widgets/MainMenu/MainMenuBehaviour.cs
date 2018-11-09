@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Entitas.Extensions;
+using UnityEngine;
 using UnityEngine.UI;
 
 public class MainMenuBehaviour : AWidget
@@ -32,7 +33,7 @@ public class MainMenuBehaviour : AWidget
 
     private void OnBattleButtonClicked()
     {
-        context.ReplaceGameState(context.gameState.CurrentGameState, GameState.Battle);
+        context.SetNewGamestate(GameState.Battle);
     }
 
     private void OnExitGameButtonClicked()

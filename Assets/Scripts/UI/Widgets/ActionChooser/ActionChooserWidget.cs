@@ -85,7 +85,7 @@ public class ActionChooserWidget : AWidget
     {
         ActionChooserProperties props = (ActionChooserProperties) properties;
         props.BattleActionEntity.ReplaceBattleAction(props.BattleActionEntity.battleAction.EntityId, actionType,
-            ActionATBType.Acting);
+            ActionATBType.Waiting);
         UIService.HideWidget(AssetTypes.ActionChooser);
     }
 }

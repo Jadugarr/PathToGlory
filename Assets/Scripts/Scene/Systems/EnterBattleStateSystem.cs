@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Entitas;
 using Entitas.Battle.Systems;
+using Entitas.Extensions;
 using UnityEngine.SceneManagement;
 
 public class EnterBattleStateSystem : ReactiveSystem<GameEntity>
@@ -44,7 +45,7 @@ public class EnterBattleStateSystem : ReactiveSystem<GameEntity>
 
         Systems battleSystems = GameSystemService.GetSystemMapping(GameState.Battle);
         GameSystemService.AddActiveSystems(battleSystems);
-        context.ReplaceSubState(context.subState.CurrentSubState, SubState.Waiting);
+        context.SetNewSubstate(SubState.Waiting);
     }
 
     private void CreateBattleSystems()
@@ -60,6 +61,7 @@ public class EnterBattleStateSystem : ReactiveSystem<GameEntity>
             .Add(new TeardownBattleSystem(context))
             //Actions
             .Add(new ExecuteChooseActionSystem(context))
+            .Add(new ExecuteActionsSystem(context))
             //WinConditions
             .Add(new InitializeAndTeardownWinConditionsSystem(context))
             .Add(new InitializeAndTeardownLoseConditionsSystem(context))

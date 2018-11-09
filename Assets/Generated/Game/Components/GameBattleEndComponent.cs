@@ -13,14 +13,14 @@ public partial class GameEntity {
 
     public void AddBattleEnd(bool newHasPlayerWon) {
         var index = GameComponentsLookup.BattleEnd;
-        var component = CreateComponent<BattleEndComponent>(index);
+        var component = (BattleEndComponent)CreateComponent(index, typeof(BattleEndComponent));
         component.HasPlayerWon = newHasPlayerWon;
         AddComponent(index, component);
     }
 
     public void ReplaceBattleEnd(bool newHasPlayerWon) {
         var index = GameComponentsLookup.BattleEnd;
-        var component = CreateComponent<BattleEndComponent>(index);
+        var component = (BattleEndComponent)CreateComponent(index, typeof(BattleEndComponent));
         component.HasPlayerWon = newHasPlayerWon;
         ReplaceComponent(index, component);
     }

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Entitas;
+using Entitas.Extensions;
 
 public class ProcessPauseInputSystem : ReactiveSystem<GameEntity>
 {
@@ -22,6 +23,6 @@ public class ProcessPauseInputSystem : ReactiveSystem<GameEntity>
 
     protected override void Execute(List<GameEntity> entities)
     {
-        context.ReplaceSubState(context.subState.CurrentSubState, SubState.Paused);
+        context.SetNewSubstate(SubState.Paused);
     }
 }

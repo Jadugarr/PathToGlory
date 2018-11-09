@@ -6,6 +6,9 @@
 //     the code is regenerated.
 // </auto-generated>
 //------------------------------------------------------------------------------
+
+using System;
+
 public partial class GameContext {
 
     public GameEntity subStateEntity { get { return GetGroup(GameMatcher.SubState).GetSingleEntity(); } }
@@ -22,6 +25,7 @@ public partial class GameContext {
         return entity;
     }
 
+    [Obsolete("Using this method is tedious. Use GameContext extension method 'SetNewSubstate'")]
     public void ReplaceSubState(SubState newPreviousSubState, SubState newCurrentSubState) {
         var entity = subStateEntity;
         if (entity == null) {
@@ -51,7 +55,7 @@ public partial class GameEntity {
 
     public void AddSubState(SubState newPreviousSubState, SubState newCurrentSubState) {
         var index = GameComponentsLookup.SubState;
-        var component = CreateComponent<SubStateComponent>(index);
+        var component = (SubStateComponent)CreateComponent(index, typeof(SubStateComponent));
         component.PreviousSubState = newPreviousSubState;
         component.CurrentSubState = newCurrentSubState;
         AddComponent(index, component);
@@ -59,7 +63,7 @@ public partial class GameEntity {
 
     public void ReplaceSubState(SubState newPreviousSubState, SubState newCurrentSubState) {
         var index = GameComponentsLookup.SubState;
-        var component = CreateComponent<SubStateComponent>(index);
+        var component = (SubStateComponent)CreateComponent(index, typeof(SubStateComponent));
         component.PreviousSubState = newPreviousSubState;
         component.CurrentSubState = newCurrentSubState;
         ReplaceComponent(index, component);

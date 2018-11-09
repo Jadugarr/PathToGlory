@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Entitas.Extensions;
+using UnityEngine;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(Button))]
@@ -31,7 +32,7 @@ public class ReturnToMainMenuBehaviour : AWidget
 
     private void OnButtonClicked()
     {
-        context.ReplaceGameState(context.gameState.CurrentGameState, GameState.MainMenu);
+        context.SetNewGamestate(GameState.MainMenu);
     }
 
     private void AddEventListener()

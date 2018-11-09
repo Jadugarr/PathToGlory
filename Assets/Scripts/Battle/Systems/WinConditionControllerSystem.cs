@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Entitas;
+using Entitas.Extensions;
 
 public class WinConditionControllerSystem : ReactiveSystem<GameEntity>
 {
@@ -32,6 +33,6 @@ public class WinConditionControllerSystem : ReactiveSystem<GameEntity>
 
     protected override void Execute(List<GameEntity> entities)
     {
-        context.ReplaceSubState(context.subState.CurrentSubState, SubState.PlayerWon);
+        context.SetNewSubstate(SubState.PlayerWon);
     }
 }

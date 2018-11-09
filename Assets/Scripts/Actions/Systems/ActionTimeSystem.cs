@@ -1,4 +1,5 @@
 ﻿using Entitas;
+using Entitas.Utils;
 using UnityEngine;
 
 public class ActionTimeSystem : IExecuteSystem
@@ -18,9 +19,9 @@ public class ActionTimeSystem : IExecuteSystem
         {
             GameEntity performingCharacter = context.GetEntityWithId(actionEntity.battleAction.EntityId);
             float newRemainingTime = actionEntity.executionTime.RemainingTime -
-                                     Time.deltaTime * BattleUtils.GetActionTimeStep(
+                                     Time.deltaTime * BattleActionUtils.GetActionTimeStep(
                                          actionEntity.battleAction.ActionType,
-                                         performingCharacter.speed.SpeedValue);
+                                         performingCharacter);
             actionEntity.ReplaceExecutionTime(actionEntity.executionTime.TotalTime,
                 newRemainingTime);
         }
