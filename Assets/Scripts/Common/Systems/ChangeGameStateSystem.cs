@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Entitas;
 
-public class ChangeGameStateSystem : ReactiveSystem<GameEntity>
+public class ChangeGameStateSystem : GameReactiveSystem
 {
 
     public ChangeGameStateSystem(IContext<GameEntity> context) : base(context)
@@ -18,7 +18,7 @@ public class ChangeGameStateSystem : ReactiveSystem<GameEntity>
         return entity.gameState.PreviousGameState != entity.gameState.CurrentGameState;
     }
 
-    protected override void Execute(List<GameEntity> entities)
+    protected override void ExecuteSystem(List<GameEntity> entities)
     {
         foreach (GameEntity gameEntity in entities)
         {

@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using Entitas;
 using UnityEngine;
 
-public class EnterExecuteActionStateSystem : ReactiveSystem<GameEntity>
+public class EnterExecuteActionStateSystem : GameReactiveSystem
 {
     private GameContext context;
 
@@ -21,7 +21,7 @@ public class EnterExecuteActionStateSystem : ReactiveSystem<GameEntity>
         return entity.subState.CurrentSubState == SubState.ExecuteAction;
     }
 
-    protected override void Execute(List<GameEntity> entities)
+    protected override void ExecuteSystem(List<GameEntity> entities)
     {
         if (!GameSystemService.HasSubSystemMapping(SubState.ExecuteAction))
         {

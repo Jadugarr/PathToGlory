@@ -4,6 +4,8 @@ using UnityEngine;
 
 public static class GameSystemService
 {
+    public static bool isSwitchingActiveSystems = false;
+    
     private static List<Systems> activeSystems = new List<Systems>();
     private static List<Systems> systemsToAdd;
     private static List<Systems> systemsToRemove;
@@ -22,6 +24,7 @@ public static class GameSystemService
 
         if (!systemsToAdd.Contains(systems))
         {
+            isSwitchingActiveSystems = true;
             systemsToAdd.Add(systems);
         }
         else
@@ -39,6 +42,7 @@ public static class GameSystemService
 
         if (!systemsToRemove.Contains(systems))
         {
+            isSwitchingActiveSystems = true;
             systems.ClearReactiveSystems();
             systems.DeactivateReactiveSystems();
             systems.TearDown();
@@ -54,6 +58,8 @@ public static class GameSystemService
     {
         HandleSystemsToAdd();
         HandleSystemsToRemove();
+
+        isSwitchingActiveSystems = false;
     }
 
     private static void HandleSystemsToAdd()

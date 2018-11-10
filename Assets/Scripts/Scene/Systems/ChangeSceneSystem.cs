@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Entitas;
 using UnityEngine.SceneManagement;
 
-public class ChangeSceneSystem : ReactiveSystem<GameEntity>, ICleanupSystem
+public class ChangeSceneSystem : GameReactiveSystem, ICleanupSystem
 {
     private IGroup<GameEntity> sceneChangeGroup;
 
@@ -22,7 +22,7 @@ public class ChangeSceneSystem : ReactiveSystem<GameEntity>, ICleanupSystem
         return true;
     }
 
-    protected override void Execute(List<GameEntity> entities)
+    protected override void ExecuteSystem(List<GameEntity> entities)
     {
         if (entities.Count > 1)
         {

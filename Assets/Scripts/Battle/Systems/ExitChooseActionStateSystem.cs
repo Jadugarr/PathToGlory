@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using Entitas;
 using UnityEngine;
 
-public class ExitChooseActionStateSystem : ReactiveSystem<GameEntity>
+public class ExitChooseActionStateSystem : GameReactiveSystem
 {
     public ExitChooseActionStateSystem(IContext<GameEntity> context) : base(context)
     {
@@ -18,7 +18,7 @@ public class ExitChooseActionStateSystem : ReactiveSystem<GameEntity>
         return entity.subState.PreviousSubState == SubState.ChooseAction;
     }
 
-    protected override void Execute(List<GameEntity> entities)
+    protected override void ExecuteSystem(List<GameEntity> entities)
     {
         if (GameSystemService.HasSubSystemMapping(SubState.ChooseAction))
         {

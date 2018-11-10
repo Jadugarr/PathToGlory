@@ -3,7 +3,7 @@ using Entitas;
 using Entitas.Unity;
 using UnityEngine;
 
-public class CharacterDeathSystem : ReactiveSystem<GameEntity>
+public class CharacterDeathSystem : GameReactiveSystem
 {
     private IGroup<GameEntity> actionEntityGroup;
 
@@ -22,7 +22,7 @@ public class CharacterDeathSystem : ReactiveSystem<GameEntity>
         return entity.hasHealth && entity.health.Health <= 0;
     }
 
-    protected override void Execute(List<GameEntity> entities)
+    protected override void ExecuteSystem(List<GameEntity> entities)
     {
         foreach (GameEntity gameEntity in entities)
         {

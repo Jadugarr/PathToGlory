@@ -2,7 +2,7 @@
 using Entitas;
 using Entitas.Extensions;
 
-public class WinConditionControllerSystem : ReactiveSystem<GameEntity>
+public class WinConditionControllerSystem : GameReactiveSystem
 {
     private GameContext context;
 
@@ -31,7 +31,7 @@ public class WinConditionControllerSystem : ReactiveSystem<GameEntity>
         return everythingFulfilled;
     }
 
-    protected override void Execute(List<GameEntity> entities)
+    protected override void ExecuteSystem(List<GameEntity> entities)
     {
         context.SetNewSubstate(SubState.PlayerWon);
     }

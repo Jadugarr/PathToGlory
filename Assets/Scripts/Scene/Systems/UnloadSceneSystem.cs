@@ -2,7 +2,7 @@
 using Entitas;
 using UnityEngine.SceneManagement;
 
-public class UnloadSceneSystem : ReactiveSystem<GameEntity>
+public class UnloadSceneSystem : GameReactiveSystem
 {
     public UnloadSceneSystem(IContext<GameEntity> context) : base(context)
     {
@@ -18,7 +18,7 @@ public class UnloadSceneSystem : ReactiveSystem<GameEntity>
         return true;
     }
 
-    protected override void Execute(List<GameEntity> entities)
+    protected override void ExecuteSystem(List<GameEntity> entities)
     {
         for (int i = 0; i < entities.Count; i++)
         {

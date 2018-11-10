@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Entitas;
 
-public class ExecuteDefenseActionSystem : ReactiveSystem<GameEntity>
+public class ExecuteDefenseActionSystem : GameReactiveSystem
 {
     private GameContext context;
 
@@ -25,7 +25,7 @@ public class ExecuteDefenseActionSystem : ReactiveSystem<GameEntity>
         return false;
     }
 
-    protected override void Execute(List<GameEntity> entities)
+    protected override void ExecuteSystem(List<GameEntity> entities)
     {
         foreach (GameEntity gameEntity in entities)
         {

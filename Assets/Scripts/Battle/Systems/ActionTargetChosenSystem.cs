@@ -3,7 +3,7 @@ using Entitas;
 using Entitas.Extensions;
 using UnityEngine;
 
-public class ActionTargetChosenSystem : ReactiveSystem<GameEntity>
+public class ActionTargetChosenSystem : GameReactiveSystem
 {
     private GameContext context;
     
@@ -22,7 +22,7 @@ public class ActionTargetChosenSystem : ReactiveSystem<GameEntity>
         return true;
     }
 
-    protected override void Execute(List<GameEntity> entities)
+    protected override void ExecuteSystem(List<GameEntity> entities)
     {
         context.SetNewSubstate(SubState.FinalizeAction);
     }

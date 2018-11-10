@@ -3,7 +3,7 @@ using Entitas;
 using Entitas.Extensions;
 using Entitas.Unity;
 
-public class ExitBattleStateSystem : ReactiveSystem<GameEntity>
+public class ExitBattleStateSystem : GameReactiveSystem
 {
     private GameContext context;
     private IGroup<GameEntity> viewGroup;
@@ -24,7 +24,7 @@ public class ExitBattleStateSystem : ReactiveSystem<GameEntity>
         return entity.gameState.PreviousGameState == GameState.Battle;
     }
 
-    protected override void Execute(List<GameEntity> entities)
+    protected override void ExecuteSystem(List<GameEntity> entities)
     {
         foreach (GameEntity entity in viewGroup.GetEntities())
         {

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Entitas;
 
-public class ReleaseDefenseActionSystem : ReactiveSystem<GameEntity>
+public class ReleaseDefenseActionSystem : GameReactiveSystem
 {
     public ReleaseDefenseActionSystem(IContext<GameEntity> context) : base(context)
     {
@@ -17,7 +17,7 @@ public class ReleaseDefenseActionSystem : ReactiveSystem<GameEntity>
         return entity.isDefend && entity.executionTime.RemainingTime < 0f;
     }
 
-    protected override void Execute(List<GameEntity> entities)
+    protected override void ExecuteSystem(List<GameEntity> entities)
     {
         foreach (GameEntity gameEntity in entities)
         {

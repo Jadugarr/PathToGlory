@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Entitas;
 
-public class ExitMainMenuStateSystem : ReactiveSystem<GameEntity>
+public class ExitMainMenuStateSystem : GameReactiveSystem
 {
     private GameContext context;
 
@@ -20,7 +20,7 @@ public class ExitMainMenuStateSystem : ReactiveSystem<GameEntity>
         return entity.gameState.PreviousGameState == GameState.MainMenu;
     }
 
-    protected override void Execute(List<GameEntity> entities)
+    protected override void ExecuteSystem(List<GameEntity> entities)
     {
         Systems mainMenuSystems = GameSystemService.GetSystemMapping(GameState.MainMenu);
         if (mainMenuSystems != null)

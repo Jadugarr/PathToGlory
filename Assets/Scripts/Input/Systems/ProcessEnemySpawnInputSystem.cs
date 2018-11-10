@@ -4,7 +4,7 @@ using Entitas;
 using Entitas.Unity;
 using UnityEngine;
 
-public class ProcessEnemySpawnInputSystem : ReactiveSystem<GameEntity>
+public class ProcessEnemySpawnInputSystem : GameReactiveSystem
 {
     GameContext context;
 
@@ -23,7 +23,7 @@ public class ProcessEnemySpawnInputSystem : ReactiveSystem<GameEntity>
         return true;
     }
 
-    protected override void Execute(List<GameEntity> entities)
+    protected override void ExecuteSystem(List<GameEntity> entities)
     {
         for (int i = 0; i < entities.Count; i++)
         {

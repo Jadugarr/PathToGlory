@@ -5,7 +5,7 @@ using Entitas.Battle.Systems;
 using Entitas.Extensions;
 using UnityEngine.SceneManagement;
 
-public class EnterBattleStateSystem : ReactiveSystem<GameEntity>
+public class EnterBattleStateSystem : GameReactiveSystem
 {
     private GameContext context;
     private IGroup<GameEntity> sceneLoadedGroup;
@@ -26,7 +26,7 @@ public class EnterBattleStateSystem : ReactiveSystem<GameEntity>
         return entity.gameState.CurrentGameState == GameState.Battle;
     }
 
-    protected override void Execute(List<GameEntity> entities)
+    protected override void ExecuteSystem(List<GameEntity> entities)
     {
         sceneLoadedGroup.OnEntityAdded += OnBattleSceneLoaded;
 
@@ -59,9 +59,6 @@ public class EnterBattleStateSystem : ReactiveSystem<GameEntity>
             .Add(new CharacterDeathSystem(context))
             .Add(new TeardownCharacterSystem(context))
             .Add(new TeardownBattleSystem(context))
-            //Actions
-            .Add(new ExecuteChooseActionSystem(context))
-            .Add(new ExecuteActionsSystem(context))
             //WinConditions
             .Add(new InitializeAndTeardownWinConditionsSystem(context))
             .Add(new InitializeAndTeardownLoseConditionsSystem(context))

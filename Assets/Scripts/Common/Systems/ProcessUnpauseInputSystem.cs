@@ -2,7 +2,7 @@
 using Entitas;
 using Entitas.Extensions;
 
-public class ProcessUnpauseInputSystem : ReactiveSystem<GameEntity>
+public class ProcessUnpauseInputSystem : GameReactiveSystem
 {
     private GameContext context;
 
@@ -21,7 +21,7 @@ public class ProcessUnpauseInputSystem : ReactiveSystem<GameEntity>
         return entity.input.InputCommand == InputCommand.Unpause;
     }
 
-    protected override void Execute(List<GameEntity> entities)
+    protected override void ExecuteSystem(List<GameEntity> entities)
     {
         context.SetNewSubstate(context.subState.PreviousSubState);
     }

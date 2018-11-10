@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using Entitas;
 using UnityEngine;
 
-public class ExitBattleLostStateSystem : ReactiveSystem<GameEntity>
+public class ExitBattleLostStateSystem : GameReactiveSystem
 {
     public ExitBattleLostStateSystem(IContext<GameEntity> context) : base(context)
     {
@@ -18,7 +18,7 @@ public class ExitBattleLostStateSystem : ReactiveSystem<GameEntity>
         return entity.subState.PreviousSubState == SubState.PlayerLost;
     }
 
-    protected override void Execute(List<GameEntity> entities)
+    protected override void ExecuteSystem(List<GameEntity> entities)
     {
         Systems playerLostSystems = GameSystemService.GetSubSystemMapping(SubState.PlayerLost);
         GameSystemService.RemoveActiveSystems(playerLostSystems);

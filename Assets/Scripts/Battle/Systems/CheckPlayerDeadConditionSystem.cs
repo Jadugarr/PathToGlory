@@ -2,7 +2,7 @@
 using Entitas;
 using UnityEngine;
 
-public class CheckPlayerDeadConditionSystem : ReactiveSystem<GameEntity>
+public class CheckPlayerDeadConditionSystem : GameReactiveSystem
 {
     private IGroup<GameEntity> playerEntities;
     private GameContext context;
@@ -23,7 +23,7 @@ public class CheckPlayerDeadConditionSystem : ReactiveSystem<GameEntity>
         return playerEntities.count == 0;
     }
 
-    protected override void Execute(List<GameEntity> entities)
+    protected override void ExecuteSystem(List<GameEntity> entities)
     {
         Debug.Log("All player characters are dead!");
         LoseConditionComponent loseConditions = context.loseCondition;

@@ -2,7 +2,7 @@
 using Entitas;
 using UnityEngine;
 
-public class CheckKillEnemiesConditionSystem : ReactiveSystem<GameEntity>
+public class CheckKillEnemiesConditionSystem : GameReactiveSystem
 {
     private IGroup<GameEntity> enemyEntities;
     private GameContext context;
@@ -23,7 +23,7 @@ public class CheckKillEnemiesConditionSystem : ReactiveSystem<GameEntity>
         return enemyEntities.count == 0;
     }
 
-    protected override void Execute(List<GameEntity> entities)
+    protected override void ExecuteSystem(List<GameEntity> entities)
     {
         Debug.Log("All enemies are dead!");
         WinConditionComponent winConditions = context.winCondition;

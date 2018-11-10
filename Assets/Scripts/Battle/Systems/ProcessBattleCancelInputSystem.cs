@@ -2,7 +2,7 @@
 using Entitas;
 using Entitas.Extensions;
 
-public class ProcessBattleCancelInputSystem : ReactiveSystem<GameEntity>
+public class ProcessBattleCancelInputSystem : GameReactiveSystem
 {
     private GameContext context;
 
@@ -21,7 +21,7 @@ public class ProcessBattleCancelInputSystem : ReactiveSystem<GameEntity>
         return entity != null && entity.input != null && entity.input.InputCommand == InputCommand.CancelAction;
     }
 
-    protected override void Execute(List<GameEntity> entities)
+    protected override void ExecuteSystem(List<GameEntity> entities)
     {
         context.SetNewSubstate(context.subState.PreviousSubState);
     }

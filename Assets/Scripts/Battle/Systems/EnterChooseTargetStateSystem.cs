@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using Entitas;
 using Entitas.Battle.Systems;
 
-public class EnterChooseTargetStateSystem : ReactiveSystem<GameEntity>
+public class EnterChooseTargetStateSystem : GameReactiveSystem
 {
     private GameContext context;
 
@@ -21,7 +21,7 @@ public class EnterChooseTargetStateSystem : ReactiveSystem<GameEntity>
         return entity.subState.CurrentSubState == SubState.ChooseTarget;
     }
 
-    protected override void Execute(List<GameEntity> entities)
+    protected override void ExecuteSystem(List<GameEntity> entities)
     {
         if (!GameSystemService.HasSubSystemMapping(SubState.ChooseTarget))
         {

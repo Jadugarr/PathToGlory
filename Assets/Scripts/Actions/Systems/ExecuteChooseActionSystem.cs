@@ -4,11 +4,9 @@ using Entitas;
 using Entitas.Extensions;
 using UnityEngine;
 
-public class ExecuteChooseActionSystem : ReactiveSystem<GameEntity>
+public class ExecuteChooseActionSystem : GameReactiveSystem
 {
     private GameContext context;
-
-    private Queue<GameEntity> executeActionQueue = new Queue<GameEntity>();
 
     public ExecuteChooseActionSystem(IContext<GameEntity> context) : base(context)
     {
@@ -25,7 +23,7 @@ public class ExecuteChooseActionSystem : ReactiveSystem<GameEntity>
         return entity.battleAction.ActionType == ActionType.ChooseAction && entity.executionTime.RemainingTime <= 0f;
     }
 
-    protected override void Execute(List<GameEntity> entities)
+    protected override void ExecuteSystem(List<GameEntity> entities)
     {
         context.SetNewSubstate(SubState.ChooseAction);
     }

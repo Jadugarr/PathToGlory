@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Entitas;
 using UnityEngine;
 
-public class ExecutePlayerAttackActionSystem : ReactiveSystem<GameEntity>
+public class ExecutePlayerAttackActionSystem : GameReactiveSystem
 {
     private GameContext context;
 
@@ -28,7 +28,7 @@ public class ExecutePlayerAttackActionSystem : ReactiveSystem<GameEntity>
         return false;
     }
 
-    protected override void Execute(List<GameEntity> entities)
+    protected override void ExecuteSystem(List<GameEntity> entities)
     {
         foreach (GameEntity gameEntity in entities)
         {

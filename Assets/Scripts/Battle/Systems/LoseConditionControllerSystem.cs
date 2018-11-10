@@ -3,7 +3,7 @@ using Entitas;
 using Entitas.Extensions;
 using UnityEngine;
 
-public class LoseConditionControllerSystem : ReactiveSystem<GameEntity>
+public class LoseConditionControllerSystem : GameReactiveSystem
 {
     private GameContext context;
 
@@ -32,7 +32,7 @@ public class LoseConditionControllerSystem : ReactiveSystem<GameEntity>
         return everythingFulfilled;
     }
 
-    protected override void Execute(List<GameEntity> entities)
+    protected override void ExecuteSystem(List<GameEntity> entities)
     {context.SetNewSubstate(SubState.PlayerLost);
     }
 }

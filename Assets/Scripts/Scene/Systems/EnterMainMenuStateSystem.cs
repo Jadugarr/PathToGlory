@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Entitas;
 using UnityEngine.SceneManagement;
 
-public class EnterMainMenuStateSystem : ReactiveSystem<GameEntity>
+public class EnterMainMenuStateSystem : GameReactiveSystem
 {
     private GameContext context;
     private IGroup<GameEntity> sceneLoadedGroup;
@@ -24,7 +24,7 @@ public class EnterMainMenuStateSystem : ReactiveSystem<GameEntity>
         return entity.gameState.CurrentGameState == GameState.MainMenu;
     }
 
-    protected override void Execute(List<GameEntity> entities)
+    protected override void ExecuteSystem(List<GameEntity> entities)
     {
         GameEntity changeSceneEntity = context.CreateEntity();
         changeSceneEntity.AddChangeScene(GameSceneConstants.MainMenuScene, LoadSceneMode.Additive);

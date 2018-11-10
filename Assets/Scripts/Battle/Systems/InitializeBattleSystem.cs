@@ -92,7 +92,7 @@ public class InitializeBattleSystem : IInitializeSystem
             entity.AddHealth(10);
             entity.AddAttack(10);
             entity.AddDefenseStat(5);
-            entity.AddSpeed(5);
+            entity.AddSpeed(10);
             entity.AddCharacterBattleState(CharacterBattleState.WaitingToChoose);
             entity.AddBattleActionChoices(new List<BattleActionChoice>
             {

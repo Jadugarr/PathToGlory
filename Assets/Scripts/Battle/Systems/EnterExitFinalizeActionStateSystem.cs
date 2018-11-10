@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using Entitas;
 using Entitas.Battle.Systems;
 
-public class EnterFinalizeActionStateSystem : ReactiveSystem<GameEntity>
+public class EnterFinalizeActionStateSystem : GameReactiveSystem
 {
     private GameContext context;
 
@@ -21,7 +21,7 @@ public class EnterFinalizeActionStateSystem : ReactiveSystem<GameEntity>
         return entity.subState.CurrentSubState == SubState.FinalizeAction;
     }
 
-    protected override void Execute(List<GameEntity> entities)
+    protected override void ExecuteSystem(List<GameEntity> entities)
     {
         if (!GameSystemService.HasSubSystemMapping(SubState.FinalizeAction))
         {
@@ -41,7 +41,7 @@ public class EnterFinalizeActionStateSystem : ReactiveSystem<GameEntity>
     }
 }
 
-public class ExitFinalizeActionStateSystem : ReactiveSystem<GameEntity>
+public class ExitFinalizeActionStateSystem : GameReactiveSystem
 {
     private GameContext context;
 
@@ -60,7 +60,7 @@ public class ExitFinalizeActionStateSystem : ReactiveSystem<GameEntity>
         return entity.subState.PreviousSubState == SubState.FinalizeAction;
     }
 
-    protected override void Execute(List<GameEntity> entities)
+    protected override void ExecuteSystem(List<GameEntity> entities)
     {
         if (GameSystemService.HasSubSystemMapping(SubState.FinalizeAction))
         {

@@ -3,7 +3,7 @@ using Entitas;
 using Entitas.Extensions;
 using UnityEngine;
 
-public class ExecuteActionsSystem : ReactiveSystem<GameEntity>
+public class ExecuteActionsSystem : GameReactiveSystem
 {
     private GameContext _context;
 
@@ -22,7 +22,7 @@ public class ExecuteActionsSystem : ReactiveSystem<GameEntity>
         return entity.battleAction.ActionAtbType == ActionATBType.Acting && entity.executionTime.RemainingTime <= 0f;
     }
 
-    protected override void Execute(List<GameEntity> entities)
+    protected override void ExecuteSystem(List<GameEntity> entities)
     {
         _context.SetNewSubstate(SubState.ExecuteAction);
     }

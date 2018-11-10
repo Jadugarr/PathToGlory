@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using Entitas;
 
-public class RenderPositionSystem : ReactiveSystem<GameEntity>
+public class RenderPositionSystem : GameReactiveSystem
 {
     public RenderPositionSystem(IContext<GameEntity> context) : base(context)
     {
@@ -18,7 +18,7 @@ public class RenderPositionSystem : ReactiveSystem<GameEntity>
     }
 
 
-    protected override void Execute(List<GameEntity> entities)
+    protected override void ExecuteSystem(List<GameEntity> entities)
     {
         foreach (GameEntity e in entities)
         {

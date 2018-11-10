@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using Entitas;
 
-public class EnterBattleWonStateSystem : ReactiveSystem<GameEntity>
+public class EnterBattleWonStateSystem : GameReactiveSystem
 {
     public EnterBattleWonStateSystem(IContext<GameEntity> context) : base(context)
     {
@@ -17,7 +17,7 @@ public class EnterBattleWonStateSystem : ReactiveSystem<GameEntity>
         return entity.subState.CurrentSubState == SubState.PlayerWon;
     }
 
-    protected override void Execute(List<GameEntity> entities)
+    protected override void ExecuteSystem(List<GameEntity> entities)
     {
         if (GameSystemService.GetSubSystemMapping(SubState.PlayerWon) == null)
         {

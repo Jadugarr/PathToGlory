@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Entitas;
 
-public class EnterPausedSubStateSystem : ReactiveSystem<GameEntity>
+public class EnterPausedSubStateSystem : GameReactiveSystem
 {
     private GameContext context;
 
@@ -20,7 +20,7 @@ public class EnterPausedSubStateSystem : ReactiveSystem<GameEntity>
         return context.subState.CurrentSubState == SubState.Paused;
     }
 
-    protected override void Execute(List<GameEntity> entities)
+    protected override void ExecuteSystem(List<GameEntity> entities)
     {
         UIService.ShowWidget(AssetTypes.PauseOverlay, null);
     }

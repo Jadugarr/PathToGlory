@@ -3,7 +3,7 @@ using Entitas;
 using Entitas.Extensions;
 using UnityEngine;
 
-public class ActionTimeAddedSystem : ReactiveSystem<GameEntity>
+public class ActionTimeAddedSystem : GameReactiveSystem
 {
     private GameContext context;
 
@@ -22,7 +22,7 @@ public class ActionTimeAddedSystem : ReactiveSystem<GameEntity>
         return true;
     }
 
-    protected override void Execute(List<GameEntity> entities)
+    protected override void ExecuteSystem(List<GameEntity> entities)
     {
         context.SetNewSubstate(SubState.Waiting);
     }

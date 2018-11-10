@@ -3,7 +3,7 @@ using Entitas;
 using Entitas.Battle.Systems;
 using UnityEngine;
 
-public class EnterChooseActionStateSystem : ReactiveSystem<GameEntity>
+public class EnterChooseActionStateSystem : GameReactiveSystem
 {
     private GameContext context;
 
@@ -22,7 +22,7 @@ public class EnterChooseActionStateSystem : ReactiveSystem<GameEntity>
         return entity.subState.CurrentSubState == SubState.ChooseAction;
     }
 
-    protected override void Execute(List<GameEntity> entities)
+    protected override void ExecuteSystem(List<GameEntity> entities)
     {
         if (!GameSystemService.HasSubSystemMapping(SubState.ChooseAction))
         {

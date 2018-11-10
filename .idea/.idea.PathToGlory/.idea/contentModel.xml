@@ -173,6 +173,7 @@
               <e p="ChangeGameStateSystem.cs" t="Include" />
               <e p="EnterPausedSubStateSystem.cs" t="Include" />
               <e p="ExitPausedSubStateSystem.cs" t="Include" />
+              <e p="GameReactiveSystem.cs" t="Include" />
               <e p="InitPromisesSystem.cs" t="Include" />
               <e p="ProcessPauseInputSystem.cs" t="Include" />
               <e p="ProcessUnpauseInputSystem.cs" t="Include" />

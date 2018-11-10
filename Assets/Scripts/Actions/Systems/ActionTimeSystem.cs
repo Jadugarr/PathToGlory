@@ -15,15 +15,18 @@ public class ActionTimeSystem : IExecuteSystem
 
     public void Execute()
     {
-        foreach (GameEntity actionEntity in actionEntities)
+        if (!GameSystemService.isSwitchingActiveSystems)
         {
-            GameEntity performingCharacter = context.GetEntityWithId(actionEntity.battleAction.EntityId);
-            float newRemainingTime = actionEntity.executionTime.RemainingTime -
-                                     Time.deltaTime * BattleActionUtils.GetActionTimeStep(
-                                         actionEntity.battleAction.ActionType,
-                                         performingCharacter);
-            actionEntity.ReplaceExecutionTime(actionEntity.executionTime.TotalTime,
-                newRemainingTime);
+            foreach (GameEntity actionEntity in actionEntities)
+            {
+                GameEntity performingCharacter = context.GetEntityWithId(actionEntity.battleAction.EntityId);
+                float newRemainingTime = actionEntity.executionTime.RemainingTime -
+                                         Time.deltaTime * BattleActionUtils.GetActionTimeStep(
+                                             actionEntity.battleAction.ActionType,
+                                             performingCharacter);
+                actionEntity.ReplaceExecutionTime(actionEntity.executionTime.TotalTime,
+                    newRemainingTime);
+            }
         }
     }
 }

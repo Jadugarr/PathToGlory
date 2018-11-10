@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Entitas;
 
-public class EnterWaitingSubStateSystem : ReactiveSystem<GameEntity>
+public class EnterWaitingSubStateSystem : GameReactiveSystem
 {
     private GameContext context;
 
@@ -20,7 +20,7 @@ public class EnterWaitingSubStateSystem : ReactiveSystem<GameEntity>
         return entity.subState.CurrentSubState == SubState.Waiting;
     }
 
-    protected override void Execute(List<GameEntity> entities)
+    protected override void ExecuteSystem(List<GameEntity> entities)
     {
         if (!GameSystemService.HasSubSystemMapping(SubState.Waiting))
         {
@@ -29,13 +29,15 @@ public class EnterWaitingSubStateSystem : ReactiveSystem<GameEntity>
 
         Systems waitSystems = GameSystemService.GetSubSystemMapping(SubState.Waiting);
         GameSystemService.AddActiveSystems(waitSystems);
-        //InputConfiguration.ChangeActiveSubStateInputMap(SubState.Waiting);
     }
 
     private void CreateWaitingSystems()
     {
         Systems waitStateSystems = new Feature("WaitingSubStateSystems")
-            .Add(new ActionTimeSystem(context));
+            .Add(new ActionTimeSystem(context))
+            //Actions
+            .Add(new ExecuteChooseActionSystem(context))
+            .Add(new ExecuteActionsSystem(context));
 
         GameSystemService.AddSubSystemMapping(SubState.Waiting, waitStateSystems);
     }

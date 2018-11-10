@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Entitas;
 
-public class ExitWaitingSubStateSystem : ReactiveSystem<GameEntity>
+public class ExitWaitingSubStateSystem : GameReactiveSystem
 {
     public ExitWaitingSubStateSystem(IContext<GameEntity> context) : base(context)
     {
@@ -17,7 +17,7 @@ public class ExitWaitingSubStateSystem : ReactiveSystem<GameEntity>
         return entity.subState.PreviousSubState == SubState.Waiting;
     }
 
-    protected override void Execute(List<GameEntity> entities)
+    protected override void ExecuteSystem(List<GameEntity> entities)
     {
         Systems waitSystems = GameSystemService.GetSubSystemMapping(SubState.Waiting);
         if (waitSystems != null)

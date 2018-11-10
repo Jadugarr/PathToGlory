@@ -2,7 +2,7 @@
 using Entitas;
 using UnityEngine;
 
-public class ChangeSubStateSystem : ReactiveSystem<GameEntity>
+public class ChangeSubStateSystem : GameReactiveSystem
 {
     public ChangeSubStateSystem(IContext<GameEntity> context) : base(context)
     {
@@ -18,7 +18,7 @@ public class ChangeSubStateSystem : ReactiveSystem<GameEntity>
         return true;
     }
 
-    protected override void Execute(List<GameEntity> entities)
+    protected override void ExecuteSystem(List<GameEntity> entities)
     {
         foreach (GameEntity gameEntity in entities)
         {

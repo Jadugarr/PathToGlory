@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using Entitas;
 using UnityEngine;
 
-public class ExitBattleWonStateSystem : ReactiveSystem<GameEntity>
+public class ExitBattleWonStateSystem : GameReactiveSystem
 {
     public ExitBattleWonStateSystem(IContext<GameEntity> context) : base(context)
     {
@@ -18,7 +18,7 @@ public class ExitBattleWonStateSystem : ReactiveSystem<GameEntity>
         return entity.subState.PreviousSubState == SubState.PlayerWon;
     }
 
-    protected override void Execute(List<GameEntity> entities)
+    protected override void ExecuteSystem(List<GameEntity> entities)
     {
         Systems playerWonSystems = GameSystemService.GetSubSystemMapping(SubState.PlayerWon);
         if (playerWonSystems != null)

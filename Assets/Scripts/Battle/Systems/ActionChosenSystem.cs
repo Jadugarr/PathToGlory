@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using Entitas;
 using Entitas.Extensions;
 
-public class ActionChosenSystem : ReactiveSystem<GameEntity>
+public class ActionChosenSystem : GameReactiveSystem
 {
     private GameContext context;
 
@@ -21,7 +21,7 @@ public class ActionChosenSystem : ReactiveSystem<GameEntity>
         return entity.battleAction.ActionType != ActionType.None;
     }
 
-    protected override void Execute(List<GameEntity> entities)
+    protected override void ExecuteSystem(List<GameEntity> entities)
     {
         context.SetNewSubstate(SubState.ChooseTarget);
     }

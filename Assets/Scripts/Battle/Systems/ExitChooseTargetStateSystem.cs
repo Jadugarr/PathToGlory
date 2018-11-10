@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using Entitas;
 
-public class ExitChooseTargetStateSystem : ReactiveSystem<GameEntity>
+public class ExitChooseTargetStateSystem : GameReactiveSystem
 {
     private GameContext context;
 
@@ -20,7 +20,7 @@ public class ExitChooseTargetStateSystem : ReactiveSystem<GameEntity>
         return entity.subState.PreviousSubState == SubState.ChooseTarget;
     }
 
-    protected override void Execute(List<GameEntity> entities)
+    protected override void ExecuteSystem(List<GameEntity> entities)
     {
         if (GameSystemService.HasSubSystemMapping(SubState.ChooseTarget))
         {

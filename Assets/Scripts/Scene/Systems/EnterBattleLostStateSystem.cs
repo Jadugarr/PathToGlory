@@ -3,7 +3,7 @@ using Entitas;
 using Entitas.Battle.Systems;
 using UnityEngine;
 
-public class EnterBattleLostStateSystem : ReactiveSystem<GameEntity>
+public class EnterBattleLostStateSystem : GameReactiveSystem
 {
     public EnterBattleLostStateSystem(IContext<GameEntity> context) : base(context)
     {
@@ -19,7 +19,7 @@ public class EnterBattleLostStateSystem : ReactiveSystem<GameEntity>
         return entity.subState.CurrentSubState == SubState.PlayerLost;
     }
 
-    protected override void Execute(List<GameEntity> entities)
+    protected override void ExecuteSystem(List<GameEntity> entities)
     {
         if (!GameSystemService.HasSubSystemMapping(SubState.PlayerLost))
         {
