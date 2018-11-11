@@ -32,7 +32,7 @@ public class ReturnToMainMenuBehaviour : AWidget
 
     private void OnButtonClicked()
     {
-        context.SetNewGamestate(GameState.MainMenu);
+        context.ReplaceChangeGameState(GameState.MainMenu);
     }
 
     private void AddEventListener()

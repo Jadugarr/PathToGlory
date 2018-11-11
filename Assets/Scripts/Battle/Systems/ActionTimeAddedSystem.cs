@@ -24,6 +24,6 @@ public class ActionTimeAddedSystem : GameReactiveSystem
 
     protected override void ExecuteSystem(List<GameEntity> entities)
     {
-        context.SetNewSubstate(SubState.Waiting);
+        context.ReplaceChangeSubState(SubState.Waiting);
     }
 }

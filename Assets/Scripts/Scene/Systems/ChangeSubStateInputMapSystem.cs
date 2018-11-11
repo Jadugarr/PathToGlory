@@ -2,9 +2,9 @@
 using Entitas;
 using UnityEngine;
 
-public class ChangeSubStateSystem : GameReactiveSystem
+public class ChangeSubStateInputMapSystem : GameReactiveSystem
 {
-    public ChangeSubStateSystem(IContext<GameEntity> context) : base(context)
+    public ChangeSubStateInputMapSystem(IContext<GameEntity> context) : base(context)
     {
     }
 

@@ -6,9 +6,6 @@
 //     the code is regenerated.
 // </auto-generated>
 //------------------------------------------------------------------------------
-
-using System;
-
 public partial class GameContext {
 
     public GameEntity gameStateEntity { get { return GetGroup(GameMatcher.GameState).GetSingleEntity(); } }
@@ -25,7 +22,6 @@ public partial class GameContext {
         return entity;
     }
 
-    [Obsolete("Using this method is tedious. Use GameContext extension method 'SetNewGamestate'")]
     public void ReplaceGameState(GameState newPreviousGameState, GameState newCurrentGameState) {
         var entity = gameStateEntity;
         if (entity == null) {

@@ -33,6 +33,7 @@ public class LoseConditionControllerSystem : GameReactiveSystem
     }
 
     protected override void ExecuteSystem(List<GameEntity> entities)
-    {context.SetNewSubstate(SubState.PlayerLost);
+    {
+        context.ReplaceChangeSubState(SubState.PlayerLost);
     }
 }

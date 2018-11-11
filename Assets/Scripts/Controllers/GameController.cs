@@ -50,10 +50,11 @@ public class GameController : MonoBehaviour
             .Add(new CleanupSceneLoadedSystem(context))
             .Add(new CleanupUnloadSceneSystem(context))
             //Game State
-            .Add(new ChangeGameStateSystem(context))
+            .Add(new ChangeGameStateInputMapSystem(context))
             .Add(new InitializeGameStateSystem())
+            .Add(new ChangeGameStateSystem(context))
             //Sub State
-            .Add(new ChangeSubStateSystem(context))
+            .Add(new ChangeSubStateInputMapSystem(context))
             .Add(new EnterPausedSubStateSystem(context))
             .Add(new ExitPausedSubStateSystem(context))
             .Add(new EnterWaitingSubStateSystem(context))
@@ -70,6 +71,7 @@ public class GameController : MonoBehaviour
             .Add(new ExitExecuteActionStateSystem(context))
             .Add(new EnterFinalizeActionStateSystem(context))
             .Add(new ExitFinalizeActionStateSystem(context))
+            .Add(new ChangeSubStateSystem(context))
             //Position
             .Add(new RenderPositionSystem(context))
             //Input

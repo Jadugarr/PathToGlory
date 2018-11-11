@@ -3,18 +3,18 @@ using Entitas;
 using Entitas.Extensions;
 using UnityEngine;
 
-public class ChangeGameStateSystem : ReactiveSystem<GameEntity>
+public class ChangeSubStateSystem : ReactiveSystem<GameEntity>
 {
     private GameContext _context;
-
-    public ChangeGameStateSystem(IContext<GameEntity> context) : base(context)
+    
+    public ChangeSubStateSystem(IContext<GameEntity> context) : base(context)
     {
         _context = (GameContext) context;
     }
 
     protected override ICollector<GameEntity> GetTrigger(IContext<GameEntity> context)
     {
-        return context.CreateCollector(GameMatcher.ChangeGameState);
+        return context.CreateCollector(GameMatcher.ChangeSubState);
     }
 
     protected override bool Filter(GameEntity entity)
@@ -24,7 +24,7 @@ public class ChangeGameStateSystem : ReactiveSystem<GameEntity>
 
     protected override void Execute(List<GameEntity> entities)
     {
-        _context.SetNewGamestate(entities[0].changeGameState.NewGameState);
+        _context.SetNewSubstate(entities[0].changeSubState.NewSubState);
         entities[0].Destroy();
     }
 }

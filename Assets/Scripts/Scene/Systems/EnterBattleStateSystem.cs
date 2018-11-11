@@ -45,7 +45,7 @@ public class EnterBattleStateSystem : GameReactiveSystem
 
         Systems battleSystems = GameSystemService.GetSystemMapping(GameState.Battle);
         GameSystemService.AddActiveSystems(battleSystems);
-        context.SetNewSubstate(SubState.Waiting);
+        context.ReplaceChangeSubState(SubState.Waiting);
     }
 
     private void CreateBattleSystems()

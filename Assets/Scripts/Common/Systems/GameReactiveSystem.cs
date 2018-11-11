@@ -14,10 +14,10 @@ public abstract class GameReactiveSystem : ReactiveSystem<GameEntity>
 
     protected sealed override void Execute(List<GameEntity> entities)
     {
-        if (GameSystemService.isSwitchingActiveSystems)
-        {
-            return;
-        }
+//        if (GameSystemService.isSwitchingActiveSystems)
+//        {
+//            return;
+//        }
 
         ExecuteSystem(entities);
     }

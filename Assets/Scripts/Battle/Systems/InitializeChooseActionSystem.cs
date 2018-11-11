@@ -43,7 +43,7 @@ namespace Entitas.Battle.Systems
             }
             else
             {
-                context.SetNewSubstate(SubState.Waiting);
+                context.ReplaceChangeSubState(SubState.Waiting);
             }
         }
     }

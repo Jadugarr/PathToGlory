@@ -33,7 +33,7 @@ public class MainMenuBehaviour : AWidget
 
     private void OnBattleButtonClicked()
     {
-        context.SetNewGamestate(GameState.Battle);
+        context.ReplaceChangeGameState(GameState.Battle);
     }
 
     private void OnExitGameButtonClicked()
