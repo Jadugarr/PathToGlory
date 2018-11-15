@@ -30,7 +30,7 @@ public class ProcessEnemySpawnInputSystem : GameReactiveSystem
             GameObject newEnemy = GameObject.Instantiate(GameConfigurations.CharacterConfiguration.EnemyTemplate);
 
             GameEntity entity = context.CreateEntity();
-            newEnemy.Link(entity, context);
+            newEnemy.Link(entity);
             entity.isEnemy = true;
             entity.AddView(newEnemy);
             entity.AddPosition(newEnemy.transform.position);

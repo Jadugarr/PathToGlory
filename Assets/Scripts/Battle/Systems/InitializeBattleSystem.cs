@@ -42,7 +42,7 @@ public class InitializeBattleSystem : IInitializeSystem
         foreach (GameObject playerCharacter in playerCharacters)
         {
             GameEntity entity = context.CreateEntity();
-            playerCharacter.Link(entity, context);
+            playerCharacter.Link(entity);
             entity.isPlayer = true;
             entity.AddView(playerCharacter);
             entity.AddPosition(playerCharacter.transform.position);
@@ -85,7 +85,7 @@ public class InitializeBattleSystem : IInitializeSystem
         foreach (GameObject enemyCharacter in enemyCharacters)
         {
             GameEntity entity = context.CreateEntity();
-            enemyCharacter.Link(entity, context);
+            enemyCharacter.Link(entity);
             entity.isEnemy = true;
             entity.AddView(enemyCharacter);
             entity.AddPosition(enemyCharacter.transform.position);
