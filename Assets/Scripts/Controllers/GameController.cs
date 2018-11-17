@@ -2,6 +2,7 @@ using Entitas;
 using System;
 using System.Collections.Generic;
 using Configurations;
+using Entitas.Actions.Systems;
 using Entitas.Battle.Systems;
 using Entitas.Scripts.Common.Systems;
 using UnityEngine;
@@ -111,6 +112,7 @@ public class GameController : MonoBehaviour
     {
         Systems executeActionSystems = new Feature("ExecuteActionSystems")
             //Actions
+            .Add(new InitializeExecuteActionSystem(context))
             .Add(new ExecutePlayerAttackActionSystem(context))
             .Add(new ExecuteDefenseActionSystem(context))
             .Add(new ReleaseDefenseActionSystem(context))

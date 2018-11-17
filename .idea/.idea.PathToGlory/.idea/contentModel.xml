@@ -96,6 +96,7 @@
               <e p="ExecuteChooseActionSystem.cs" t="Include" />
               <e p="ExecuteDefenseActionSystem.cs" t="Include" />
               <e p="ExecutePlayerAttackActionSystem.cs" t="Include" />
+              <e p="InitializeExecuteActionSystem.cs" t="Include" />
               <e p="ReleaseDefenseActionSystem.cs" t="Include" />
             </e>
             <e p="TargetType.cs" t="Include" />
@@ -170,6 +171,7 @@
               <e p="EnterPausedSubStateSystem.cs" t="Include" />
               <e p="ExitPausedSubStateSystem.cs" t="Include" />
               <e p="GameExecuteSystem.cs" t="Include" />
+              <e p="GameInitializeSystem.cs" t="Include" />
               <e p="GameReactiveSystem.cs" t="Include" />
               <e p="InitPromisesSystem.cs" t="Include" />
               <e p="ProcessPauseInputSystem.cs" t="Include" />

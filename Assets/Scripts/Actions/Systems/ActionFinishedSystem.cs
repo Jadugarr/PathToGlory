@@ -28,6 +28,7 @@ public class ActionFinishedSystem : GameReactiveSystem
             actionEntity.ReplaceBattleAction(actionEntity.battleAction.EntityId, ActionType.ChooseAction,
                 ActionATBType.Waiting);
             actionEntity.ReplaceExecutionTime(10f, 10f);
+            actionEntity.RemoveTarget();
             actionEntity.isActionFinished = false;
 
             _context.SetNewSubstate(SubState.Waiting);
