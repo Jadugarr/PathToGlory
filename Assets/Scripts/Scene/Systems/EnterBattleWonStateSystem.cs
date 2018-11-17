@@ -32,9 +32,5 @@ public class EnterBattleWonStateSystem : GameReactiveSystem
 
     private void CreatePlayerWonSystems()
     {
-        Systems playerWonSystems = new Feature("PlayerWonSystems")
-            .Add(new DisplayBattleWonSystem());
-        
-        GameSystemService.AddSubSystemMapping(SubState.PlayerWon, playerWonSystems);
     }
 }

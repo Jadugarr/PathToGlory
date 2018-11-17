@@ -48,9 +48,5 @@ public class EnterMainMenuStateSystem : GameReactiveSystem
 
     private void CreateMainMenuSystems()
     {
-        Systems mainMenuSystems = new Feature("MainMenuSystems");
-        mainMenuSystems.Add(new InitializeMainMenuSystem());
-
-        GameSystemService.AddSystemMapping(GameState.MainMenu, mainMenuSystems);
     }
 }

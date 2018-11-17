@@ -35,9 +35,5 @@ public class EnterBattleLostStateSystem : GameReactiveSystem
 
     private void CreatePlayerLostSystems()
     {
-        Systems playerLostSystems = new Feature("PlayerLostSystems")
-            .Add(new DisplayBattleLostSystem());
-
-        GameSystemService.AddSubSystemMapping(SubState.PlayerLost, playerLostSystems);
     }
 }

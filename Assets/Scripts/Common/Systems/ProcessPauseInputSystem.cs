@@ -23,6 +23,6 @@ public class ProcessPauseInputSystem : GameReactiveSystem
 
     protected override void ExecuteSystem(List<GameEntity> entities)
     {
-        _context.ReplaceChangeSubState(SubState.Paused);
+        _context.SetNewSubstate(SubState.Paused);
     }
 }

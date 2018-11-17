@@ -28,6 +28,10 @@ public abstract class GameReactiveSystem : ReactiveSystem<GameEntity>
         {
             ExecuteSystem(entities);
         }
+        else
+        {
+            Debug.Log("Tried executing system in wrong state: " + this);
+        }
     }
 
     protected abstract void ExecuteSystem(List<GameEntity> entities);

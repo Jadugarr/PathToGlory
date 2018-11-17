@@ -24,6 +24,6 @@ public class ExecuteActionsSystem : GameReactiveSystem
 
     protected override void ExecuteSystem(List<GameEntity> entities)
     {
-        _context.ReplaceChangeSubState(SubState.ExecuteAction);
+        _context.SetNewSubstate(SubState.ExecuteAction);
     }
 }

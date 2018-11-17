@@ -42,7 +42,6 @@
               <e p="GameBattleImageComponent.cs" t="Include" />
               <e p="GameChangeGameStateComponent.cs" t="Include" />
               <e p="GameChangeSceneComponent.cs" t="Include" />
-              <e p="GameChangeSubStateComponent.cs" t="Include" />
               <e p="GameCharacterBattleStateComponent.cs" t="Include" />
               <e p="GameDefendComponent.cs" t="Include" />
               <e p="GameDefenseStatComponent.cs" t="Include" />
@@ -81,13 +80,6 @@
           </e>
           <e p="Actions" t="Include">
             <e p="ActionATBType.cs" t="Include" />
-            <e p="ActionBuilder" t="Include">
-              <e p="ActionBuilder.cs" t="Include" />
-              <e p="AttackCharacterTimePropertyAdder.cs" t="Include" />
-              <e p="ChooseCharacterPropertyAdder.cs" t="Include" />
-              <e p="DefenseActionTimePropertyAdder.cs" t="Include" />
-              <e p="IActionPropertyAdder.cs" t="Include" />
-            </e>
             <e p="ActionType.cs" t="Include" />
             <e p="Components" t="Include">
               <e p="ActionFinishedComponent.cs" t="Include" />
@@ -167,7 +159,6 @@
           <e p="Common" t="Include">
             <e p="Components" t="Include">
               <e p="ChangeGameStateComponent.cs" t="Include" />
-              <e p="ChangeSubStateComponent.cs" t="Include" />
               <e p="IdComponent.cs" t="Include" />
             </e>
             <e p="GameState.cs" t="Include" />
@@ -176,7 +167,6 @@
             <e p="Systems" t="Include">
               <e p="ChangeGameStateInputMapSystem.cs" t="Include" />
               <e p="ChangeGameStateSystem.cs" t="Include" />
-              <e p="ChangeSubStateSystem.cs" t="Include" />
               <e p="EnterPausedSubStateSystem.cs" t="Include" />
               <e p="ExitPausedSubStateSystem.cs" t="Include" />
               <e p="GameExecuteSystem.cs" t="Include" />

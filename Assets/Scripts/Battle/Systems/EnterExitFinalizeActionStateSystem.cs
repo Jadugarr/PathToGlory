@@ -33,11 +33,6 @@ public class EnterFinalizeActionStateSystem : GameReactiveSystem
 
     private void CreateFinalizeActionSystems()
     {
-        Systems finalizeActionSystems = new Feature("finalizeActionSystems")
-            .Add(new AddActionTimeSystem(_context))
-            .Add(new ActionTimeAddedSystem(_context));
-
-        GameSystemService.AddSubSystemMapping(SubState.FinalizeAction, finalizeActionSystems);
     }
 }
 

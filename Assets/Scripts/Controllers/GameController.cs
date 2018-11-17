@@ -2,6 +2,7 @@ using Entitas;
 using System;
 using System.Collections.Generic;
 using Configurations;
+using Entitas.Battle.Systems;
 using Entitas.Scripts.Common.Systems;
 using UnityEngine;
 
@@ -27,6 +28,7 @@ public class GameController : MonoBehaviour
         Contexts pools = Contexts.sharedInstance;
 
         CreateUniversalSystems(pools.game);
+        CreateSystems(pools.game);
     }
 
     // add an id to every entity as it's created
@@ -75,7 +77,6 @@ public class GameController : MonoBehaviour
             .Add(new ExitExecuteActionStateSystem(context))
             .Add(new EnterFinalizeActionStateSystem(context))
             .Add(new ExitFinalizeActionStateSystem(context))
-            .Add(new ChangeSubStateSystem(context))
             //Position
             .Add(new RenderPositionSystem(context));
 
@@ -104,5 +105,74 @@ public class GameController : MonoBehaviour
         }
 
         GameSystemService.RefreshActiveSystems();
+    }
+
+    private void CreateSystems(GameContext context)
+    {
+        Systems executeActionSystems = new Feature("ExecuteActionSystems")
+            //Actions
+            .Add(new ExecutePlayerAttackActionSystem(context))
+            .Add(new ExecuteDefenseActionSystem(context))
+            .Add(new ReleaseDefenseActionSystem(context))
+            .Add(new ActionFinishedSystem(context));
+
+        GameSystemService.AddSubSystemMapping(SubState.ExecuteAction, executeActionSystems);
+        
+        Systems battleSystems = new Feature("BattleStateSystems")
+            .Add(new InitializeBattleSystem(context))
+            .Add(new InitializeATBSystem(context))
+            //Battle
+            .Add(new CharacterDeathSystem(context))
+            .Add(new TeardownCharacterSystem(context))
+            .Add(new TeardownBattleSystem(context))
+            //WinConditions
+            .Add(new InitializeAndTeardownWinConditionsSystem(context))
+            .Add(new InitializeAndTeardownLoseConditionsSystem(context))
+            .Add(new WinConditionControllerSystem(context))
+            .Add(new LoseConditionControllerSystem(context));
+
+
+        GameSystemService.AddSystemMapping(GameState.Battle, battleSystems);
+        
+        Systems waitStateSystems = new Feature("WaitingSubStateSystems")
+            .Add(new ActionTimeSystem(context))
+            //Actions
+            .Add(new ExecuteChooseActionSystem(context))
+            .Add(new ExecuteActionsSystem(context));
+
+        GameSystemService.AddSubSystemMapping(SubState.Waiting, waitStateSystems);
+        
+        Systems mainMenuSystems = new Feature("MainMenuSystems");
+        mainMenuSystems.Add(new InitializeMainMenuSystem());
+
+        GameSystemService.AddSystemMapping(GameState.MainMenu, mainMenuSystems);
+        
+        Systems finalizeActionSystems = new Feature("finalizeActionSystems")
+            .Add(new AddActionTimeSystem(context))
+            .Add(new ActionTimeAddedSystem(context));
+
+        GameSystemService.AddSubSystemMapping(SubState.FinalizeAction, finalizeActionSystems);
+        
+        Systems playerLostSystems = new Feature("PlayerLostSystems")
+            .Add(new DisplayBattleLostSystem());
+
+        GameSystemService.AddSubSystemMapping(SubState.PlayerLost, playerLostSystems);
+        
+        Systems playerWonSystems = new Feature("PlayerWonSystems")
+            .Add(new DisplayBattleWonSystem());
+        
+        GameSystemService.AddSubSystemMapping(SubState.PlayerWon, playerWonSystems);
+        
+        Systems chooseTargetSystems = new Feature("ChooseTargetSystems")
+            .Add(new InitializeChooseTargetSystem(context))
+            .Add(new ActionTargetChosenSystem(context));
+
+        GameSystemService.AddSubSystemMapping(SubState.ChooseTarget, chooseTargetSystems);
+        
+        Systems chooseActionSystems = new Feature("ChooseActionSystems")
+            .Add(new InitializeChooseActionSystem(context))
+            .Add(new ActionChosenSystem(context));
+
+        GameSystemService.AddSubSystemMapping(SubState.ChooseAction, chooseActionSystems);
     }
 }

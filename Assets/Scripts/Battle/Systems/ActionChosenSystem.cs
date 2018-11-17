@@ -18,11 +18,12 @@ public class ActionChosenSystem : GameReactiveSystem
 
     protected override bool Filter(GameEntity entity)
     {
-        return entity.battleAction.ActionType != ActionType.None;
+        return entity.battleAction.ActionType != ActionType.None
+            && entity.battleAction.ActionType != ActionType.ChooseAction;
     }
 
     protected override void ExecuteSystem(List<GameEntity> entities)
     {
-        _context.ReplaceChangeSubState(SubState.ChooseTarget);
+        _context.SetNewSubstate(SubState.ChooseTarget);
     }
 }

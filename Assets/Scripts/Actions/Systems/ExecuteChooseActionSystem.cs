@@ -25,6 +25,6 @@ public class ExecuteChooseActionSystem : GameReactiveSystem
 
     protected override void ExecuteSystem(List<GameEntity> entities)
     {
-        _context.ReplaceChangeSubState(SubState.ChooseAction);
+        _context.SetNewSubstate(SubState.ChooseAction);
     }
 }

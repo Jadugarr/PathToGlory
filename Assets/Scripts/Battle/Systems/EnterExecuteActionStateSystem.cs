@@ -25,21 +25,10 @@ public class EnterExecuteActionStateSystem : GameReactiveSystem
     {
         if (!GameSystemService.HasSubSystemMapping(SubState.ExecuteAction))
         {
-            CreateExecuteActionSystems();
+            Debug.LogError("Didn't create systems for substate: " + SubState.ExecuteAction);
+            return;
         }
 
         GameSystemService.AddActiveSystems(GameSystemService.GetSubSystemMapping(SubState.ExecuteAction));
-    }
-
-    private void CreateExecuteActionSystems()
-    {
-        Systems executeActionSystems = new Feature("ExecuteActionSystems")
-            //Actions
-            .Add(new ExecutePlayerAttackActionSystem(_context))
-            .Add(new ExecuteDefenseActionSystem(_context))
-            .Add(new ReleaseDefenseActionSystem(_context))
-            .Add(new ActionFinishedSystem(_context));
-
-        GameSystemService.AddSubSystemMapping(SubState.ExecuteAction, executeActionSystems);
     }
 }

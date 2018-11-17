@@ -24,6 +24,6 @@ public class ActionTargetChosenSystem : GameReactiveSystem
 
     protected override void ExecuteSystem(List<GameEntity> entities)
     {
-        _context.ReplaceChangeSubState(SubState.FinalizeAction);
+        _context.SetNewSubstate(SubState.FinalizeAction);
     }
 }

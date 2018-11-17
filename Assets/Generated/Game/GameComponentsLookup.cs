@@ -95,7 +95,6 @@ public static class GameComponentsLookup {
         typeof(BattleImageComponent),
         typeof(ChangeGameStateComponent),
         typeof(ChangeSceneComponent),
-        typeof(ChangeSubStateComponent),
         typeof(CharacterBattleStateComponent),
         typeof(DefendComponent),
         typeof(DefenseStatComponent),

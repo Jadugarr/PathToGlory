@@ -33,6 +33,6 @@ public class WinConditionControllerSystem : GameReactiveSystem
 
     protected override void ExecuteSystem(List<GameEntity> entities)
     {
-        _context.ReplaceChangeSubState(SubState.PlayerWon);
+        _context.SetNewSubstate(SubState.PlayerWon);
     }
 }

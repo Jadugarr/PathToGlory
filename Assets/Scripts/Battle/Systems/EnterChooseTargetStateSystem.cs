@@ -34,10 +34,5 @@ public class EnterChooseTargetStateSystem : GameReactiveSystem
 
     private void CreateChooseTargetSystems()
     {
-        Systems chooseTargetSystems = new Feature("ChooseTargetSystems")
-            .Add(new InitializeChooseTargetSystem(_context))
-            .Add(new ActionTargetChosenSystem(_context));
-
-        GameSystemService.AddSubSystemMapping(SubState.ChooseTarget, chooseTargetSystems);
     }
 }

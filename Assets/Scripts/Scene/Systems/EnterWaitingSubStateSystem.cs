@@ -33,12 +33,5 @@ public class EnterWaitingSubStateSystem : GameReactiveSystem
 
     private void CreateWaitingSystems()
     {
-        Systems waitStateSystems = new Feature("WaitingSubStateSystems")
-            .Add(new ActionTimeSystem(_context))
-            //Actions
-            .Add(new ExecuteChooseActionSystem(_context))
-            .Add(new ExecuteActionsSystem(_context));
-
-        GameSystemService.AddSubSystemMapping(SubState.Waiting, waitStateSystems);
     }
 }

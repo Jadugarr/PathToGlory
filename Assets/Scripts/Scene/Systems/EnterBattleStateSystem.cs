@@ -46,25 +46,10 @@ public class EnterBattleStateSystem : GameReactiveSystem
 
         Systems battleSystems = GameSystemService.GetSystemMapping(GameState.Battle);
         GameSystemService.AddActiveSystems(battleSystems);
-        _context.ReplaceChangeSubState(SubState.Waiting);
+        _context.SetNewSubstate(SubState.Waiting);
     }
 
     private void CreateBattleSystems()
     {
-        Systems battleSystems = new Feature("BattleStateSystems")
-            .Add(new InitializeBattleSystem(_context))
-            .Add(new InitializeATBSystem(_context))
-            //Battle
-            .Add(new CharacterDeathSystem(_context))
-            .Add(new TeardownCharacterSystem(_context))
-            .Add(new TeardownBattleSystem(_context))
-            //WinConditions
-            .Add(new InitializeAndTeardownWinConditionsSystem(_context))
-            .Add(new InitializeAndTeardownLoseConditionsSystem(_context))
-            .Add(new WinConditionControllerSystem(_context))
-            .Add(new LoseConditionControllerSystem(_context));
-
-
-        GameSystemService.AddSystemMapping(GameState.Battle, battleSystems);
     }
 }

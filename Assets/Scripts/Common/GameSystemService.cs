@@ -122,6 +122,7 @@ public static class GameSystemService
     {
         if (!subStateSystemMap.ContainsKey(subState))
         {
+            systems.DeactivateReactiveSystems();
             subStateSystemMap.Add(subState, systems);
         }
         else

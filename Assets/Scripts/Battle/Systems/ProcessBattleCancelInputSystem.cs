@@ -23,6 +23,6 @@ public class ProcessBattleCancelInputSystem : GameReactiveSystem
 
     protected override void ExecuteSystem(List<GameEntity> entities)
     {
-        _context.ReplaceChangeSubState(_context.subState.PreviousSubState);
+        _context.SetNewSubstate(_context.subState.PreviousSubState);
     }
 }
