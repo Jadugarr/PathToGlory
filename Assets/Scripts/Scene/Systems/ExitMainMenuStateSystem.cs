@@ -3,11 +3,12 @@ using Entitas;
 
 public class ExitMainMenuStateSystem : GameReactiveSystem
 {
-    private GameContext context;
+    protected override IList<SubState> ValidSubStates => new List<SubState>(1){SubState.Undefined};
+    protected override IList<GameState> ValidGameStates => new List<GameState>(1){GameState.Undefined};
+    
 
     public ExitMainMenuStateSystem(GameContext context) : base(context)
     {
-        this.context = context;
     }
 
     protected override ICollector<GameEntity> GetTrigger(IContext<GameEntity> context)
@@ -29,7 +30,7 @@ public class ExitMainMenuStateSystem : GameReactiveSystem
         }
 
         UIService.HideWidget(AssetTypes.MainMenu);
-        GameEntity unloadScenEntity = context.CreateEntity();
+        GameEntity unloadScenEntity = _context.CreateEntity();
         unloadScenEntity.AddUnloadScene(GameSceneConstants.MainMenuScene);
     }
 }

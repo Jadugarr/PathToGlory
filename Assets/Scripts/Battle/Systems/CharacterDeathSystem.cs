@@ -5,6 +5,9 @@ using UnityEngine;
 
 public class CharacterDeathSystem : GameReactiveSystem
 {
+    protected override IList<SubState> ValidSubStates => new List<SubState>(1){SubState.Undefined};
+    protected override IList<GameState> ValidGameStates => new List<GameState>(1){GameState.Battle};
+
     private IGroup<GameEntity> actionEntityGroup;
 
     public CharacterDeathSystem(GameContext context) : base(context)

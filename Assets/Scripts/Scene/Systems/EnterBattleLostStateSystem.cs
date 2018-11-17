@@ -5,6 +5,9 @@ using UnityEngine;
 
 public class EnterBattleLostStateSystem : GameReactiveSystem
 {
+    protected override IList<SubState> ValidSubStates => new List<SubState>(1){SubState.PlayerLost};
+    protected override IList<GameState> ValidGameStates => new List<GameState>(1){GameState.Battle};
+    
     public EnterBattleLostStateSystem(IContext<GameEntity> context) : base(context)
     {
     }

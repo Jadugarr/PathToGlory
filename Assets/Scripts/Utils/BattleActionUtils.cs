@@ -16,7 +16,7 @@ namespace Entitas.Utils
 
         private static Dictionary<ActionType, float> actionTimesDefinition = new Dictionary<ActionType, float>
         {
-            {ActionType.Defend, 0},
+            {ActionType.Defend, 0.1f},
             {ActionType.AttackCharacter, 5f},
             {ActionType.None, 0f},
             {ActionType.ChooseAction, 10f}

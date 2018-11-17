@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class ExitBattleLostStateSystem : GameReactiveSystem
 {
+    protected override IList<SubState> ValidSubStates => new List<SubState>(1){SubState.Undefined};
+    protected override IList<GameState> ValidGameStates => new List<GameState>(1){GameState.Battle};
+    
     public ExitBattleLostStateSystem(IContext<GameEntity> context) : base(context)
     {
     }

@@ -1,32 +1,32 @@
-﻿using Entitas;
+﻿using System.Collections.Generic;
+using Entitas;
+using Entitas.Scripts.Common.Systems;
 using Entitas.Utils;
 using UnityEngine;
 
-public class ActionTimeSystem : IExecuteSystem
+public class ActionTimeSystem : GameExecuteSystem
 {
-    private GameContext context;
+    protected override IList<SubState> ValidSubStates => new List<SubState>(1) {SubState.Waiting};
+    protected override IList<GameState> ValidGameStates => new List<GameState>(1) {GameState.Battle};
+
     private IGroup<GameEntity> actionEntities;
 
-    public ActionTimeSystem(IContext<GameEntity> context)
+    public ActionTimeSystem(GameContext context) : base(context)
     {
-        this.context = (GameContext) context;
-        actionEntities = this.context.GetGroup(GameMatcher.AllOf(GameMatcher.BattleAction, GameMatcher.ExecutionTime));
+        actionEntities = _context.GetGroup(GameMatcher.AllOf(GameMatcher.BattleAction, GameMatcher.ExecutionTime));
     }
 
-    public void Execute()
+    protected override void ExecuteSystem()
     {
-        if (!GameSystemService.isSwitchingActiveSystems)
+        foreach (GameEntity actionEntity in actionEntities)
         {
-            foreach (GameEntity actionEntity in actionEntities)
-            {
-                GameEntity performingCharacter = context.GetEntityWithId(actionEntity.battleAction.EntityId);
-                float newRemainingTime = actionEntity.executionTime.RemainingTime -
-                                         Time.deltaTime * BattleActionUtils.GetActionTimeStep(
-                                             actionEntity.battleAction.ActionType,
-                                             performingCharacter);
-                actionEntity.ReplaceExecutionTime(actionEntity.executionTime.TotalTime,
-                    newRemainingTime);
-            }
+            GameEntity performingCharacter = _context.GetEntityWithId(actionEntity.battleAction.EntityId);
+            float newRemainingTime = actionEntity.executionTime.RemainingTime -
+                                     Time.deltaTime * BattleActionUtils.GetActionTimeStep(
+                                         actionEntity.battleAction.ActionType,
+                                         performingCharacter);
+            actionEntity.ReplaceExecutionTime(actionEntity.executionTime.TotalTime,
+                newRemainingTime);
         }
     }
 }

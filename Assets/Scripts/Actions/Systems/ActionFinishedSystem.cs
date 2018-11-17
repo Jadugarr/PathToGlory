@@ -3,11 +3,11 @@ using Entitas;
 
 public class ActionFinishedSystem : GameReactiveSystem
 {
-    private GameContext context;
+    protected override IList<SubState> ValidSubStates => new List<SubState>(1){SubState.ExecuteAction};
+    protected override IList<GameState> ValidGameStates => new List<GameState>(1){GameState.Battle};
 
     public ActionFinishedSystem(IContext<GameEntity> context) : base(context)
     {
-        this.context = (GameContext) context;
     }
 
     protected override ICollector<GameEntity> GetTrigger(IContext<GameEntity> context)

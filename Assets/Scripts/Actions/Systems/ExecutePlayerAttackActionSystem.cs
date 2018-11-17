@@ -5,11 +5,11 @@ using UnityEngine;
 
 public class ExecutePlayerAttackActionSystem : GameReactiveSystem
 {
-    private GameContext context;
+    protected override IList<SubState> ValidSubStates => new List<SubState>(1){SubState.ExecuteAction};
+    protected override IList<GameState> ValidGameStates => new List<GameState>(1){GameState.Battle};
 
     public ExecutePlayerAttackActionSystem(IContext<GameEntity> context) : base(context)
     {
-        this.context = (GameContext) context;
     }
 
     protected override ICollector<GameEntity> GetTrigger(IContext<GameEntity> context)
@@ -32,9 +32,9 @@ public class ExecutePlayerAttackActionSystem : GameReactiveSystem
     {
         foreach (GameEntity gameEntity in entities)
         {
-            GameEntity attacker = context.GetEntityWithId(gameEntity.battleAction.EntityId);
-            GameEntity defender = context.GetEntityWithId(gameEntity.target.TargetId);
-            ;
+            GameEntity attacker = _context.GetEntityWithId(gameEntity.battleAction.EntityId);
+            GameEntity defender = _context.GetEntityWithId(gameEntity.target.TargetId);
+            
             defender.ReplaceHealth(
                 defender.health.Health -
                 Math.Max(0,

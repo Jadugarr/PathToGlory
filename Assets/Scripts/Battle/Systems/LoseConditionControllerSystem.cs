@@ -5,11 +5,11 @@ using UnityEngine;
 
 public class LoseConditionControllerSystem : GameReactiveSystem
 {
-    private GameContext context;
+    protected override IList<SubState> ValidSubStates => new List<SubState>(1){SubState.Undefined};
+    protected override IList<GameState> ValidGameStates => new List<GameState>(1){GameState.Battle};
 
     public LoseConditionControllerSystem(IContext<GameEntity> context) : base(context)
     {
-        this.context = (GameContext) context;
     }
 
     protected override ICollector<GameEntity> GetTrigger(IContext<GameEntity> context)
@@ -34,6 +34,5 @@ public class LoseConditionControllerSystem : GameReactiveSystem
 
     protected override void ExecuteSystem(List<GameEntity> entities)
     {
-        context.ReplaceChangeSubState(SubState.PlayerLost);
     }
 }

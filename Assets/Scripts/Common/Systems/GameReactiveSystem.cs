@@ -4,8 +4,14 @@ using UnityEngine;
 
 public abstract class GameReactiveSystem : ReactiveSystem<GameEntity>
 {
+    protected abstract IList<SubState> ValidSubStates { get; }
+    protected abstract IList<GameState> ValidGameStates { get; }
+
+    protected GameContext _context;
+
     public GameReactiveSystem(IContext<GameEntity> context) : base(context)
     {
+        _context = (GameContext) context;
     }
 
     protected abstract override ICollector<GameEntity> GetTrigger(IContext<GameEntity> context);
@@ -14,12 +20,14 @@ public abstract class GameReactiveSystem : ReactiveSystem<GameEntity>
 
     protected sealed override void Execute(List<GameEntity> entities)
     {
-//        if (GameSystemService.isSwitchingActiveSystems)
-//        {
-//            return;
-//        }
+        GameState currentGameState = _context.gameState.CurrentGameState;
+        SubState currentSubState = _context.subState.CurrentSubState;
 
-        ExecuteSystem(entities);
+        if ((ValidGameStates.Contains(currentGameState) || ValidGameStates.Contains(GameState.Undefined))
+            && (ValidSubStates.Contains(currentSubState) || ValidSubStates.Contains(SubState.Undefined)))
+        {
+            ExecuteSystem(entities);
+        }
     }
 
     protected abstract void ExecuteSystem(List<GameEntity> entities);

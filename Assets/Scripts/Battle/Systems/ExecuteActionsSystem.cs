@@ -5,11 +5,11 @@ using UnityEngine;
 
 public class ExecuteActionsSystem : GameReactiveSystem
 {
-    private GameContext _context;
+    protected override IList<SubState> ValidSubStates => new List<SubState>(1){SubState.Waiting};
+    protected override IList<GameState> ValidGameStates => new List<GameState>(1){GameState.Battle};
 
     public ExecuteActionsSystem(IContext<GameEntity> context) : base(context)
     {
-        _context = (GameContext) context;
     }
 
     protected override ICollector<GameEntity> GetTrigger(IContext<GameEntity> context)

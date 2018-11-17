@@ -4,13 +4,14 @@ using UnityEngine;
 
 public class CheckPlayerDeadConditionSystem : GameReactiveSystem
 {
+    protected override IList<SubState> ValidSubStates => new List<SubState>(1){SubState.Undefined};
+    protected override IList<GameState> ValidGameStates => new List<GameState>(1){GameState.Battle};
+    
     private IGroup<GameEntity> playerEntities;
-    private GameContext context;
 
     public CheckPlayerDeadConditionSystem(IContext<GameEntity> context) : base(context)
     {
         playerEntities = context.GetGroup(GameMatcher.Player);
-        this.context = (GameContext) context;
     }
 
     protected override ICollector<GameEntity> GetTrigger(IContext<GameEntity> context)
@@ -26,7 +27,7 @@ public class CheckPlayerDeadConditionSystem : GameReactiveSystem
     protected override void ExecuteSystem(List<GameEntity> entities)
     {
         Debug.Log("All player characters are dead!");
-        LoseConditionComponent loseConditions = context.loseCondition;
+        LoseConditionComponent loseConditions = _context.loseCondition;
 
         for (var i = 0; i < loseConditions.LoseConditions.Length; i++)
         {
@@ -38,6 +39,6 @@ public class CheckPlayerDeadConditionSystem : GameReactiveSystem
             }
         }
 
-        context.ReplaceLoseCondition(context.loseCondition.ConditionModifier, loseConditions.LoseConditions);
+        _context.ReplaceLoseCondition(_context.loseCondition.ConditionModifier, loseConditions.LoseConditions);
     }
 }

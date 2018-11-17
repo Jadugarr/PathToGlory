@@ -4,11 +4,12 @@ using Entitas.Battle.Systems;
 
 public class EnterChooseTargetStateSystem : GameReactiveSystem
 {
-    private GameContext context;
+    protected override IList<SubState> ValidSubStates => new List<SubState>(1){SubState.ChooseTarget};
+    protected override IList<GameState> ValidGameStates => new List<GameState>(1){GameState.Battle};
+    
 
     public EnterChooseTargetStateSystem(IContext<GameEntity> context) : base(context)
     {
-        this.context = (GameContext) context;
     }
 
     protected override ICollector<GameEntity> GetTrigger(IContext<GameEntity> context)
@@ -34,8 +35,8 @@ public class EnterChooseTargetStateSystem : GameReactiveSystem
     private void CreateChooseTargetSystems()
     {
         Systems chooseTargetSystems = new Feature("ChooseTargetSystems")
-            .Add(new InitializeChooseTargetSystem(context))
-            .Add(new ActionTargetChosenSystem(context));
+            .Add(new InitializeChooseTargetSystem(_context))
+            .Add(new ActionTargetChosenSystem(_context));
 
         GameSystemService.AddSubSystemMapping(SubState.ChooseTarget, chooseTargetSystems);
     }

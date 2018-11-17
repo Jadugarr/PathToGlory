@@ -3,11 +3,11 @@ using Entitas;
 
 public class ExecuteDefenseActionSystem : GameReactiveSystem
 {
-    private GameContext context;
+    protected override IList<SubState> ValidSubStates => new List<SubState>(1) {SubState.ExecuteAction};
+    protected override IList<GameState> ValidGameStates => new List<GameState>(1) {GameState.Battle};
 
     public ExecuteDefenseActionSystem(IContext<GameEntity> context) : base(context)
     {
-        this.context = (GameContext) context;
     }
 
     protected override ICollector<GameEntity> GetTrigger(IContext<GameEntity> context)
@@ -29,7 +29,7 @@ public class ExecuteDefenseActionSystem : GameReactiveSystem
     {
         foreach (GameEntity gameEntity in entities)
         {
-            GameEntity defendingCharacter = context.GetEntityWithId(gameEntity.battleAction.EntityId);
+            GameEntity defendingCharacter = _context.GetEntityWithId(gameEntity.battleAction.EntityId);
             defendingCharacter.isDefend = true;
 
             gameEntity.isActionFinished = true;

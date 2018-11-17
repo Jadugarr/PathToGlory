@@ -3,6 +3,9 @@ using Entitas;
 
 public class RenderPositionSystem : GameReactiveSystem
 {
+    protected override IList<SubState> ValidSubStates => new List<SubState>(1) {SubState.Undefined};
+    protected override IList<GameState> ValidGameStates => new List<GameState>(1) {GameState.Undefined};
+
     public RenderPositionSystem(IContext<GameEntity> context) : base(context)
     {
     }

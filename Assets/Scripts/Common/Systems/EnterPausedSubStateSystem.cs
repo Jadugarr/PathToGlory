@@ -3,11 +3,11 @@ using Entitas;
 
 public class EnterPausedSubStateSystem : GameReactiveSystem
 {
-    private GameContext context;
+    protected override IList<SubState> ValidSubStates => new List<SubState>(1){SubState.Paused};
+    protected override IList<GameState> ValidGameStates => new List<GameState>(1){GameState.Undefined};
 
     public EnterPausedSubStateSystem(IContext<GameEntity> context) : base(context)
     {
-        this.context = (GameContext) context;
     }
 
     protected override ICollector<GameEntity> GetTrigger(IContext<GameEntity> context)
@@ -17,7 +17,7 @@ public class EnterPausedSubStateSystem : GameReactiveSystem
 
     protected override bool Filter(GameEntity entity)
     {
-        return context.subState.CurrentSubState == SubState.Paused;
+        return _context.subState.CurrentSubState == SubState.Paused;
     }
 
     protected override void ExecuteSystem(List<GameEntity> entities)

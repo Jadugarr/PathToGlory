@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class EnterExecuteActionStateSystem : GameReactiveSystem
 {
-    private GameContext context;
+    protected override IList<SubState> ValidSubStates => new List<SubState>(1){SubState.ExecuteAction};
+    protected override IList<GameState> ValidGameStates => new List<GameState>(1){GameState.Battle};
 
     public EnterExecuteActionStateSystem(IContext<GameEntity> context) : base(context)
     {
-        this.context = (GameContext) context;
     }
 
     protected override ICollector<GameEntity> GetTrigger(IContext<GameEntity> context)
@@ -35,10 +35,10 @@ public class EnterExecuteActionStateSystem : GameReactiveSystem
     {
         Systems executeActionSystems = new Feature("ExecuteActionSystems")
             //Actions
-            .Add(new ExecutePlayerAttackActionSystem(context))
-            .Add(new ExecuteDefenseActionSystem(context))
-            .Add(new ReleaseDefenseActionSystem(context))
-            .Add(new ActionFinishedSystem(context));
+            .Add(new ExecutePlayerAttackActionSystem(_context))
+            .Add(new ExecuteDefenseActionSystem(_context))
+            .Add(new ReleaseDefenseActionSystem(_context))
+            .Add(new ActionFinishedSystem(_context));
 
         GameSystemService.AddSubSystemMapping(SubState.ExecuteAction, executeActionSystems);
     }

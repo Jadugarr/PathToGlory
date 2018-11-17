@@ -4,11 +4,11 @@ using Entitas.Extensions;
 
 public class ProcessBattleCancelInputSystem : GameReactiveSystem
 {
-    private GameContext context;
+    protected override IList<SubState> ValidSubStates => new List<SubState>(1){SubState.Undefined};
+    protected override IList<GameState> ValidGameStates => new List<GameState>(1){GameState.Undefined};
 
     public ProcessBattleCancelInputSystem(IContext<GameEntity> context) : base(context)
     {
-        this.context = (GameContext) context;
     }
 
     protected override ICollector<GameEntity> GetTrigger(IContext<GameEntity> context)
@@ -23,6 +23,6 @@ public class ProcessBattleCancelInputSystem : GameReactiveSystem
 
     protected override void ExecuteSystem(List<GameEntity> entities)
     {
-        context.ReplaceChangeSubState(context.subState.PreviousSubState);
+        _context.ReplaceChangeSubState(_context.subState.PreviousSubState);
     }
 }

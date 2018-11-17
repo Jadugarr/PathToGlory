@@ -4,12 +4,13 @@ using UnityEngine;
 
 public class CheckKillEnemiesConditionSystem : GameReactiveSystem
 {
+    protected override IList<SubState> ValidSubStates => new List<SubState>(1){SubState.Undefined};
+    protected override IList<GameState> ValidGameStates => new List<GameState>(1){GameState.Battle};
+    
     private IGroup<GameEntity> enemyEntities;
-    private GameContext context;
 
     public CheckKillEnemiesConditionSystem(GameContext context) : base(context)
     {
-        this.context = context;
         enemyEntities = context.GetGroup(GameMatcher.Enemy);
     }
 
@@ -26,7 +27,7 @@ public class CheckKillEnemiesConditionSystem : GameReactiveSystem
     protected override void ExecuteSystem(List<GameEntity> entities)
     {
         Debug.Log("All enemies are dead!");
-        WinConditionComponent winConditions = context.winCondition;
+        WinConditionComponent winConditions = _context.winCondition;
 
         for (var i = 0; i < winConditions.WinConditions.Length; i++)
         {
@@ -38,6 +39,6 @@ public class CheckKillEnemiesConditionSystem : GameReactiveSystem
             }
         }
 
-        context.ReplaceWinCondition(context.winCondition.ConditionModifier, winConditions.WinConditions);
+        _context.ReplaceWinCondition(_context.winCondition.ConditionModifier, winConditions.WinConditions);
     }
 }

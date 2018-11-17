@@ -7,12 +7,13 @@ using UnityEngine.SceneManagement;
 
 public class EnterBattleStateSystem : GameReactiveSystem
 {
-    private GameContext context;
+    protected override IList<SubState> ValidSubStates => new List<SubState>(1){SubState.Undefined};
+    protected override IList<GameState> ValidGameStates => new List<GameState>(1){GameState.Battle};
+    
     private IGroup<GameEntity> sceneLoadedGroup;
 
     public EnterBattleStateSystem(GameContext context) : base(context)
     {
-        this.context = context;
         sceneLoadedGroup = context.GetGroup(GameMatcher.SceneLoaded);
     }
 
@@ -30,7 +31,7 @@ public class EnterBattleStateSystem : GameReactiveSystem
     {
         sceneLoadedGroup.OnEntityAdded += OnBattleSceneLoaded;
 
-        GameEntity changeSceneEntity = context.CreateEntity();
+        GameEntity changeSceneEntity = _context.CreateEntity();
         changeSceneEntity.AddChangeScene(GameSceneConstants.BattleScene, LoadSceneMode.Additive);
     }
 
@@ -45,25 +46,23 @@ public class EnterBattleStateSystem : GameReactiveSystem
 
         Systems battleSystems = GameSystemService.GetSystemMapping(GameState.Battle);
         GameSystemService.AddActiveSystems(battleSystems);
-        context.ReplaceChangeSubState(SubState.Waiting);
+        _context.ReplaceChangeSubState(SubState.Waiting);
     }
 
     private void CreateBattleSystems()
     {
         Systems battleSystems = new Feature("BattleStateSystems")
-            .Add(new InitializeBattleSystem(context))
-            .Add(new InitializeATBSystem(context))
-            //Enemy
-            .Add(new EnemySpawnCooldownSystem(context))
+            .Add(new InitializeBattleSystem(_context))
+            .Add(new InitializeATBSystem(_context))
             //Battle
-            .Add(new CharacterDeathSystem(context))
-            .Add(new TeardownCharacterSystem(context))
-            .Add(new TeardownBattleSystem(context))
+            .Add(new CharacterDeathSystem(_context))
+            .Add(new TeardownCharacterSystem(_context))
+            .Add(new TeardownBattleSystem(_context))
             //WinConditions
-            .Add(new InitializeAndTeardownWinConditionsSystem(context))
-            .Add(new InitializeAndTeardownLoseConditionsSystem(context))
-            .Add(new WinConditionControllerSystem(context))
-            .Add(new LoseConditionControllerSystem(context));
+            .Add(new InitializeAndTeardownWinConditionsSystem(_context))
+            .Add(new InitializeAndTeardownLoseConditionsSystem(_context))
+            .Add(new WinConditionControllerSystem(_context))
+            .Add(new LoseConditionControllerSystem(_context));
 
 
         GameSystemService.AddSystemMapping(GameState.Battle, battleSystems);

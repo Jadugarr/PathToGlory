@@ -5,11 +5,12 @@ using UnityEngine;
 
 public class EnterChooseActionStateSystem : GameReactiveSystem
 {
-    private GameContext context;
+    protected override IList<SubState> ValidSubStates => new List<SubState>(1){SubState.ChooseAction};
+    protected override IList<GameState> ValidGameStates => new List<GameState>(1){GameState.Battle};
+    
 
     public EnterChooseActionStateSystem(IContext<GameEntity> context) : base(context)
     {
-        this.context = (GameContext) context;
     }
 
     protected override ICollector<GameEntity> GetTrigger(IContext<GameEntity> context)
@@ -35,8 +36,8 @@ public class EnterChooseActionStateSystem : GameReactiveSystem
     private void CreateChooseActionSystems()
     {
         Systems chooseActionSystems = new Feature("ChooseActionSystems")
-            .Add(new InitializeChooseActionSystem(context))
-            .Add(new ActionChosenSystem(context));
+            .Add(new InitializeChooseActionSystem(_context))
+            .Add(new ActionChosenSystem(_context));
 
         GameSystemService.AddSubSystemMapping(SubState.ChooseAction, chooseActionSystems);
     }

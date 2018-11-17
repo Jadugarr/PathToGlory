@@ -5,6 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class ChangeSceneSystem : GameReactiveSystem, ICleanupSystem
 {
+    protected override IList<SubState> ValidSubStates => new List<SubState>(1) {SubState.Undefined};
+    protected override IList<GameState> ValidGameStates => new List<GameState>(1) {GameState.Undefined};
     private IGroup<GameEntity> sceneChangeGroup;
 
     public ChangeSceneSystem(IContext<GameEntity> context) : base(context)

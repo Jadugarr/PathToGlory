@@ -5,12 +5,13 @@ using UnityEngine.SceneManagement;
 
 public class EnterMainMenuStateSystem : GameReactiveSystem
 {
-    private GameContext context;
+    protected override IList<SubState> ValidSubStates => new List<SubState>(1){SubState.Undefined};
+    protected override IList<GameState> ValidGameStates => new List<GameState>(1){GameState.MainMenu};
+    
     private IGroup<GameEntity> sceneLoadedGroup;
 
     public EnterMainMenuStateSystem(GameContext context) : base(context)
     {
-        this.context = context;
         sceneLoadedGroup = context.GetGroup(GameMatcher.SceneLoaded);
     }
 
@@ -26,7 +27,7 @@ public class EnterMainMenuStateSystem : GameReactiveSystem
 
     protected override void ExecuteSystem(List<GameEntity> entities)
     {
-        GameEntity changeSceneEntity = context.CreateEntity();
+        GameEntity changeSceneEntity = _context.CreateEntity();
         changeSceneEntity.AddChangeScene(GameSceneConstants.MainMenuScene, LoadSceneMode.Additive);
         sceneLoadedGroup.OnEntityAdded += OnMainMenuSceneLoaded;
     }

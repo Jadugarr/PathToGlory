@@ -1,19 +1,23 @@
+using System.Collections.Generic;
 using Configurations;
 using Entitas;
+using Entitas.Scripts.Common.Systems;
 using UnityEngine;
 
-public class InputSystem : IExecuteSystem, ICleanupSystem
+public class InputSystem : GameExecuteSystem, ICleanupSystem
 {
-    private GameContext context;
+    protected override IList<SubState> ValidSubStates => new List<SubState>(1) {SubState.Undefined};
+
+    protected override IList<GameState> ValidGameStates => new List<GameState>(1) {GameState.Undefined};
+
     private IGroup<GameEntity> inputComponents;
 
-    public InputSystem(GameContext context)
+    public InputSystem(GameContext context) : base(context)
     {
-        this.context = context;
-        inputComponents = this.context.GetGroup(GameMatcher.Input);
+        inputComponents = _context.GetGroup(GameMatcher.Input);
     }
 
-    public void Execute()
+    protected override void ExecuteSystem()
     {
         CheckInput();
     }
@@ -32,7 +36,7 @@ public class InputSystem : IExecuteSystem, ICleanupSystem
                         InputConfiguration.GetCommandByAxisName(currentAxis);
                     if (commandToExecute != InputCommand.Undefined)
                     {
-                        GameEntity inputEntity = context.CreateEntity();
+                        GameEntity inputEntity = _context.CreateEntity();
                         inputEntity.AddInput(commandToExecute, axisValue);
                     }
                 }

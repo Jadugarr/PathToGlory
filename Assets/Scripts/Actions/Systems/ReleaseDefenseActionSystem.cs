@@ -3,6 +3,9 @@ using Entitas;
 
 public class ReleaseDefenseActionSystem : GameReactiveSystem
 {
+    protected override IList<SubState> ValidSubStates => new List<SubState>(1) {SubState.Waiting};
+    protected override IList<GameState> ValidGameStates => new List<GameState>(1) {GameState.Battle};
+
     public ReleaseDefenseActionSystem(IContext<GameEntity> context) : base(context)
     {
     }

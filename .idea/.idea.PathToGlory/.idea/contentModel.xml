@@ -179,6 +179,7 @@
               <e p="ChangeSubStateSystem.cs" t="Include" />
               <e p="EnterPausedSubStateSystem.cs" t="Include" />
               <e p="ExitPausedSubStateSystem.cs" t="Include" />
+              <e p="GameExecuteSystem.cs" t="Include" />
               <e p="GameReactiveSystem.cs" t="Include" />
               <e p="InitPromisesSystem.cs" t="Include" />
               <e p="ProcessPauseInputSystem.cs" t="Include" />
@@ -199,7 +200,6 @@
           <e p="Enemy" t="Include">
             <e p="EnemyComponent.cs" t="Include" />
             <e p="EnemySpawnCooldownComponent.cs" t="Include" />
-            <e p="EnemySpawnCooldownSystem.cs" t="Include" />
           </e>
           <e p="Enums" t="Include">
             <e p="Layers.cs" t="Include" />
@@ -222,7 +222,6 @@
             <e p="InputCommand.cs" t="Include" />
             <e p="Systems" t="Include">
               <e p="InputSystem.cs" t="Include" />
-              <e p="ProcessEnemySpawnInputSystem.cs" t="Include" />
             </e>
           </e>
           <e p="Player" t="Include">

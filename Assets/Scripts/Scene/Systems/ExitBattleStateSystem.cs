@@ -5,13 +5,14 @@ using Entitas.Unity;
 
 public class ExitBattleStateSystem : GameReactiveSystem
 {
-    private GameContext context;
+    protected override IList<SubState> ValidSubStates => new List<SubState>(1){SubState.Undefined};
+    protected override IList<GameState> ValidGameStates => new List<GameState>(1){GameState.Undefined};
+    
     private IGroup<GameEntity> viewGroup;
 
     public ExitBattleStateSystem(GameContext context) : base(context)
     {
-        this.context = context;
-        viewGroup = this.context.GetGroup(GameMatcher.View);
+        viewGroup = _context.GetGroup(GameMatcher.View);
     }
 
     protected override ICollector<GameEntity> GetTrigger(IContext<GameEntity> context)
@@ -39,8 +40,8 @@ public class ExitBattleStateSystem : GameReactiveSystem
 
         UIService.HideWidget(new[]
             {AssetTypes.ReturnButton, AssetTypes.Atb, AssetTypes.ActionChooser, AssetTypes.BattleResultText});
-        context.ReplaceChangeSubState(SubState.Undefined);
-        GameEntity unloadSceneEntity = context.CreateEntity();
+        _context.ReplaceChangeSubState(SubState.Undefined);
+        GameEntity unloadSceneEntity = _context.CreateEntity();
         unloadSceneEntity.AddUnloadScene(GameSceneConstants.BattleScene);
     }
 }

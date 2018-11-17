@@ -4,11 +4,11 @@ using Entitas.Battle.Systems;
 
 public class EnterFinalizeActionStateSystem : GameReactiveSystem
 {
-    private GameContext context;
+    protected override IList<SubState> ValidSubStates => new List<SubState>(1){SubState.FinalizeAction};
+    protected override IList<GameState> ValidGameStates => new List<GameState>(1){GameState.Battle};
 
     public EnterFinalizeActionStateSystem(IContext<GameEntity> context) : base(context)
     {
-        this.context = (GameContext) context;
     }
 
     protected override ICollector<GameEntity> GetTrigger(IContext<GameEntity> context)
@@ -34,8 +34,8 @@ public class EnterFinalizeActionStateSystem : GameReactiveSystem
     private void CreateFinalizeActionSystems()
     {
         Systems finalizeActionSystems = new Feature("finalizeActionSystems")
-            .Add(new AddActionTimeSystem(context))
-            .Add(new ActionTimeAddedSystem(context));
+            .Add(new AddActionTimeSystem(_context))
+            .Add(new ActionTimeAddedSystem(_context));
 
         GameSystemService.AddSubSystemMapping(SubState.FinalizeAction, finalizeActionSystems);
     }
@@ -43,11 +43,11 @@ public class EnterFinalizeActionStateSystem : GameReactiveSystem
 
 public class ExitFinalizeActionStateSystem : GameReactiveSystem
 {
-    private GameContext context;
+    protected override IList<SubState> ValidSubStates => new List<SubState>(1){SubState.Undefined};
+    protected override IList<GameState> ValidGameStates => new List<GameState>(1){GameState.Battle};
 
     public ExitFinalizeActionStateSystem(IContext<GameEntity> context) : base(context)
     {
-        this.context = (GameContext) context;
     }
 
     protected override ICollector<GameEntity> GetTrigger(IContext<GameEntity> context)

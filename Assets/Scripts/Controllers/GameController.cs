@@ -40,6 +40,10 @@ public class GameController : MonoBehaviour
         Systems universalSystems = new Feature("UniversalSystems")
             //Promises
             .Add(new InitPromisesSystem())
+            //Input
+            .Add(new InputSystem(context))
+            .Add(new ProcessPauseInputSystem(context))
+            .Add(new ProcessUnpauseInputSystem(context))
             //Scene
             .Add(new EnterBattleStateSystem(context))
             .Add(new ExitBattleStateSystem(context))
@@ -73,11 +77,7 @@ public class GameController : MonoBehaviour
             .Add(new ExitFinalizeActionStateSystem(context))
             .Add(new ChangeSubStateSystem(context))
             //Position
-            .Add(new RenderPositionSystem(context))
-            //Input
-            .Add(new InputSystem(context))
-            .Add(new ProcessPauseInputSystem(context))
-            .Add(new ProcessUnpauseInputSystem(context));
+            .Add(new RenderPositionSystem(context));
 
         GameSystemService.AddActiveSystems(universalSystems);
     }
