@@ -73,7 +73,7 @@ public static class InputConfiguration
             return InputCommand.Undefined;
         }
 
-        Debug.LogWarning("No active input found for axis: " + axisName);
+        //Debug.LogWarning("No active input found for axis: " + axisName);
         return returnValue;
     }
 
@@ -84,12 +84,12 @@ public static class InputConfiguration
         if (GameStateInputMaps.TryGetValue(state, out newMap))
         {
             activeGameStateInputMap = newMap;
-            Debug.Log("Switched active input map for game state: " + state);
+            //Debug.Log("Switched active input map for game state: " + state);
         }
         else
         {
             activeGameStateInputMap = null;
-            Debug.LogWarning("No input map defined for game state: " + state);
+            //Debug.LogWarning("No input map defined for game state: " + state);
         }
     }
 
@@ -100,12 +100,12 @@ public static class InputConfiguration
         if (SubStateInputMaps.TryGetValue(state, out newMap))
         {
             activeSubStateInputMap = newMap;
-            Debug.Log("Switched active sub state input map for state: " + state);
+            //Debug.Log("Switched active sub state input map for state: " + state);
         }
         else
         {
             activeSubStateInputMap = null;
-            Debug.LogWarning("No input map defined for sub state: " + state);
+            //Debug.LogWarning("No input map defined for sub state: " + state);
         }
     }
 }
